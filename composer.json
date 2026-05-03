@@ -1,0 +1,60 @@
+{
+    "name": "bussnet/propresenter7-php-api",
+    "description": "PHP library to read, modify, and generate ProPresenter 7 files (.pro songs, .proplaylist, .probundle, themes, and global library files).",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "propresenter",
+        "propresenter7",
+        "presentation",
+        "worship",
+        "church",
+        "protobuf",
+        "parser",
+        "ccli",
+        "pro-file",
+        "proplaylist",
+        "probundle"
+    ],
+    "homepage": "https://github.com/bussnet/propresenter7-php-api",
+    "support": {
+        "issues": "https://github.com/bussnet/propresenter7-php-api/issues",
+        "source": "https://github.com/bussnet/propresenter7-php-api"
+    },
+    "authors": [
+        {
+            "name": "Thorsten Buss",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "google/protobuf": "^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProPresenter\\Parser\\": "src/",
+            "Rv\\Data\\": "generated/Rv/Data/",
+            "GPBMetadata\\": "generated/GPBMetadata/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProPresenter\\Parser\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/parse-song.php",
+        "bin/parse-playlist.php"
+    ],
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

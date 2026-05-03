@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "applicationInfo.proto";
+import "hotKey.proto";
+import "uuid.proto";
+
+// KeyMappingsDocument is the global ProPresenter `KeyMappings` file. The
+// reference sample on disk is just an `ApplicationInfo` envelope with an
+// otherwise empty body — ProPresenter seeds the file at startup. Once the
+// user binds hot keys we expect them in `mappings`.
+message KeyMappingsDocument {
+  message Mapping {
+    // Optional stable identifier for the mapping.
+    .rv.data.UUID uuid = 1;
+
+    // The hot key combo that fires the action.
+    .rv.data.HotKey hot_key = 2;
+
+    // Action target — typically a macro UUID, a control identifier, or any
+    // other reference ProPresenter chooses to encode. Kept as bytes so we
+    // round-trip cleanly while ProPresenter's internal schema evolves.
+    bytes target = 3;
+
+    // Display name (optional).
+    string name = 4;
+  }
+
+  // Application metadata of the writer.
+  .rv.data.ApplicationInfo application_info = 1;
+
+  // Configured key bindings. Empty in the reference sample.
+  repeated Mapping mappings = 2;
+}

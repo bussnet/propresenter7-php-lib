@@ -1,0 +1,26 @@
+# Composer
+/vendor/
+composer.phar
+
+# PHPUnit
+.phpunit.result.cache
+/build/
+/coverage/
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+.php_cs.cache
+
+# IDE / editor metadata
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Internal scratch / agent workspaces
+.sisyphus/
+.w/

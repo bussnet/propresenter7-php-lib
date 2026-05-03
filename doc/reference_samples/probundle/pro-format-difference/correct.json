@@ -1,0 +1,153 @@
+{
+    "applicationInfo": {
+        "platform": "PLATFORM_MACOS",
+        "platformVersion": {
+            "majorVersion": 14,
+            "minorVersion": 8,
+            "patchVersion": 3
+        },
+        "application": "APPLICATION_PROPRESENTER",
+        "applicationVersion": {
+            "majorVersion": 20,
+            "build": "335544354"
+        }
+    },
+    "uuid": {
+        "string": "8E0F1A63-32CD-4360-BBC5-CB676079E1C3"
+    },
+    "name": "TestBild",
+    "background": {
+        "color": {
+            "alpha": 1
+        }
+    },
+    "chordChart": {
+        "platform": "PLATFORM_MACOS"
+    },
+    "selectedArrangement": {
+        "string": "FB276233-E2EA-4667-B78A-19E16E28A75A"
+    },
+    "arrangements": [
+        {
+            "uuid": {
+                "string": "FB276233-E2EA-4667-B78A-19E16E28A75A"
+            },
+            "name": "normal",
+            "groupIdentifiers": [
+                {
+                    "string": "C2941B44-2DE9-4541-B514-AD7414BC552E"
+                }
+            ]
+        }
+    ],
+    "cueGroups": [
+        {
+            "group": {
+                "uuid": {
+                    "string": "C2941B44-2DE9-4541-B514-AD7414BC552E"
+                },
+                "name": "Verse 1",
+                "color": {
+                    "alpha": 1
+                },
+                "hotKey": {}
+            },
+            "cueIdentifiers": [
+                {
+                    "string": "448DE289-AEBE-4623-BD3F-34D26884B02B"
+                }
+            ]
+        }
+    ],
+    "cues": [
+        {
+            "uuid": {
+                "string": "448DE289-AEBE-4623-BD3F-34D26884B02B"
+            },
+            "name": "test-background",
+            "hotKey": {},
+            "actions": [
+                {
+                    "uuid": {
+                        "string": "94A3AED9-C2B9-4CAC-94AB-81B0DB7B6BAF"
+                    },
+                    "isEnabled": true,
+                    "type": "ACTION_TYPE_PRESENTATION_SLIDE",
+                    "slide": {
+                        "presentation": {
+                            "baseSlide": {
+                                "size": {
+                                    "width": 1920,
+                                    "height": 1080
+                                },
+                                "uuid": {
+                                    "string": "DF9F58CB-E4EF-4EDA-8732-5ED02900FED2"
+                                }
+                            },
+                            "chordChart": {
+                                "platform": "PLATFORM_MACOS"
+                            }
+                        }
+                    }
+                },
+                {
+                    "uuid": {
+                        "string": "ABBEF5F3-3806-4472-9FC1-C4D511D84A20"
+                    },
+                    "name": "test-background",
+                    "isEnabled": true,
+                    "type": "ACTION_TYPE_MEDIA",
+                    "media": {
+                        "element": {
+                            "uuid": {
+                                "string": "A4EC63B1-A1F7-4ADD-B340-854E8740CAD8"
+                            },
+                            "url": {
+                                "platform": "PLATFORM_MACOS",
+                                "absoluteString": "file:///Users/sample-user/projects/propresenter-php/doc/reference_samples/Media/test-background.png",
+                                "local": {
+                                    "root": "ROOT_USER_HOME",
+                                    "path": "projects/propresenter-php/doc/reference_samples/Media/test-background.png"
+                                }
+                            },
+                            "metadata": {
+                                "format": "png"
+                            },
+                            "image": {
+                                "drawing": {
+                                    "naturalSize": {
+                                        "width": 200,
+                                        "height": 150
+                                    },
+                                    "customImageBounds": {
+                                        "origin": {},
+                                        "size": {}
+                                    },
+                                    "cropInsets": {},
+                                    "alphaType": "ALPHA_TYPE_STRAIGHT"
+                                },
+                                "file": {
+                                    "localUrl": {
+                                        "platform": "PLATFORM_MACOS",
+                                        "absoluteString": "file:///Users/sample-user/projects/propresenter-php/doc/reference_samples/Media/test-background.png",
+                                        "local": {
+                                            "root": "ROOT_USER_HOME",
+                                            "path": "projects/propresenter-php/doc/reference_samples/Media/test-background.png"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "layerType": "LAYER_TYPE_FOREGROUND",
+                        "audio": {}
+                    }
+                }
+            ],
+            "isEnabled": true
+        }
+    ],
+    "ccli": {},
+    "timeline": {
+        "duration": 300
+    }
+}

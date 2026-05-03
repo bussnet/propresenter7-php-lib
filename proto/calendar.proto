@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package rv.data;
+
+option cc_enable_arenas = true;
+option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
+option swift_prefix = "RVData_";
+
+import "rvtimestamp.proto";
+import "uuid.proto";
+
+// CalendarDocument is the global ProPresenter `Calendar` file. It holds
+// scheduled events that fire macros at given times. The exact semantics of
+// the inner sub-messages 8 and 9 (action and embedded macro reference) are
+// preserved as raw bytes so the document round-trips byte-for-byte; clients
+// that need to inspect them can decode them with `protoc --decode_raw` or
+// reach for the raw protobuf message.
+message CalendarDocument {
+  message Event {
+    // Stable identity of this calendar event.
+    .rv.data.UUID uuid = 1;
+
+    // Display name (e.g. "Doors Open").
+    string name = 2;
+
+    // When the event starts. Stored as Timestamp seconds (and optional nanos).
+    .rv.data.Timestamp start_time = 4;
+
+    // Opaque flags blob observed in samples. Often a single byte (e.g. 0x01)
+    // that ProPresenter uses for recurrence or visibility state.
+    bytes flags = 5;
+
+    // When the event ends. Optional. Same format as `start_time`.
+    .rv.data.Timestamp end_time = 6;
+
+    // Action that runs when the event fires. Encoded as raw protobuf bytes
+    // (a `rv.data.Action`-shaped message) so the schema can evolve without
+    // breaking existing clients.
+    bytes action_data = 8;
+
+    // Embedded copy of the macro definition the event triggers. Stored as
+    // raw protobuf bytes (shape compatible with `MacrosDocument.Macro`).
+    bytes macro_data = 9;
+  }
+
+  // Events scheduled in the calendar, in the order ProPresenter wrote them.
+  repeated Event events = 1;
+
+  // Source / mode flag observed in samples (value `1`). Treated as opaque.
+  uint32 mode = 2;
+}

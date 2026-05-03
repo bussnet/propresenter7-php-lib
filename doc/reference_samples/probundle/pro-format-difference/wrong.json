@@ -1,0 +1,103 @@
+{
+    "applicationInfo": {
+        "platform": "PLATFORM_MACOS",
+        "platformVersion": {
+            "build": "335544354"
+        },
+        "application": "APPLICATION_PROPRESENTER",
+        "applicationVersion": {
+            "build": "335544354"
+        }
+    },
+    "uuid": {
+        "string": "8e0f1a63-32cd-4360-bbc5-cb676079e1c3"
+    },
+    "name": "TestBild",
+    "selectedArrangement": {
+        "string": "fb276233-e2ea-4667-b78a-19e16e28a75a"
+    },
+    "arrangements": [
+        {
+            "uuid": {
+                "string": "fb276233-e2ea-4667-b78a-19e16e28a75a"
+            },
+            "name": "normal",
+            "groupIdentifiers": [
+                {
+                    "string": "c2941b44-2de9-4541-b514-ad7414bc552e"
+                }
+            ]
+        }
+    ],
+    "cueGroups": [
+        {
+            "group": {
+                "uuid": {
+                    "string": "c2941b44-2de9-4541-b514-ad7414bc552e"
+                },
+                "name": "Verse 1",
+                "color": {
+                    "alpha": 1
+                }
+            },
+            "cueIdentifiers": [
+                {
+                    "string": "448de289-aebe-4623-bd3f-34d26884b02b"
+                }
+            ]
+        }
+    ],
+    "cues": [
+        {
+            "uuid": {
+                "string": "448de289-aebe-4623-bd3f-34d26884b02b"
+            },
+            "actions": [
+                {
+                    "uuid": {
+                        "string": "94a3aed9-c2b9-4cac-94ab-81b0db7b6baf"
+                    },
+                    "isEnabled": true,
+                    "type": "ACTION_TYPE_PRESENTATION_SLIDE",
+                    "slide": {
+                        "presentation": {
+                            "baseSlide": {
+                                "uuid": {
+                                    "string": "df9f58cb-e4ef-4eda-8732-5ed02900fed2"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "uuid": {
+                        "string": "abbef5f3-3806-4472-9fc1-c4d511d84a20"
+                    },
+                    "isEnabled": true,
+                    "type": "ACTION_TYPE_MEDIA",
+                    "media": {
+                        "element": {
+                            "uuid": {
+                                "string": "01f74da8-4b7e-4d27-918c-69bea0d14bd7"
+                            },
+                            "url": {
+                                "platform": "PLATFORM_MACOS",
+                                "absoluteString": "file:///Users/sample-user/projects/propresenter-php/doc/reference_samples/Media/test-background.png",
+                                "local": {
+                                    "root": "ROOT_BOOT_VOLUME",
+                                    "path": "Users/thorsten/AI/propresenter/ref/Media/test-background.png"
+                                }
+                            },
+                            "metadata": {
+                                "format": "png"
+                            },
+                            "image": {}
+                        },
+                        "layerType": "LAYER_TYPE_FOREGROUND"
+                    }
+                }
+            ],
+            "isEnabled": true
+        }
+    ]
+}
