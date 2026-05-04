@@ -3,18 +3,21 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsUI.proto
 
-namespace Rv\Analytics\UI;
+namespace Rv\Analytics\Ui;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.UI.PlanningCenterLive</code>
+ * Generated from protobuf message <code>rv.analytics.ui.PlanningCenterLive</code>
  */
 class PlanningCenterLive extends \Google\Protobuf\Internal\Message
 {
-    protected $Component;
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlanningCenterLive.WindowType window_type = 1;</code>
+     */
+    protected $window_type = 0;
 
     /**
      * Constructor.
@@ -22,7 +25,7 @@ class PlanningCenterLive extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type \Rv\Analytics\UI\PlanningCenterLive\Shown $shown
+     *     @type int $window_type
      * }
      */
     public function __construct($data = NULL) {
@@ -31,38 +34,25 @@ class PlanningCenterLive extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI.PlanningCenterLive.Shown shown = 1;</code>
-     * @return \Rv\Analytics\UI\PlanningCenterLive\Shown|null
+     * Generated from protobuf field <code>.rv.analytics.ui.PlanningCenterLive.WindowType window_type = 1;</code>
+     * @return int
      */
-    public function getShown()
+    public function getWindowType()
     {
-        return $this->readOneof(1);
-    }
-
-    public function hasShown()
-    {
-        return $this->hasOneof(1);
+        return $this->window_type;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI.PlanningCenterLive.Shown shown = 1;</code>
-     * @param \Rv\Analytics\UI\PlanningCenterLive\Shown $var
+     * Generated from protobuf field <code>.rv.analytics.ui.PlanningCenterLive.WindowType window_type = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setShown($var)
+    public function setWindowType($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI\PlanningCenterLive\Shown::class);
-        $this->writeOneof(1, $var);
+        GPBUtil::checkEnum($var, \Rv\Analytics\Ui\PlanningCenterLive\WindowType::class);
+        $this->window_type = $var;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComponent()
-    {
-        return $this->whichOneof("Component");
     }
 
 }

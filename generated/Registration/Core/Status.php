@@ -73,9 +73,25 @@ class Status
      */
     const NotInitialized = 14;
     /**
-     * Generated from protobuf enum <code>UnknownError = 15;</code>
+     * Generated from protobuf enum <code>TokenExpired = 15;</code>
      */
-    const UnknownError = 15;
+    const TokenExpired = 15;
+    /**
+     * Generated from protobuf enum <code>TokenInvalid = 16;</code>
+     */
+    const TokenInvalid = 16;
+    /**
+     * Generated from protobuf enum <code>ActivationCodeExpired = 17;</code>
+     */
+    const ActivationCodeExpired = 17;
+    /**
+     * Generated from protobuf enum <code>ActivationCodeInvalid = 18;</code>
+     */
+    const ActivationCodeInvalid = 18;
+    /**
+     * Generated from protobuf enum <code>UnknownError = 19;</code>
+     */
+    const UnknownError = 19;
 
     private static $valueToName = [
         self::Success => 'Success',
@@ -93,6 +109,10 @@ class Status
         self::NetworkError => 'NetworkError',
         self::IOError => 'IOError',
         self::NotInitialized => 'NotInitialized',
+        self::TokenExpired => 'TokenExpired',
+        self::TokenInvalid => 'TokenInvalid',
+        self::ActivationCodeExpired => 'ActivationCodeExpired',
+        self::ActivationCodeInvalid => 'ActivationCodeInvalid',
         self::UnknownError => 'UnknownError',
     ];
 

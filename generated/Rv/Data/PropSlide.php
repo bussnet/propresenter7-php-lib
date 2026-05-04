@@ -22,6 +22,14 @@ class PropSlide extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.Transition transition = 2;</code>
      */
     protected $transition = null;
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     */
+    protected $auto_clear_enabled = false;
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     */
+    protected $auto_clear_duration = 0.0;
 
     /**
      * Constructor.
@@ -31,6 +39,8 @@ class PropSlide extends \Google\Protobuf\Internal\Message
      *
      *     @type \Rv\Data\Slide $base_slide
      *     @type \Rv\Data\Transition $transition
+     *     @type bool $auto_clear_enabled
+     *     @type float $auto_clear_duration
      * }
      */
     public function __construct($data = NULL) {
@@ -98,6 +108,50 @@ class PropSlide extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Transition::class);
         $this->transition = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     * @return bool
+     */
+    public function getAutoClearEnabled()
+    {
+        return $this->auto_clear_enabled;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setAutoClearEnabled($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->auto_clear_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     * @return float
+     */
+    public function getAutoClearDuration()
+    {
+        return $this->auto_clear_duration;
+    }
+
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setAutoClearDuration($var)
+    {
+        GPBUtil::checkDouble($var);
+        $this->auto_clear_duration = $var;
 
         return $this;
     }

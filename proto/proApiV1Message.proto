@@ -40,11 +40,12 @@ message API_v1_Message {
       bool is_24_hours = 3;
     }
 
-    string name = 1;
+    string uuid = 1;
+    string name = 2;
     oneof TokenType {
-      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 2;
-      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 3;
-      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 4;
+      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 3;
+      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 4;
+      .rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 5;
     }
   }
 
@@ -79,6 +80,7 @@ message API_v1_Message_Request {
   message TriggerMessage {
     string id = 1;
     repeated .rv.data.API_v1_Message.API_v1_MessageToken tokens = 2;
+    bool requires_confirmation = 3;
   }
 
   message ClearMessage {

@@ -8,37 +8,37 @@ namespace Rv\Analytics\Create\Presentation;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Create.Presentation.Source</code>
+ * Protobuf type <code>rv.analytics.create.Presentation.Source</code>
  */
 class Source
 {
     /**
-     * Generated from protobuf enum <code>SOURCE_UNKNOWN = 0;</code>
+     * Generated from protobuf enum <code>UNKNOWN = 0;</code>
      */
-    const SOURCE_UNKNOWN = 0;
+    const UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>SOURCE_APPLICATION_MENU = 1;</code>
+     * Generated from protobuf enum <code>APPLICATION_MENU = 1;</code>
      */
-    const SOURCE_APPLICATION_MENU = 1;
+    const APPLICATION_MENU = 1;
     /**
-     * Generated from protobuf enum <code>SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;</code>
+     * Generated from protobuf enum <code>LIBRARY_OUTLINE_ADD_BUTTON = 2;</code>
      */
-    const SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;
+    const LIBRARY_OUTLINE_ADD_BUTTON = 2;
     /**
-     * Generated from protobuf enum <code>SOURCE_DETAIL_ADD_BUTTON = 3;</code>
+     * Generated from protobuf enum <code>DETAIL_ADD_BUTTON = 3;</code>
      */
-    const SOURCE_DETAIL_ADD_BUTTON = 3;
+    const DETAIL_ADD_BUTTON = 3;
     /**
-     * Generated from protobuf enum <code>SOURCE_UNLINKED_HEADER = 4;</code>
+     * Generated from protobuf enum <code>UNLINKED_HEADER = 4;</code>
      */
-    const SOURCE_UNLINKED_HEADER = 4;
+    const UNLINKED_HEADER = 4;
 
     private static $valueToName = [
-        self::SOURCE_UNKNOWN => 'SOURCE_UNKNOWN',
-        self::SOURCE_APPLICATION_MENU => 'SOURCE_APPLICATION_MENU',
-        self::SOURCE_LIBRARY_OUTLINE_ADD_BUTTON => 'SOURCE_LIBRARY_OUTLINE_ADD_BUTTON',
-        self::SOURCE_DETAIL_ADD_BUTTON => 'SOURCE_DETAIL_ADD_BUTTON',
-        self::SOURCE_UNLINKED_HEADER => 'SOURCE_UNLINKED_HEADER',
+        self::UNKNOWN => 'UNKNOWN',
+        self::APPLICATION_MENU => 'APPLICATION_MENU',
+        self::LIBRARY_OUTLINE_ADD_BUTTON => 'LIBRARY_OUTLINE_ADD_BUTTON',
+        self::DETAIL_ADD_BUTTON => 'DETAIL_ADD_BUTTON',
+        self::UNLINKED_HEADER => 'UNLINKED_HEADER',
     ];
 
     public static function name($value)

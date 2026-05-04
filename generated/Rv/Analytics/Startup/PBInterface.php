@@ -10,20 +10,20 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Startup.Interface</code>
+ * Generated from protobuf message <code>rv.analytics.startup.Interface</code>
  */
 class PBInterface extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState library_outline = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState library_outline = 1;</code>
      */
     protected $library_outline = 0;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_outline = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_outline = 2;</code>
      */
     protected $media_outline = 0;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState audio_outline = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState audio_outline = 3;</code>
      */
     protected $audio_outline = 0;
     /**
@@ -31,11 +31,11 @@ class PBInterface extends \Google\Protobuf\Internal\Message
      */
     protected $continuous_playlist = false;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_bin = 5;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_bin = 5;</code>
      */
     protected $media_bin = 0;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
      */
     protected $presentation_view_style = 0;
     /**
@@ -43,31 +43,27 @@ class PBInterface extends \Google\Protobuf\Internal\Message
      */
     protected $presentation_grid_column_count = 0;
     /**
-     * Generated from protobuf field <code>int32 presentation_table_column_count = 8;</code>
-     */
-    protected $presentation_table_column_count = 0;
-    /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.MediaBinViewStyle media_bin_view_style = 9;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.MediaBinViewStyle media_bin_view_style = 8;</code>
      */
     protected $media_bin_view_style = 0;
     /**
-     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 10;</code>
+     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 9;</code>
      */
     protected $media_bin_grid_column_count = 0;
     /**
-     * Generated from protobuf field <code>int32 media_bin_table_column_count = 11;</code>
+     * Generated from protobuf field <code>int32 media_bin_table_column_count = 10;</code>
      */
     protected $media_bin_table_column_count = 0;
     /**
-     * Generated from protobuf field <code>string presentation_transition = 12;</code>
+     * Generated from protobuf field <code>string presentation_transition = 11;</code>
      */
     protected $presentation_transition = '';
     /**
-     * Generated from protobuf field <code>string media_transition = 13;</code>
+     * Generated from protobuf field <code>string media_transition = 12;</code>
      */
     protected $media_transition = '';
     /**
-     * Generated from protobuf field <code>bool audio_shuffle = 14;</code>
+     * Generated from protobuf field <code>bool audio_shuffle = 13;</code>
      */
     protected $audio_shuffle = false;
 
@@ -84,7 +80,6 @@ class PBInterface extends \Google\Protobuf\Internal\Message
      *     @type int $media_bin
      *     @type int $presentation_view_style
      *     @type int $presentation_grid_column_count
-     *     @type int $presentation_table_column_count
      *     @type int $media_bin_view_style
      *     @type int $media_bin_grid_column_count
      *     @type int $media_bin_table_column_count
@@ -99,7 +94,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState library_outline = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState library_outline = 1;</code>
      * @return int
      */
     public function getLibraryOutline()
@@ -108,7 +103,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState library_outline = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState library_outline = 1;</code>
      * @param int $var
      * @return $this
      */
@@ -121,7 +116,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_outline = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_outline = 2;</code>
      * @return int
      */
     public function getMediaOutline()
@@ -130,7 +125,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_outline = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_outline = 2;</code>
      * @param int $var
      * @return $this
      */
@@ -143,7 +138,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState audio_outline = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState audio_outline = 3;</code>
      * @return int
      */
     public function getAudioOutline()
@@ -152,7 +147,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState audio_outline = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState audio_outline = 3;</code>
      * @param int $var
      * @return $this
      */
@@ -187,7 +182,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_bin = 5;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_bin = 5;</code>
      * @return int
      */
     public function getMediaBin()
@@ -196,7 +191,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.SplitViewState media_bin = 5;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.SplitViewState media_bin = 5;</code>
      * @param int $var
      * @return $this
      */
@@ -209,7 +204,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
      * @return int
      */
     public function getPresentationViewStyle()
@@ -218,7 +213,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.PresentationViewStyle presentation_view_style = 6;</code>
      * @param int $var
      * @return $this
      */
@@ -253,29 +248,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 presentation_table_column_count = 8;</code>
-     * @return int
-     */
-    public function getPresentationTableColumnCount()
-    {
-        return $this->presentation_table_column_count;
-    }
-
-    /**
-     * Generated from protobuf field <code>int32 presentation_table_column_count = 8;</code>
-     * @param int $var
-     * @return $this
-     */
-    public function setPresentationTableColumnCount($var)
-    {
-        GPBUtil::checkInt32($var);
-        $this->presentation_table_column_count = $var;
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.MediaBinViewStyle media_bin_view_style = 9;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.MediaBinViewStyle media_bin_view_style = 8;</code>
      * @return int
      */
     public function getMediaBinViewStyle()
@@ -284,7 +257,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Interface.MediaBinViewStyle media_bin_view_style = 9;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface.MediaBinViewStyle media_bin_view_style = 8;</code>
      * @param int $var
      * @return $this
      */
@@ -297,7 +270,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 10;</code>
+     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 9;</code>
      * @return int
      */
     public function getMediaBinGridColumnCount()
@@ -306,7 +279,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 10;</code>
+     * Generated from protobuf field <code>int32 media_bin_grid_column_count = 9;</code>
      * @param int $var
      * @return $this
      */
@@ -319,7 +292,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 media_bin_table_column_count = 11;</code>
+     * Generated from protobuf field <code>int32 media_bin_table_column_count = 10;</code>
      * @return int
      */
     public function getMediaBinTableColumnCount()
@@ -328,7 +301,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 media_bin_table_column_count = 11;</code>
+     * Generated from protobuf field <code>int32 media_bin_table_column_count = 10;</code>
      * @param int $var
      * @return $this
      */
@@ -341,7 +314,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string presentation_transition = 12;</code>
+     * Generated from protobuf field <code>string presentation_transition = 11;</code>
      * @return string
      */
     public function getPresentationTransition()
@@ -350,7 +323,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string presentation_transition = 12;</code>
+     * Generated from protobuf field <code>string presentation_transition = 11;</code>
      * @param string $var
      * @return $this
      */
@@ -363,7 +336,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string media_transition = 13;</code>
+     * Generated from protobuf field <code>string media_transition = 12;</code>
      * @return string
      */
     public function getMediaTransition()
@@ -372,7 +345,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string media_transition = 13;</code>
+     * Generated from protobuf field <code>string media_transition = 12;</code>
      * @param string $var
      * @return $this
      */
@@ -385,7 +358,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>bool audio_shuffle = 14;</code>
+     * Generated from protobuf field <code>bool audio_shuffle = 13;</code>
      * @return bool
      */
     public function getAudioShuffle()
@@ -394,7 +367,7 @@ class PBInterface extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>bool audio_shuffle = 14;</code>
+     * Generated from protobuf field <code>bool audio_shuffle = 13;</code>
      * @param bool $var
      * @return $this
      */

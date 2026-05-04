@@ -26,4 +26,5 @@ SOFTWARE.
 
 This project bundles `.proto` files derived from
 [greyshirtguy/ProPresenter7-Proto](https://github.com/greyshirtguy/ProPresenter7-Proto)
-(v7.16.2), which is also distributed under the MIT License.
+(Proto 19beta, dumped from ProPresenter v19 beta build 318767123, plus a few
+retained extras), which is also distributed under the MIT License.

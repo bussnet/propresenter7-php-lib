@@ -10,16 +10,16 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Trigger.TestPattern</code>
+ * Generated from protobuf message <code>rv.analytics.trigger.TestPattern</code>
  */
 class TestPattern extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.TestPatternType test_pattern_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Pattern pattern = 1;</code>
      */
-    protected $test_pattern_type = 0;
+    protected $pattern = 0;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.LogoType logo = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Logo logo = 2;</code>
      */
     protected $logo = 0;
 
@@ -29,7 +29,7 @@ class TestPattern extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type int $test_pattern_type
+     *     @type int $pattern
      *     @type int $logo
      * }
      */
@@ -39,29 +39,29 @@ class TestPattern extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.TestPatternType test_pattern_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Pattern pattern = 1;</code>
      * @return int
      */
-    public function getTestPatternType()
+    public function getPattern()
     {
-        return $this->test_pattern_type;
+        return $this->pattern;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.TestPatternType test_pattern_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Pattern pattern = 1;</code>
      * @param int $var
      * @return $this
      */
-    public function setTestPatternType($var)
+    public function setPattern($var)
     {
-        GPBUtil::checkEnum($var, \Rv\Analytics\Trigger\TestPattern\TestPatternType::class);
-        $this->test_pattern_type = $var;
+        GPBUtil::checkEnum($var, \Rv\Analytics\Trigger\TestPattern\Pattern::class);
+        $this->pattern = $var;
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.LogoType logo = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Logo logo = 2;</code>
      * @return int
      */
     public function getLogo()
@@ -70,13 +70,13 @@ class TestPattern extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger.TestPattern.LogoType logo = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern.Logo logo = 2;</code>
      * @param int $var
      * @return $this
      */
     public function setLogo($var)
     {
-        GPBUtil::checkEnum($var, \Rv\Analytics\Trigger\TestPattern\LogoType::class);
+        GPBUtil::checkEnum($var, \Rv\Analytics\Trigger\TestPattern\Logo::class);
         $this->logo = $var;
 
         return $this;

@@ -8,7 +8,7 @@ namespace Rv\Analytics\Startup\PBInterface;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Startup.Interface.SplitViewState</code>
+ * Protobuf type <code>rv.analytics.startup.Interface.SplitViewState</code>
  */
 class SplitViewState
 {

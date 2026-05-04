@@ -9,6 +9,7 @@ option swift_prefix = "RVData_";
 import "background.proto";
 import "collectionElementType.proto";
 import "color.proto";
+import "customOptions.proto";
 import "effects.proto";
 import "graphicsData.proto";
 import "input.proto";
@@ -241,7 +242,20 @@ message Action {
   message PropType {
     reserved 1;
     reserved 2;
+    message PropTrigger {
+      bool auto_clear_enabled = 1;
+      bool auto_clear_follows_prop_duration = 2;
+      double auto_clear_duration = 3;
+    }
+
+    message PropClear {
+    }
+
     .rv.data.CollectionElementType identification = 3;
+    oneof TriggerType {
+      .rv.data.Action.PropType.PropTrigger trigger = 4;
+      .rv.data.Action.PropType.PropClear clear = 5;
+    }
   }
 
   message MaskType {

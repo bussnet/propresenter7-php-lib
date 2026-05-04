@@ -2,7 +2,7 @@
 
 **Version:** 1.1  
 **Target Audience:** AI agents, automated parsers, developers  
-**Proto Source:** greyshirtguy/ProPresenter7-Proto v7.16.2 (MIT License)
+**Proto Source:** greyshirtguy/ProPresenter7-Proto Proto 19beta (MIT License)
 
 ---
 
@@ -12,7 +12,7 @@
 - **Extension:** `.pro`
 - **Binary Format:** Protocol Buffers (Google protobuf v3)
 - **Top-level Message:** `rv.data.Presentation` (defined in `presentation.proto`)
-- **Proto Definitions:** greyshirtguy/ProPresenter7-Proto v7.16.2 (MIT)
+- **Proto Definitions:** greyshirtguy/ProPresenter7-Proto Proto 19beta (MIT)
 
 ### Known Limitations
 - **Binary Fidelity:** Round-trip decode→encode fails on all reference files. Proto definitions are incomplete; unknown fields are lost during serialization.

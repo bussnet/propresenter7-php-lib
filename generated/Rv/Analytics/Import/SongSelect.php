@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Import.SongSelect</code>
+ * Generated from protobuf message <code>rv.analytics.import.SongSelect</code>
  */
 class SongSelect extends \Google\Protobuf\Internal\Message
 {
@@ -23,7 +23,7 @@ class SongSelect extends \Google\Protobuf\Internal\Message
      */
     protected $import_into_playlist = false;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Import.SongSelect.LineDelimiter line_delimiter = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.import.SongSelect.LineDelimiter line_delimiter = 3;</code>
      */
     protected $line_delimiter = 0;
     /**
@@ -34,6 +34,10 @@ class SongSelect extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool did_open_edit_view = 5;</code>
      */
     protected $did_open_edit_view = false;
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Import multitracks = 6;</code>
+     */
+    protected $multitracks = null;
 
     /**
      * Constructor.
@@ -46,6 +50,7 @@ class SongSelect extends \Google\Protobuf\Internal\Message
      *     @type int $line_delimiter
      *     @type int $line_delimiter_count
      *     @type bool $did_open_edit_view
+     *     @type \Rv\Analytics\Multitracks\Import $multitracks
      * }
      */
     public function __construct($data = NULL) {
@@ -98,7 +103,7 @@ class SongSelect extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Import.SongSelect.LineDelimiter line_delimiter = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.import.SongSelect.LineDelimiter line_delimiter = 3;</code>
      * @return int
      */
     public function getLineDelimiter()
@@ -107,7 +112,7 @@ class SongSelect extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Import.SongSelect.LineDelimiter line_delimiter = 3;</code>
+     * Generated from protobuf field <code>.rv.analytics.import.SongSelect.LineDelimiter line_delimiter = 3;</code>
      * @param int $var
      * @return $this
      */
@@ -159,6 +164,38 @@ class SongSelect extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->did_open_edit_view = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Import multitracks = 6;</code>
+     * @return \Rv\Analytics\Multitracks\Import|null
+     */
+    public function getMultitracks()
+    {
+        return $this->multitracks;
+    }
+
+    public function hasMultitracks()
+    {
+        return isset($this->multitracks);
+    }
+
+    public function clearMultitracks()
+    {
+        unset($this->multitracks);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Import multitracks = 6;</code>
+     * @param \Rv\Analytics\Multitracks\Import $var
+     * @return $this
+     */
+    public function setMultitracks($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Multitracks\Import::class);
+        $this->multitracks = $var;
 
         return $this;
     }

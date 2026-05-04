@@ -16,7 +16,7 @@ class AnalyticsPlaybackMarker
           return;
         }
         $pool->internalAddGeneratedFile(
-            "\x0A\xE2\x02\x0A\x1DanalyticsPlaybackMarker.proto\x12\x0Crv.analytics\"\xE7\x01\x0A\x0EPlaybackMarker\x12;\x0A\x06create\x18\x01 \x01(\x0B2).rv.analytics.PlaybackMarker.CreateMarkerH\x00\x1A\x8E\x01\x0A\x0CCreateMarker\x12D\x0A\x08location\x18\x01 \x01(\x0E22.rv.analytics.PlaybackMarker.CreateMarker.Location\"8\x0A\x08Location\x12\x16\x0A\x12LOCATION_INSPECTOR\x10\x00\x12\x14\x0A\x10LOCATION_SIDEBAR\x10\x01B\x07\x0A\x05EventBA\xF8\x01\x01\xAA\x02.Pro.SerializationInterop.RVProtoData.Analytics\xBA\x02\x0AAnalytics_b\x06proto3"
+            "\x0A\xB1\x02\x0A\x1DanalyticsPlaybackMarker.proto\x12\x1Brv.analytics.playbackmarker\"\x89\x01\x0A\x0CCreateMarker\x12D\x0A\x08location\x18\x01 \x01(\x0E22.rv.analytics.playbackmarker.CreateMarker.Location\"3\x0A\x08Location\x12\x0D\x0A\x09INSPECTOR\x10\x00\x12\x0B\x0A\x07SIDEBAR\x10\x01\x12\x0B\x0A\x07UNKNOWN\x10\x02B_\xF8\x01\x01\xAA\x02=Pro.SerializationInterop.RVProtoData.Analytics.PlaybackMarker\xBA\x02\x19Analytics_PlaybackMarker_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

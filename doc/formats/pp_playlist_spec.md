@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Target Audience:** AI agents, automated parsers, developers  
-**Proto Source:** greyshirtguy/ProPresenter7-Proto v7.16.2 (MIT License)
+**Proto Source:** greyshirtguy/ProPresenter7-Proto Proto 19beta (MIT License)
 
 ---
 
@@ -14,7 +14,7 @@
 - **Compression:** Store only (no deflate compression)
 - **Binary Format:** Protocol Buffers (Google protobuf v3)
 - **Top-level Message:** `rv.data.Playlist` (defined in `playlist.proto`)
-- **Proto Definitions:** greyshirtguy/ProPresenter7-Proto v7.16.2 (MIT)
+- **Proto Definitions:** greyshirtguy/ProPresenter7-Proto Proto 19beta (MIT)
 
 ### Container Structure
 - **Archive Type:** ZIP64 with store compression (compression method 0)

@@ -3,21 +3,25 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsMultiTracks.proto
 
-namespace Rv\Analytics\MultiTracks;
+namespace Rv\Analytics\Multitracks;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.MultiTracks.Startup</code>
+ * Generated from protobuf message <code>rv.analytics.multitracks.Startup</code>
  */
 class Startup extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.MultiTracks.Account account = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status chart_pro = 1;</code>
      */
-    protected $account = null;
+    protected $chart_pro = 0;
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status propresenter_addon = 2;</code>
+     */
+    protected $propresenter_addon = 0;
 
     /**
      * Constructor.
@@ -25,7 +29,8 @@ class Startup extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type \Rv\Analytics\MultiTracks\Account $account
+     *     @type int $chart_pro
+     *     @type int $propresenter_addon
      * }
      */
     public function __construct($data = NULL) {
@@ -34,33 +39,45 @@ class Startup extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.MultiTracks.Account account = 1;</code>
-     * @return \Rv\Analytics\MultiTracks\Account|null
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status chart_pro = 1;</code>
+     * @return int
      */
-    public function getAccount()
+    public function getChartPro()
     {
-        return $this->account;
-    }
-
-    public function hasAccount()
-    {
-        return isset($this->account);
-    }
-
-    public function clearAccount()
-    {
-        unset($this->account);
+        return $this->chart_pro;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.MultiTracks.Account account = 1;</code>
-     * @param \Rv\Analytics\MultiTracks\Account $var
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status chart_pro = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setAccount($var)
+    public function setChartPro($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\MultiTracks\Account::class);
-        $this->account = $var;
+        GPBUtil::checkEnum($var, \Rv\Analytics\Multitracks\Status::class);
+        $this->chart_pro = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status propresenter_addon = 2;</code>
+     * @return int
+     */
+    public function getPropresenterAddon()
+    {
+        return $this->propresenter_addon;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Status propresenter_addon = 2;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPropresenterAddon($var)
+    {
+        GPBUtil::checkEnum($var, \Rv\Analytics\Multitracks\Status::class);
+        $this->propresenter_addon = $var;
 
         return $this;
     }

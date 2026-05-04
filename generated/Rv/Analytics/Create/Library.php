@@ -10,12 +10,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Create.Library</code>
+ * Generated from protobuf message <code>rv.analytics.create.Library</code>
  */
 class Library extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Library.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Library.Source source = 1;</code>
      */
     protected $source = 0;
 
@@ -34,7 +34,7 @@ class Library extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Library.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Library.Source source = 1;</code>
      * @return int
      */
     public function getSource()
@@ -43,7 +43,7 @@ class Library extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Library.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Library.Source source = 1;</code>
      * @param int $var
      * @return $this
      */

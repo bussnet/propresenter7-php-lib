@@ -3,19 +3,19 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsPlaybackMarker.proto
 
-namespace Rv\Analytics\PlaybackMarker;
+namespace Rv\Analytics\Playbackmarker;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.PlaybackMarker.CreateMarker</code>
+ * Generated from protobuf message <code>rv.analytics.playbackmarker.CreateMarker</code>
  */
 class CreateMarker extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.PlaybackMarker.CreateMarker.Location location = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.playbackmarker.CreateMarker.Location location = 1;</code>
      */
     protected $location = 0;
 
@@ -34,7 +34,7 @@ class CreateMarker extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.PlaybackMarker.CreateMarker.Location location = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.playbackmarker.CreateMarker.Location location = 1;</code>
      * @return int
      */
     public function getLocation()
@@ -43,13 +43,13 @@ class CreateMarker extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.PlaybackMarker.CreateMarker.Location location = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.playbackmarker.CreateMarker.Location location = 1;</code>
      * @param int $var
      * @return $this
      */
     public function setLocation($var)
     {
-        GPBUtil::checkEnum($var, \Rv\Analytics\PlaybackMarker\CreateMarker\Location::class);
+        GPBUtil::checkEnum($var, \Rv\Analytics\Playbackmarker\CreateMarker\Location::class);
         $this->location = $var;
 
         return $this;

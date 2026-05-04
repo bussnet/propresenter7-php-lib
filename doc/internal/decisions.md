@@ -3,9 +3,10 @@
 ## Decisions Made
 
 ### Proto Version Choice
-- **Decision**: Use greyshirtguy/ProPresenter7-Proto v7.16.2
-- **Reason**: Field numbers match Test.pro raw decode perfectly
-- **Source**: Metis analysis + typed decode validation in T2
+- **Decision**: Use greyshirtguy/ProPresenter7-Proto, Proto 19beta (dumped from ProPresenter v19 beta build 318767123)
+- **Reason**: Latest available proto schema; field numbers compatible with our reference files; covers new ProPresenter 19 features
+- **Retained extras**: `calendar.proto`, `keyMappings.proto` (not present in 19beta upstream but extracted from PP binaries to support our `parse-calendar` and `parse-key-mappings` tools); `analyticsCapture/Update/WHMStore.proto` retained from the prior 7.16.2 set for backward compatibility
+- **History**: Originally adopted v7.16.2 (Metis analysis + typed decode validation in T2); upgraded to Proto 19beta on 2026-05-04
 
 ### RTF Handling
 - **Getters**: Plain text only (via RtfExtractor)

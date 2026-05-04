@@ -9,6 +9,7 @@ option swift_prefix = "RVData_";
 import "action.proto";
 import "applicationInfo.proto";
 import "color.proto";
+import "customOptions.proto";
 import "uuid.proto";
 
 message ClearGroupsDocument {

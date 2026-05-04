@@ -54,6 +54,10 @@ class Text extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.Graphics.Text.ChordPro chord_pro = 12;</code>
      */
     protected $chord_pro = null;
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.Graphics.Text.AlternateText alternate_texts = 13;</code>
+     */
+    private $alternate_texts;
 
     /**
      * Constructor.
@@ -71,6 +75,7 @@ class Text extends \Google\Protobuf\Internal\Message
      *     @type int $transform
      *     @type string $transformDelimiter
      *     @type \Rv\Data\Graphics\Text\ChordPro $chord_pro
+     *     @type array<\Rv\Data\Graphics\Text\AlternateText>|\Google\Protobuf\Internal\RepeatedField $alternate_texts
      * }
      */
     public function __construct($data = NULL) {
@@ -334,6 +339,28 @@ class Text extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Graphics\Text\ChordPro::class);
         $this->chord_pro = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.Graphics.Text.AlternateText alternate_texts = 13;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getAlternateTexts()
+    {
+        return $this->alternate_texts;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.Graphics.Text.AlternateText alternate_texts = 13;</code>
+     * @param array<\Rv\Data\Graphics\Text\AlternateText>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setAlternateTexts($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\Graphics\Text\AlternateText::class);
+        $this->alternate_texts = $arr;
 
         return $this;
     }

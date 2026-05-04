@@ -15,6 +15,7 @@ class Color
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         $pool->internalAddGeneratedFile(
             "\x0A\x96\x01\x0A\x0Bcolor.proto\x12\x07rv.data\"@\x0A\x05Color\x12\x0B\x0A\x03red\x18\x01 \x01(\x02\x12\x0D\x0A\x05green\x18\x02 \x01(\x02\x12\x0C\x0A\x04blue\x18\x03 \x01(\x02\x12\x0D\x0A\x05alpha\x18\x04 \x01(\x02B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);

@@ -16,7 +16,7 @@ class AnalyticsApi
           return;
         }
         $pool->internalAddGeneratedFile(
-            "\x0A\xD1\x01\x0A\x12analyticsApi.proto\x12\x0Crv.analytics\"b\x0A\x03API\x12=\x0A\x10message_received\x18\x01 \x01(\x0B2!.rv.analytics.API.MessageReceivedH\x00\x1A\x11\x0A\x0FMessageReceivedB\x09\x0A\x07APITypeBA\xF8\x01\x01\xAA\x02.Pro.SerializationInterop.RVProtoData.Analytics\xBA\x02\x0AAnalytics_b\x06proto3"
+            "\x0A\x8C\x01\x0A\x12analyticsApi.proto\x12\x10rv.analytics.api\"\x11\x0A\x0FMessageReceivedBI\xF8\x01\x01\xAA\x022Pro.SerializationInterop.RVProtoData.Analytics.API\xBA\x02\x0EAnalytics_API_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

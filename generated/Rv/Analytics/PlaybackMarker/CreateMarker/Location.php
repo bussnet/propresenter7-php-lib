@@ -3,27 +3,32 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsPlaybackMarker.proto
 
-namespace Rv\Analytics\PlaybackMarker\CreateMarker;
+namespace Rv\Analytics\Playbackmarker\CreateMarker;
 
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.PlaybackMarker.CreateMarker.Location</code>
+ * Protobuf type <code>rv.analytics.playbackmarker.CreateMarker.Location</code>
  */
 class Location
 {
     /**
-     * Generated from protobuf enum <code>LOCATION_INSPECTOR = 0;</code>
+     * Generated from protobuf enum <code>INSPECTOR = 0;</code>
      */
-    const LOCATION_INSPECTOR = 0;
+    const INSPECTOR = 0;
     /**
-     * Generated from protobuf enum <code>LOCATION_SIDEBAR = 1;</code>
+     * Generated from protobuf enum <code>SIDEBAR = 1;</code>
      */
-    const LOCATION_SIDEBAR = 1;
+    const SIDEBAR = 1;
+    /**
+     * Generated from protobuf enum <code>UNKNOWN = 2;</code>
+     */
+    const UNKNOWN = 2;
 
     private static $valueToName = [
-        self::LOCATION_INSPECTOR => 'LOCATION_INSPECTOR',
-        self::LOCATION_SIDEBAR => 'LOCATION_SIDEBAR',
+        self::INSPECTOR => 'INSPECTOR',
+        self::SIDEBAR => 'SIDEBAR',
+        self::UNKNOWN => 'UNKNOWN',
     ];
 
     public static function name($value)

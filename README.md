@@ -410,7 +410,7 @@ Looking for something specific? Use the keyword index: [doc/keywords.md](doc/key
 ├── bin/                   # 18 CLI tools (parse-*.php scripts)
 ├── src/                   # PHP source (wrappers, readers, writers, generators)
 ├── generated/             # Auto-generated protobuf PHP classes (Rv\Data\…)
-├── proto/                 # Vendored .proto files (greyshirtguy/ProPresenter7-Proto v7.16.2)
+├── proto/                 # Vendored .proto files (greyshirtguy/ProPresenter7-Proto, Proto 19beta + extras)
 ├── tests/                 # PHPUnit test suite (369 tests)
 ├── doc/
 │   ├── INDEX.md           # Documentation entry point
@@ -510,7 +510,7 @@ Contributions are welcome! Please:
 
 This project is released under the [MIT License](LICENSE).
 
-The bundled `.proto` files in [`proto/`](proto/) are derived from [greyshirtguy/ProPresenter7-Proto](https://github.com/greyshirtguy/ProPresenter7-Proto) v7.16.2, also distributed under the MIT License.
+The bundled `.proto` files in [`proto/`](proto/) are derived from [greyshirtguy/ProPresenter7-Proto](https://github.com/greyshirtguy/ProPresenter7-Proto), Proto 19beta (dumped from ProPresenter v19 beta build 318767123) plus a few extras (`calendar`, `keyMappings`, plus three legacy analytics protos retained from the 7.16.2 set), also distributed under the MIT License.
 
 ---
 

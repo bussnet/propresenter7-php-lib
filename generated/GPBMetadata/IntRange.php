@@ -15,6 +15,7 @@ class IntRange
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         $pool->internalAddGeneratedFile(
             "\x0A\x7F\x0A\x0EintRange.proto\x12\x07rv.data\"&\x0A\x08IntRange\x12\x0D\x0A\x05start\x18\x01 \x01(\x05\x12\x0B\x0A\x03end\x18\x02 \x01(\x05B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);

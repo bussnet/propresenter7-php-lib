@@ -26,6 +26,10 @@ class DownloadProgress extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>float progress = 3;</code>
      */
     protected $progress = 0.0;
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     */
+    protected $client_alert = 0;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class DownloadProgress extends \Google\Protobuf\Internal\Message
      *     @type int $status
      *     @type bool $complete
      *     @type float $progress
+     *     @type int $client_alert
      * }
      */
     public function __construct($data = NULL) {
@@ -105,6 +110,28 @@ class DownloadProgress extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkFloat($var);
         $this->progress = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     * @return int
+     */
+    public function getClientAlert()
+    {
+        return $this->client_alert;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setClientAlert($var)
+    {
+        GPBUtil::checkEnum($var, \Registration\Core\ClientAlertMessage::class);
+        $this->client_alert = $var;
 
         return $this;
     }

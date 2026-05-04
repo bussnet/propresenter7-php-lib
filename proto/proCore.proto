@@ -28,54 +28,11 @@ import "timers.proto";
 import "url.proto";
 import "uuid.proto";
 import "proworkspace.proto";
+import "psbWorkspace.proto";
 import "digitalAudio.proto";
 import "proAudienceLook.proto";
 import "proMask.proto";
 import "timedPlayback.proto";
-
-message MediaMetadataRequestInfo {
-  string file_path = 1;
-  float time = 2;
-  uint32 width = 3;
-  uint32 height = 4;
-  repeated .rv.data.Effect effects = 5;
-  .rv.data.Graphics.EdgeInsets crop_insets = 6;
-  .rv.data.Media.DrawingProperties.NativeRotationType native_rotation = 7;
-  bool flipped_horizontally = 8;
-  bool flipped_vertically = 9;
-  .rv.data.AlphaType alpha_type = 10;
-}
-
-message MediaMetadataRequestResponse {
-  message Metadata {
-    enum ContentType {
-      CONTENT_TYPE_UNKNOWN = 0;
-      CONTENT_TYPE_AUDIO = 1;
-      CONTENT_TYPE_IMAGE = 2;
-      CONTENT_TYPE_VIDEO = 3;
-    }
-
-    uint32 width = 1;
-    uint32 height = 2;
-    float fps = 3;
-    float duration = 4;
-    uint32 number_audio_channels = 5;
-    string codec = 6;
-    string artist = 7;
-    string title = 8;
-    float rotation = 9;
-    .rv.data.MediaMetadataRequestResponse.Metadata.ContentType content_type = 10;
-    bool has_alpha_channel = 11;
-  }
-
-  message BitmapInfo {
-    uint32 width = 1;
-    uint32 height = 2;
-  }
-
-  .rv.data.MediaMetadataRequestResponse.Metadata metadata = 1;
-  .rv.data.MediaMetadataRequestResponse.BitmapInfo generated_bitmap_info = 2;
-}
 
 message NetworkIdentifier {
   message IndexOrName {
@@ -385,7 +342,53 @@ message MacroIcons {
   repeated .rv.data.MacroIcons.MacroIcon icons = 1;
 }
 
+message PropPauseRequest {
+  message Pause {
+  }
+
+  message Resume {
+  }
+
+  message Status {
+  }
+
+  .rv.data.UUID prop_id = 1;
+  oneof RequestType {
+    .rv.data.PropPauseRequest.Pause pause = 2;
+    .rv.data.PropPauseRequest.Resume resume = 3;
+    .rv.data.PropPauseRequest.Status status = 4;
+  }
+}
+
 message GenericEvent {
+}
+
+message MediaThumbnail {
+  int32 width = 1;
+  int32 height = 2;
+  bytes data = 3;
+  uint64 stride = 4;
+}
+
+message PCOData {
+  string service_type_id = 2;
+  string plan_id = 3;
+}
+
+message WebFillTokenAndCookies {
+  message Cookie {
+    string name = 1;
+    string value = 2;
+    string domain = 3;
+    uint64 expiry = 4;
+  }
+
+  repeated .rv.data.WebFillTokenAndCookies.Cookie cookies = 1;
+  string token = 2;
+}
+
+message InputStatusCallback {
+  bool enable = 1;
 }
 
 message SendData {
@@ -410,19 +413,27 @@ message SendData {
     .rv.data.Transition global_background_transition = 18;
     .rv.data.Transition global_messages_transition = 19;
     .rv.data.Transition global_foreground_transition = 20;
-    .rv.data.Transition global_bible_transition = 21;
-    .rv.data.Transition global_props_transition = 22;
-    .rv.data.Transition global_audio_transition = 23;
-    .rv.data.Preferences preferences = 24;
-    .rv.data.TestPatternRequest test_pattern = 25;
-    .rv.data.GenericEvent startup_complete = 26;
-    .rv.data.PlaylistDocument visual_playlist_doc = 27;
-    .rv.data.PlaylistDocument audio_playlist_doc = 28;
-    .rv.data.GenericEvent kill_watchdog = 29;
-    .rv.data.MacroIcons macro_icons = 30;
-    .rv.data.GenericEvent debug_trigger_data_dump = 31;
-    .rv.data.PlaylistDocument library_playlist_doc = 32;
-    .rv.data.UUID audio_playlist_focus_uuid = 33;
+    .rv.data.Transition global_props_transition = 21;
+    .rv.data.Transition global_audio_transition = 22;
+    .rv.data.Preferences preferences = 23;
+    .rv.data.TestPatternRequest test_pattern = 24;
+    .rv.data.GenericEvent startup_complete = 25;
+    .rv.data.PlaylistDocument visual_playlist_doc = 26;
+    .rv.data.PlaylistDocument audio_playlist_doc = 27;
+    .rv.data.GenericEvent kill_watchdog = 28;
+    .rv.data.MacroIcons macro_icons = 29;
+    .rv.data.GenericEvent debug_trigger_data_dump = 30;
+    .rv.data.PlaylistDocument library_playlist_doc = 31;
+    .rv.data.UUID audio_playlist_focus_uuid = 32;
+    .rv.data.UUID media_playlist_focus_uuid = 33;
+    .rv.data.UUID library_playlist_focus_uuid = 34;
+    .rv.data.UUID library_playlist_item_focus_uuid = 35;
+    .rv.data.PropPauseRequest prop_pause = 36;
+    .rv.data.MediaThumbnail media_thumbnail = 37;
+    .rv.data.PCOData pco_data = 38;
+    .rv.data.WebFillTokenAndCookies webfill_token_and_cookies = 39;
+    .rv.data.ProScoreboardWorkspace psb_workspace = 40;
+    .rv.data.InputStatusCallback input_status_callback = 41;
   }
 }
 
@@ -442,6 +453,7 @@ message TimerRuntimeState {
   bool has_overrun = 5;
   .rv.data.TimerRuntimeState.ResourceState state = 6;
   double current_time = 7;
+  bool has_started = 8;
 }
 
 message TimerStateUpdate {
@@ -453,11 +465,66 @@ message HandledException {
   string description = 1;
 }
 
-message CoreDataStateDump {
-  .rv.data.MacrosDocument macros = 1;
+message LeaveBreadcrumb {
+  message MetadataEntry {
+    string key = 1;
+    string value = 2;
+  }
+
+  enum Type {
+    Navigation = 0;
+    Request = 1;
+    Process = 2;
+    Log = 3;
+    User = 4;
+    State = 5;
+    Error = 6;
+    Manual = 7;
+  }
+
+  .rv.data.LeaveBreadcrumb.Type type = 1;
+  string description = 2;
+  repeated .rv.data.LeaveBreadcrumb.MetadataEntry metadata = 3;
+}
+
+message PropPauseResponse {
+  message Status {
+    bool paused = 1;
+    double time_remaining = 2;
+    double percentage_complete = 3;
+    double total_time = 4;
+  }
+
+  .rv.data.UUID prop_id = 1;
+  oneof ResponseType {
+    .rv.data.PropPauseResponse.Status status = 2;
+  }
+}
+
+message ShowMessage {
+  string message = 1;
+}
+
+message GetMediaThumbnail {
+  int32 width_hint = 3;
+  int32 height_hint = 4;
+  oneof MediaType {
+    .rv.data.Media media = 1;
+    .rv.data.Action action = 2;
+  }
+}
+
+message RequestWebFillTokenAndCookies {
+  bool refresh_first = 1;
+  string link = 2;
+}
+
+message MediaAssetTriggered {
+  .rv.data.UUID media_uuid = 1;
 }
 
 message SendDataResponse {
+  reserved 7;
   int32 message_id = 1;
   oneof MessageType {
     .rv.data.ValidateEncoderResponse validate_encoder_response = 2;
@@ -465,9 +532,17 @@ message SendDataResponse {
     .rv.data.CaptureActionRequest capture_action_request = 4;
     .rv.data.TestPatternResponse test_pattern = 5;
     .rv.data.HandledException handled_exception = 6;
-    .rv.data.CoreDataStateDump test_state_dump = 7;
     .rv.data.UUID audio_playlist_focus_uuid = 8;
-    .rv.data.UUID audio_playlist_item_triggered_uuid = 9;
+    .rv.data.UUID media_playlist_focus_uuid = 9;
+    .rv.data.UUID library_playlist_focus_uuid = 10;
+    .rv.data.UUID library_playlist_item_focus_uuid = 11;
+    .rv.data.PropPauseResponse prop_pause = 12;
+    .rv.data.ShowMessage show_message = 13;
+    .rv.data.GenericEvent hide_message = 14;
+    .rv.data.GetMediaThumbnail get_media_thumbnail = 15;
+    .rv.data.RequestWebFillTokenAndCookies request_webfill_token_and_cookies = 16;
+    .rv.data.MediaAssetTriggered media_asset_triggered = 17;
+    .rv.data.LeaveBreadcrumb leave_breadcrumb = 18;
   }
 }
 
@@ -514,6 +589,12 @@ message TriggerTransferRenderState {
   }
 
   message SlideState {
+    enum TriggerSource {
+      Normal = 0;
+      Timeline = 1;
+      Editor = 2;
+    }
+
     .rv.data.Presentation presentation = 1;
     .rv.data.Playlist playlist = 2;
     .rv.data.UUID current_cue = 3;
@@ -522,6 +603,8 @@ message TriggerTransferRenderState {
     .rv.data.TriggerTransferRenderState.TimelineState timeline_state = 6;
     int32 current_cue_index = 7;
     int32 current_playlist_index = 8;
+    bool is_current_position = 9;
+    .rv.data.TriggerTransferRenderState.SlideState.TriggerSource trigger_source = 10;
   }
 
   message TimecodeState {
@@ -529,10 +612,12 @@ message TriggerTransferRenderState {
       Stopped = 0;
       Playing = 1;
       Error = 2;
+      Discontinuity = 3;
     }
 
     .rv.data.TriggerTransferRenderState.TimecodeState.Status status = 1;
     float time = 2;
+    float fps = 3;
   }
 
   .rv.data.Slide slide = 1;

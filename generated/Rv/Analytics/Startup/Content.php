@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Startup.Content</code>
+ * Generated from protobuf message <code>rv.analytics.startup.Content</code>
  */
 class Content extends \Google\Protobuf\Internal\Message
 {
@@ -79,23 +79,35 @@ class Content extends \Google\Protobuf\Internal\Message
      */
     protected $props_count = 0;
     /**
-     * Generated from protobuf field <code>int32 stage_layout_count = 17;</code>
+     * Generated from protobuf field <code>int32 props_auto_clear_count = 17;</code>
+     */
+    protected $props_auto_clear_count = 0;
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_count = 18;</code>
+     */
+    protected $prop_collections_count = 0;
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_single_prop_enabled_count = 19;</code>
+     */
+    protected $prop_collections_single_prop_enabled_count = 0;
+    /**
+     * Generated from protobuf field <code>int32 stage_layout_count = 20;</code>
      */
     protected $stage_layout_count = 0;
     /**
-     * Generated from protobuf field <code>int32 macros_count = 18;</code>
+     * Generated from protobuf field <code>int32 macros_count = 21;</code>
      */
     protected $macros_count = 0;
     /**
-     * Generated from protobuf field <code>int32 macros_collections_count = 19;</code>
+     * Generated from protobuf field <code>int32 macros_collections_count = 22;</code>
      */
     protected $macros_collections_count = 0;
     /**
-     * Generated from protobuf field <code>int32 macros_custom_icons = 20;</code>
+     * Generated from protobuf field <code>int32 macros_custom_icons = 23;</code>
      */
     protected $macros_custom_icons = 0;
     /**
-     * Generated from protobuf field <code>bool ubiquitous_show_directory = 21;</code>
+     * Generated from protobuf field <code>bool ubiquitous_show_directory = 24;</code>
      */
     protected $ubiquitous_show_directory = false;
 
@@ -121,6 +133,9 @@ class Content extends \Google\Protobuf\Internal\Message
      *     @type int $timer_count
      *     @type int $messages_count
      *     @type int $props_count
+     *     @type int $props_auto_clear_count
+     *     @type int $prop_collections_count
+     *     @type int $prop_collections_single_prop_enabled_count
      *     @type int $stage_layout_count
      *     @type int $macros_count
      *     @type int $macros_collections_count
@@ -486,7 +501,73 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 stage_layout_count = 17;</code>
+     * Generated from protobuf field <code>int32 props_auto_clear_count = 17;</code>
+     * @return int
+     */
+    public function getPropsAutoClearCount()
+    {
+        return $this->props_auto_clear_count;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 props_auto_clear_count = 17;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPropsAutoClearCount($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->props_auto_clear_count = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_count = 18;</code>
+     * @return int
+     */
+    public function getPropCollectionsCount()
+    {
+        return $this->prop_collections_count;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_count = 18;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPropCollectionsCount($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->prop_collections_count = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_single_prop_enabled_count = 19;</code>
+     * @return int
+     */
+    public function getPropCollectionsSinglePropEnabledCount()
+    {
+        return $this->prop_collections_single_prop_enabled_count;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 prop_collections_single_prop_enabled_count = 19;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setPropCollectionsSinglePropEnabledCount($var)
+    {
+        GPBUtil::checkInt32($var);
+        $this->prop_collections_single_prop_enabled_count = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>int32 stage_layout_count = 20;</code>
      * @return int
      */
     public function getStageLayoutCount()
@@ -495,7 +576,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 stage_layout_count = 17;</code>
+     * Generated from protobuf field <code>int32 stage_layout_count = 20;</code>
      * @param int $var
      * @return $this
      */
@@ -508,7 +589,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_count = 18;</code>
+     * Generated from protobuf field <code>int32 macros_count = 21;</code>
      * @return int
      */
     public function getMacrosCount()
@@ -517,7 +598,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_count = 18;</code>
+     * Generated from protobuf field <code>int32 macros_count = 21;</code>
      * @param int $var
      * @return $this
      */
@@ -530,7 +611,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_collections_count = 19;</code>
+     * Generated from protobuf field <code>int32 macros_collections_count = 22;</code>
      * @return int
      */
     public function getMacrosCollectionsCount()
@@ -539,7 +620,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_collections_count = 19;</code>
+     * Generated from protobuf field <code>int32 macros_collections_count = 22;</code>
      * @param int $var
      * @return $this
      */
@@ -552,7 +633,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_custom_icons = 20;</code>
+     * Generated from protobuf field <code>int32 macros_custom_icons = 23;</code>
      * @return int
      */
     public function getMacrosCustomIcons()
@@ -561,7 +642,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>int32 macros_custom_icons = 20;</code>
+     * Generated from protobuf field <code>int32 macros_custom_icons = 23;</code>
      * @param int $var
      * @return $this
      */
@@ -574,7 +655,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>bool ubiquitous_show_directory = 21;</code>
+     * Generated from protobuf field <code>bool ubiquitous_show_directory = 24;</code>
      * @return bool
      */
     public function getUbiquitousShowDirectory()
@@ -583,7 +664,7 @@ class Content extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>bool ubiquitous_show_directory = 21;</code>
+     * Generated from protobuf field <code>bool ubiquitous_show_directory = 24;</code>
      * @param bool $var
      * @return $this
      */

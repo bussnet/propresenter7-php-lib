@@ -7,7 +7,6 @@ option csharp_namespace = "Pro.SerializationInterop.RVProtoData";
 option swift_prefix = "RVData_";
 
 import "proApiV1LayerType.proto";
-import "uuid.proto";
 
 message API_v1_Transport_Request {
   message Play {
@@ -100,7 +99,7 @@ message API_v1_Transport_Response {
 
   message GetCurrentMedia {
     bool is_playing = 1;
-    .rv.data.UUID uuid = 2;
+    string uuid = 2;
     string name = 3;
     string artist = 4;
     bool audio_only = 5;

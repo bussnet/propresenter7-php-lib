@@ -26,6 +26,10 @@ class API_v1_Macro extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string image_type = 3;</code>
      */
     protected $image_type = '';
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.API_v1_MacroAction actions = 4;</code>
+     */
+    private $actions;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class API_v1_Macro extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\API_v1_Identifier $id
      *     @type \Rv\Data\API_v1_Color $color
      *     @type string $image_type
+     *     @type array<\Rv\Data\API_v1_MacroAction>|\Google\Protobuf\Internal\RepeatedField $actions
      * }
      */
     public function __construct($data = NULL) {
@@ -125,6 +130,28 @@ class API_v1_Macro extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->image_type = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.API_v1_MacroAction actions = 4;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getActions()
+    {
+        return $this->actions;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.API_v1_MacroAction actions = 4;</code>
+     * @param array<\Rv\Data\API_v1_MacroAction>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setActions($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\API_v1_MacroAction::class);
+        $this->actions = $arr;
 
         return $this;
     }

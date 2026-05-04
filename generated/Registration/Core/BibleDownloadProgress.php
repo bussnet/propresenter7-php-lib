@@ -38,6 +38,10 @@ class BibleDownloadProgress extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string download_link = 6;</code>
      */
     protected $download_link = '';
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 7;</code>
+     */
+    protected $client_alert = 0;
 
     /**
      * Constructor.
@@ -51,6 +55,7 @@ class BibleDownloadProgress extends \Google\Protobuf\Internal\Message
      *     @type string $bible_id
      *     @type string $file_name
      *     @type string $download_link
+     *     @type int $client_alert
      * }
      */
     public function __construct($data = NULL) {
@@ -186,6 +191,28 @@ class BibleDownloadProgress extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->download_link = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 7;</code>
+     * @return int
+     */
+    public function getClientAlert()
+    {
+        return $this->client_alert;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 7;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setClientAlert($var)
+    {
+        GPBUtil::checkEnum($var, \Registration\Core\ClientAlertMessage::class);
+        $this->client_alert = $var;
 
         return $this;
     }

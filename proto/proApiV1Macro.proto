@@ -13,6 +13,11 @@ message API_v1_Macro {
   .rv.data.API_v1_Identifier id = 1;
   .rv.data.API_v1_Color color = 2;
   string image_type = 3;
+  repeated .rv.data.API_v1_MacroAction actions = 4;
+}
+
+message API_v1_MacroAction {
+  string type = 1;
 }
 
 message API_v1_Macro_Collection {

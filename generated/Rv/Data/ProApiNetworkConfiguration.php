@@ -70,6 +70,10 @@ class ProApiNetworkConfiguration extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool tcp_stream_enable = 14;</code>
      */
     protected $tcp_stream_enable = false;
+    /**
+     * Generated from protobuf field <code>.rv.data.AirplayConfiguration airplay = 15;</code>
+     */
+    protected $airplay = null;
 
     /**
      * Constructor.
@@ -91,6 +95,7 @@ class ProApiNetworkConfiguration extends \Google\Protobuf\Internal\Message
      *     @type string $web_resource_root
      *     @type int $tcp_stream_port
      *     @type bool $tcp_stream_enable
+     *     @type \Rv\Data\AirplayConfiguration $airplay
      * }
      */
     public function __construct($data = NULL) {
@@ -402,6 +407,38 @@ class ProApiNetworkConfiguration extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->tcp_stream_enable = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.AirplayConfiguration airplay = 15;</code>
+     * @return \Rv\Data\AirplayConfiguration|null
+     */
+    public function getAirplay()
+    {
+        return $this->airplay;
+    }
+
+    public function hasAirplay()
+    {
+        return isset($this->airplay);
+    }
+
+    public function clearAirplay()
+    {
+        unset($this->airplay);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.AirplayConfiguration airplay = 15;</code>
+     * @param \Rv\Data\AirplayConfiguration $var
+     * @return $this
+     */
+    public function setAirplay($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\AirplayConfiguration::class);
+        $this->airplay = $var;
 
         return $this;
     }

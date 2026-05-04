@@ -44,6 +44,10 @@ class Type
      * Generated from protobuf enum <code>TYPE_BLUEFISH = 7;</code>
      */
     const TYPE_BLUEFISH = 7;
+    /**
+     * Generated from protobuf enum <code>TYPE_AIRCAST = 8;</code>
+     */
+    const TYPE_AIRCAST = 8;
 
     private static $valueToName = [
         self::TYPE_GENERIC => 'TYPE_GENERIC',
@@ -54,6 +58,7 @@ class Type
         self::TYPE_SYPHON => 'TYPE_SYPHON',
         self::TYPE_NDI => 'TYPE_NDI',
         self::TYPE_BLUEFISH => 'TYPE_BLUEFISH',
+        self::TYPE_AIRCAST => 'TYPE_AIRCAST',
     ];
 
     public static function name($value)

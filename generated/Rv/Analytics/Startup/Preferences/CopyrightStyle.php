@@ -8,7 +8,7 @@ namespace Rv\Analytics\Startup\Preferences;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Startup.Preferences.CopyrightStyle</code>
+ * Protobuf type <code>rv.analytics.startup.Preferences.CopyrightStyle</code>
  */
 class CopyrightStyle
 {
@@ -17,28 +17,28 @@ class CopyrightStyle
      */
     const COPYRIGHT_STYLE_UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>COPYRIGHT_STYLE_FIRST = 1;</code>
+     * Generated from protobuf enum <code>FIRST = 1;</code>
      */
-    const COPYRIGHT_STYLE_FIRST = 1;
+    const FIRST = 1;
     /**
-     * Generated from protobuf enum <code>COPYRIGHT_STYLE_LAST = 2;</code>
+     * Generated from protobuf enum <code>LAST = 2;</code>
      */
-    const COPYRIGHT_STYLE_LAST = 2;
+    const LAST = 2;
     /**
-     * Generated from protobuf enum <code>COPYRIGHT_STYLE_FIRST_AND_LAST = 3;</code>
+     * Generated from protobuf enum <code>FIRST_AND_LAST = 3;</code>
      */
-    const COPYRIGHT_STYLE_FIRST_AND_LAST = 3;
+    const FIRST_AND_LAST = 3;
     /**
-     * Generated from protobuf enum <code>COPYRIGHT_STYLE_ALL_SLIDES = 4;</code>
+     * Generated from protobuf enum <code>ALL_SLIDES = 4;</code>
      */
-    const COPYRIGHT_STYLE_ALL_SLIDES = 4;
+    const ALL_SLIDES = 4;
 
     private static $valueToName = [
         self::COPYRIGHT_STYLE_UNKNOWN => 'COPYRIGHT_STYLE_UNKNOWN',
-        self::COPYRIGHT_STYLE_FIRST => 'COPYRIGHT_STYLE_FIRST',
-        self::COPYRIGHT_STYLE_LAST => 'COPYRIGHT_STYLE_LAST',
-        self::COPYRIGHT_STYLE_FIRST_AND_LAST => 'COPYRIGHT_STYLE_FIRST_AND_LAST',
-        self::COPYRIGHT_STYLE_ALL_SLIDES => 'COPYRIGHT_STYLE_ALL_SLIDES',
+        self::FIRST => 'FIRST',
+        self::LAST => 'LAST',
+        self::FIRST_AND_LAST => 'FIRST_AND_LAST',
+        self::ALL_SLIDES => 'ALL_SLIDES',
     ];
 
     public static function name($value)

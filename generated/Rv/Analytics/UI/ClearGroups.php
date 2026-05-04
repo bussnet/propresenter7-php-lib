@@ -3,18 +3,21 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsUI.proto
 
-namespace Rv\Analytics\UI;
+namespace Rv\Analytics\Ui;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.UI.ClearGroups</code>
+ * Generated from protobuf message <code>rv.analytics.ui.ClearGroups</code>
  */
 class ClearGroups extends \Google\Protobuf\Internal\Message
 {
-    protected $Component;
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroups.Source source = 1;</code>
+     */
+    protected $source = 0;
 
     /**
      * Constructor.
@@ -22,10 +25,7 @@ class ClearGroups extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type \Rv\Analytics\UI\ClearGroups\Shown $shown
-     *     @type \Rv\Analytics\UI\ClearGroups\Create $create
-     *     @type \Rv\Analytics\UI\ClearGroups\Delete $delete
-     *     @type \Rv\Analytics\UI\ClearGroups\Group $group
+     *     @type int $source
      * }
      */
     public function __construct($data = NULL) {
@@ -34,119 +34,25 @@ class ClearGroups extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Shown shown = 1;</code>
-     * @return \Rv\Analytics\UI\ClearGroups\Shown|null
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroups.Source source = 1;</code>
+     * @return int
      */
-    public function getShown()
+    public function getSource()
     {
-        return $this->readOneof(1);
-    }
-
-    public function hasShown()
-    {
-        return $this->hasOneof(1);
+        return $this->source;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Shown shown = 1;</code>
-     * @param \Rv\Analytics\UI\ClearGroups\Shown $var
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroups.Source source = 1;</code>
+     * @param int $var
      * @return $this
      */
-    public function setShown($var)
+    public function setSource($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI\ClearGroups\Shown::class);
-        $this->writeOneof(1, $var);
+        GPBUtil::checkEnum($var, \Rv\Analytics\Ui\ClearGroups\Source::class);
+        $this->source = $var;
 
         return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Create create = 2;</code>
-     * @return \Rv\Analytics\UI\ClearGroups\Create|null
-     */
-    public function getCreate()
-    {
-        return $this->readOneof(2);
-    }
-
-    public function hasCreate()
-    {
-        return $this->hasOneof(2);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Create create = 2;</code>
-     * @param \Rv\Analytics\UI\ClearGroups\Create $var
-     * @return $this
-     */
-    public function setCreate($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI\ClearGroups\Create::class);
-        $this->writeOneof(2, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Delete delete = 3;</code>
-     * @return \Rv\Analytics\UI\ClearGroups\Delete|null
-     */
-    public function getDelete()
-    {
-        return $this->readOneof(3);
-    }
-
-    public function hasDelete()
-    {
-        return $this->hasOneof(3);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Delete delete = 3;</code>
-     * @param \Rv\Analytics\UI\ClearGroups\Delete $var
-     * @return $this
-     */
-    public function setDelete($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI\ClearGroups\Delete::class);
-        $this->writeOneof(3, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Group group = 4;</code>
-     * @return \Rv\Analytics\UI\ClearGroups\Group|null
-     */
-    public function getGroup()
-    {
-        return $this->readOneof(4);
-    }
-
-    public function hasGroup()
-    {
-        return $this->hasOneof(4);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.analytics.UI.ClearGroups.Group group = 4;</code>
-     * @param \Rv\Analytics\UI\ClearGroups\Group $var
-     * @return $this
-     */
-    public function setGroup($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI\ClearGroups\Group::class);
-        $this->writeOneof(4, $var);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getComponent()
-    {
-        return $this->whichOneof("Component");
     }
 
 }

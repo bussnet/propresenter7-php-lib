@@ -26,6 +26,10 @@ class MacroCollection extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .rv.data.MacrosDocument.MacroCollection.Item items = 3;</code>
      */
     private $items;
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.MacrosDocument.Macro macros = 4;</code>
+     */
+    private $macros;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class MacroCollection extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\UUID $uuid
      *     @type string $name
      *     @type array<\Rv\Data\MacrosDocument\MacroCollection\Item>|\Google\Protobuf\Internal\RepeatedField $items
+     *     @type array<\Rv\Data\MacrosDocument\Macro>|\Google\Protobuf\Internal\RepeatedField $macros
      * }
      */
     public function __construct($data = NULL) {
@@ -115,6 +120,28 @@ class MacroCollection extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\MacrosDocument\MacroCollection\Item::class);
         $this->items = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.MacrosDocument.Macro macros = 4;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getMacros()
+    {
+        return $this->macros;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.MacrosDocument.Macro macros = 4;</code>
+     * @param array<\Rv\Data\MacrosDocument\Macro>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setMacros($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\MacrosDocument\Macro::class);
+        $this->macros = $arr;
 
         return $this;
     }

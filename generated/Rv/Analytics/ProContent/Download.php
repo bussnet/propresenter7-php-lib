@@ -3,21 +3,17 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsProContent.proto
 
-namespace Rv\Analytics\ProContent;
+namespace Rv\Analytics\Procontent;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.ProContent.Download</code>
+ * Generated from protobuf message <code>rv.analytics.procontent.Download</code>
  */
 class Download extends \Google\Protobuf\Internal\Message
 {
-    /**
-     * Generated from protobuf field <code>bool is_retry = 1;</code>
-     */
-    protected $is_retry = false;
 
     /**
      * Constructor.
@@ -25,34 +21,11 @@ class Download extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type bool $is_retry
      * }
      */
     public function __construct($data = NULL) {
         \GPBMetadata\AnalyticsProContent::initOnce();
         parent::__construct($data);
-    }
-
-    /**
-     * Generated from protobuf field <code>bool is_retry = 1;</code>
-     * @return bool
-     */
-    public function getIsRetry()
-    {
-        return $this->is_retry;
-    }
-
-    /**
-     * Generated from protobuf field <code>bool is_retry = 1;</code>
-     * @param bool $var
-     * @return $this
-     */
-    public function setIsRetry($var)
-    {
-        GPBUtil::checkBool($var);
-        $this->is_retry = $var;
-
-        return $this;
     }
 
 }

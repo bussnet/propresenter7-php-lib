@@ -32,9 +32,17 @@ class SendDataResponse extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\CaptureActionRequest $capture_action_request
      *     @type \Rv\Data\TestPatternResponse $test_pattern
      *     @type \Rv\Data\HandledException $handled_exception
-     *     @type \Rv\Data\CoreDataStateDump $test_state_dump
      *     @type \Rv\Data\UUID $audio_playlist_focus_uuid
-     *     @type \Rv\Data\UUID $audio_playlist_item_triggered_uuid
+     *     @type \Rv\Data\UUID $media_playlist_focus_uuid
+     *     @type \Rv\Data\UUID $library_playlist_focus_uuid
+     *     @type \Rv\Data\UUID $library_playlist_item_focus_uuid
+     *     @type \Rv\Data\PropPauseResponse $prop_pause
+     *     @type \Rv\Data\ShowMessage $show_message
+     *     @type \Rv\Data\GenericEvent $hide_message
+     *     @type \Rv\Data\GetMediaThumbnail $get_media_thumbnail
+     *     @type \Rv\Data\RequestWebFillTokenAndCookies $request_webfill_token_and_cookies
+     *     @type \Rv\Data\MediaAssetTriggered $media_asset_triggered
+     *     @type \Rv\Data\LeaveBreadcrumb $leave_breadcrumb
      * }
      */
     public function __construct($data = NULL) {
@@ -200,33 +208,6 @@ class SendDataResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.CoreDataStateDump test_state_dump = 7;</code>
-     * @return \Rv\Data\CoreDataStateDump|null
-     */
-    public function getTestStateDump()
-    {
-        return $this->readOneof(7);
-    }
-
-    public function hasTestStateDump()
-    {
-        return $this->hasOneof(7);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.CoreDataStateDump test_state_dump = 7;</code>
-     * @param \Rv\Data\CoreDataStateDump $var
-     * @return $this
-     */
-    public function setTestStateDump($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Data\CoreDataStateDump::class);
-        $this->writeOneof(7, $var);
-
-        return $this;
-    }
-
-    /**
      * Generated from protobuf field <code>.rv.data.UUID audio_playlist_focus_uuid = 8;</code>
      * @return \Rv\Data\UUID|null
      */
@@ -254,28 +235,271 @@ class SendDataResponse extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_item_triggered_uuid = 9;</code>
+     * Generated from protobuf field <code>.rv.data.UUID media_playlist_focus_uuid = 9;</code>
      * @return \Rv\Data\UUID|null
      */
-    public function getAudioPlaylistItemTriggeredUuid()
+    public function getMediaPlaylistFocusUuid()
     {
         return $this->readOneof(9);
     }
 
-    public function hasAudioPlaylistItemTriggeredUuid()
+    public function hasMediaPlaylistFocusUuid()
     {
         return $this->hasOneof(9);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_item_triggered_uuid = 9;</code>
+     * Generated from protobuf field <code>.rv.data.UUID media_playlist_focus_uuid = 9;</code>
      * @param \Rv\Data\UUID $var
      * @return $this
      */
-    public function setAudioPlaylistItemTriggeredUuid($var)
+    public function setMediaPlaylistFocusUuid($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
         $this->writeOneof(9, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_focus_uuid = 10;</code>
+     * @return \Rv\Data\UUID|null
+     */
+    public function getLibraryPlaylistFocusUuid()
+    {
+        return $this->readOneof(10);
+    }
+
+    public function hasLibraryPlaylistFocusUuid()
+    {
+        return $this->hasOneof(10);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_focus_uuid = 10;</code>
+     * @param \Rv\Data\UUID $var
+     * @return $this
+     */
+    public function setLibraryPlaylistFocusUuid($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        $this->writeOneof(10, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_item_focus_uuid = 11;</code>
+     * @return \Rv\Data\UUID|null
+     */
+    public function getLibraryPlaylistItemFocusUuid()
+    {
+        return $this->readOneof(11);
+    }
+
+    public function hasLibraryPlaylistItemFocusUuid()
+    {
+        return $this->hasOneof(11);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_item_focus_uuid = 11;</code>
+     * @param \Rv\Data\UUID $var
+     * @return $this
+     */
+    public function setLibraryPlaylistItemFocusUuid($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        $this->writeOneof(11, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PropPauseResponse prop_pause = 12;</code>
+     * @return \Rv\Data\PropPauseResponse|null
+     */
+    public function getPropPause()
+    {
+        return $this->readOneof(12);
+    }
+
+    public function hasPropPause()
+    {
+        return $this->hasOneof(12);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PropPauseResponse prop_pause = 12;</code>
+     * @param \Rv\Data\PropPauseResponse $var
+     * @return $this
+     */
+    public function setPropPause($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\PropPauseResponse::class);
+        $this->writeOneof(12, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.ShowMessage show_message = 13;</code>
+     * @return \Rv\Data\ShowMessage|null
+     */
+    public function getShowMessage()
+    {
+        return $this->readOneof(13);
+    }
+
+    public function hasShowMessage()
+    {
+        return $this->hasOneof(13);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.ShowMessage show_message = 13;</code>
+     * @param \Rv\Data\ShowMessage $var
+     * @return $this
+     */
+    public function setShowMessage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\ShowMessage::class);
+        $this->writeOneof(13, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.GenericEvent hide_message = 14;</code>
+     * @return \Rv\Data\GenericEvent|null
+     */
+    public function getHideMessage()
+    {
+        return $this->readOneof(14);
+    }
+
+    public function hasHideMessage()
+    {
+        return $this->hasOneof(14);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.GenericEvent hide_message = 14;</code>
+     * @param \Rv\Data\GenericEvent $var
+     * @return $this
+     */
+    public function setHideMessage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\GenericEvent::class);
+        $this->writeOneof(14, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.GetMediaThumbnail get_media_thumbnail = 15;</code>
+     * @return \Rv\Data\GetMediaThumbnail|null
+     */
+    public function getGetMediaThumbnail()
+    {
+        return $this->readOneof(15);
+    }
+
+    public function hasGetMediaThumbnail()
+    {
+        return $this->hasOneof(15);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.GetMediaThumbnail get_media_thumbnail = 15;</code>
+     * @param \Rv\Data\GetMediaThumbnail $var
+     * @return $this
+     */
+    public function setGetMediaThumbnail($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\GetMediaThumbnail::class);
+        $this->writeOneof(15, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.RequestWebFillTokenAndCookies request_webfill_token_and_cookies = 16;</code>
+     * @return \Rv\Data\RequestWebFillTokenAndCookies|null
+     */
+    public function getRequestWebfillTokenAndCookies()
+    {
+        return $this->readOneof(16);
+    }
+
+    public function hasRequestWebfillTokenAndCookies()
+    {
+        return $this->hasOneof(16);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.RequestWebFillTokenAndCookies request_webfill_token_and_cookies = 16;</code>
+     * @param \Rv\Data\RequestWebFillTokenAndCookies $var
+     * @return $this
+     */
+    public function setRequestWebfillTokenAndCookies($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\RequestWebFillTokenAndCookies::class);
+        $this->writeOneof(16, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.MediaAssetTriggered media_asset_triggered = 17;</code>
+     * @return \Rv\Data\MediaAssetTriggered|null
+     */
+    public function getMediaAssetTriggered()
+    {
+        return $this->readOneof(17);
+    }
+
+    public function hasMediaAssetTriggered()
+    {
+        return $this->hasOneof(17);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.MediaAssetTriggered media_asset_triggered = 17;</code>
+     * @param \Rv\Data\MediaAssetTriggered $var
+     * @return $this
+     */
+    public function setMediaAssetTriggered($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\MediaAssetTriggered::class);
+        $this->writeOneof(17, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.LeaveBreadcrumb leave_breadcrumb = 18;</code>
+     * @return \Rv\Data\LeaveBreadcrumb|null
+     */
+    public function getLeaveBreadcrumb()
+    {
+        return $this->readOneof(18);
+    }
+
+    public function hasLeaveBreadcrumb()
+    {
+        return $this->hasOneof(18);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.LeaveBreadcrumb leave_breadcrumb = 18;</code>
+     * @param \Rv\Data\LeaveBreadcrumb $var
+     * @return $this
+     */
+    public function setLeaveBreadcrumb($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\LeaveBreadcrumb::class);
+        $this->writeOneof(18, $var);
 
         return $this;
     }

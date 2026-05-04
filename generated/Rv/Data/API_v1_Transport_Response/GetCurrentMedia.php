@@ -19,9 +19,9 @@ class GetCurrentMedia extends \Google\Protobuf\Internal\Message
      */
     protected $is_playing = false;
     /**
-     * Generated from protobuf field <code>.rv.data.UUID uuid = 2;</code>
+     * Generated from protobuf field <code>string uuid = 2;</code>
      */
-    protected $uuid = null;
+    protected $uuid = '';
     /**
      * Generated from protobuf field <code>string name = 3;</code>
      */
@@ -46,7 +46,7 @@ class GetCurrentMedia extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type bool $is_playing
-     *     @type \Rv\Data\UUID $uuid
+     *     @type string $uuid
      *     @type string $name
      *     @type string $artist
      *     @type bool $audio_only
@@ -81,32 +81,22 @@ class GetCurrentMedia extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.UUID uuid = 2;</code>
-     * @return \Rv\Data\UUID|null
+     * Generated from protobuf field <code>string uuid = 2;</code>
+     * @return string
      */
     public function getUuid()
     {
         return $this->uuid;
     }
 
-    public function hasUuid()
-    {
-        return isset($this->uuid);
-    }
-
-    public function clearUuid()
-    {
-        unset($this->uuid);
-    }
-
     /**
-     * Generated from protobuf field <code>.rv.data.UUID uuid = 2;</code>
-     * @param \Rv\Data\UUID $var
+     * Generated from protobuf field <code>string uuid = 2;</code>
+     * @param string $var
      * @return $this
      */
     public function setUuid($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        GPBUtil::checkString($var, True);
         $this->uuid = $var;
 
         return $this;

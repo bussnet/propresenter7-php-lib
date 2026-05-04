@@ -8,7 +8,7 @@ namespace Rv\Analytics\Create\Playlist;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Create.Playlist.Source</code>
+ * Protobuf type <code>rv.analytics.create.Playlist.Source</code>
  */
 class Source
 {
@@ -17,18 +17,18 @@ class Source
      */
     const SOURCE_UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>SOURCE_APPLICATION_MENU = 1;</code>
+     * Generated from protobuf enum <code>APPLICATION_MENU = 1;</code>
      */
-    const SOURCE_APPLICATION_MENU = 1;
+    const APPLICATION_MENU = 1;
     /**
-     * Generated from protobuf enum <code>SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;</code>
+     * Generated from protobuf enum <code>LIBRARY_OUTLINE_ADD_BUTTON = 2;</code>
      */
-    const SOURCE_LIBRARY_OUTLINE_ADD_BUTTON = 2;
+    const LIBRARY_OUTLINE_ADD_BUTTON = 2;
 
     private static $valueToName = [
         self::SOURCE_UNKNOWN => 'SOURCE_UNKNOWN',
-        self::SOURCE_APPLICATION_MENU => 'SOURCE_APPLICATION_MENU',
-        self::SOURCE_LIBRARY_OUTLINE_ADD_BUTTON => 'SOURCE_LIBRARY_OUTLINE_ADD_BUTTON',
+        self::APPLICATION_MENU => 'APPLICATION_MENU',
+        self::LIBRARY_OUTLINE_ADD_BUTTON => 'LIBRARY_OUTLINE_ADD_BUTTON',
     ];
 
     public static function name($value)
