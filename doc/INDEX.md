@@ -1,6 +1,6 @@
-# ProPresenter 7 PHP API — Documentation
+# ProPresenter 7 PHP Library — Documentation
 
-> Comprehensive reference for the [ProPresenter 7 PHP API](../README.md) library.
+> Comprehensive reference for the [ProPresenter 7 PHP Library](../README.md).
 >
 > Each document is self-contained — open the one that matches your task. If you don't know which to load, search [keywords.md](keywords.md) or scan the table below.
 

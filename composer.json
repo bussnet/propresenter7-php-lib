@@ -1,5 +1,5 @@
 {
-    "name": "bussnet/propresenter7-php-api",
+    "name": "bussnet/propresenter7-php-lib",
     "description": "PHP library to read, modify, and generate ProPresenter 7 files (.pro songs, .proplaylist, .probundle, themes, and global library files).",
     "type": "library",
     "license": "MIT",
@@ -16,10 +16,10 @@
         "proplaylist",
         "probundle"
     ],
-    "homepage": "https://github.com/bussnet/propresenter7-php-api",
+    "homepage": "https://github.com/bussnet/propresenter7-php-lib",
     "support": {
-        "issues": "https://github.com/bussnet/propresenter7-php-api/issues",
-        "source": "https://github.com/bussnet/propresenter7-php-api"
+        "issues": "https://github.com/bussnet/propresenter7-php-lib/issues",
+        "source": "https://github.com/bussnet/propresenter7-php-lib"
     },
     "authors": [
         {

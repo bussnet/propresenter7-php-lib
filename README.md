@@ -1,4 +1,4 @@
-# ProPresenter 7 PHP API
+# ProPresenter 7 PHP Library
 
 > A PHP library to **read, modify, and generate** [ProPresenter 7](https://renewedvision.com/propresenter/) files — songs, playlists, bundles, themes, and global library files.
 
@@ -84,14 +84,14 @@ ProPresenter 7 stores its data in protobuf-encoded binary files (with ZIP wrappe
 ## Installation
 
 ```bash
-composer require bussnet/propresenter7-php-api
+composer require bussnet/propresenter7-php-lib
 ```
 
 Or clone the repository to develop locally:
 
 ```bash
-git clone https://github.com/bussnet/propresenter7-php-api.git
-cd propresenter7-php-api
+git clone https://github.com/bussnet/propresenter7-php-lib.git
+cd propresenter7-php-lib
 composer install
 ```
 
