@@ -26,6 +26,10 @@ class PropDocument extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.Transition transition = 3;</code>
      */
     protected $transition = null;
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.PropDocument.PropCollection prop_collections = 4;</code>
+     */
+    private $prop_collections;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class PropDocument extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\ApplicationInfo $application_info
      *     @type array<\Rv\Data\Cue>|\Google\Protobuf\Internal\RepeatedField $cues
      *     @type \Rv\Data\Transition $transition
+     *     @type array<\Rv\Data\PropDocument\PropCollection>|\Google\Protobuf\Internal\RepeatedField $prop_collections
      * }
      */
     public function __construct($data = NULL) {
@@ -125,6 +130,28 @@ class PropDocument extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Transition::class);
         $this->transition = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.PropDocument.PropCollection prop_collections = 4;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getPropCollections()
+    {
+        return $this->prop_collections;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.PropDocument.PropCollection prop_collections = 4;</code>
+     * @param array<\Rv\Data\PropDocument\PropCollection>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setPropCollections($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\PropDocument\PropCollection::class);
+        $this->prop_collections = $arr;
 
         return $this;
     }

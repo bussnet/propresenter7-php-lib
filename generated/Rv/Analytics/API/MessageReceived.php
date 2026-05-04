@@ -3,14 +3,14 @@
 # NO CHECKED-IN PROTOBUF GENCODE
 # source: analyticsApi.proto
 
-namespace Rv\Analytics\API;
+namespace Rv\Analytics\Api;
 
 use Google\Protobuf\Internal\GPBType;
 use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.API.MessageReceived</code>
+ * Generated from protobuf message <code>rv.analytics.api.MessageReceived</code>
  */
 class MessageReceived extends \Google\Protobuf\Internal\Message
 {

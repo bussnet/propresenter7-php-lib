@@ -10,12 +10,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Sync.Local</code>
+ * Generated from protobuf message <code>rv.analytics.sync.Local</code>
  */
 class Local extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Sync.Local.SyncType sync_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.sync.Local.Type sync_type = 1;</code>
      */
     protected $sync_type = 0;
     /**
@@ -64,7 +64,7 @@ class Local extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Sync.Local.SyncType sync_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.sync.Local.Type sync_type = 1;</code>
      * @return int
      */
     public function getSyncType()
@@ -73,13 +73,13 @@ class Local extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Sync.Local.SyncType sync_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.sync.Local.Type sync_type = 1;</code>
      * @param int $var
      * @return $this
      */
     public function setSyncType($var)
     {
-        GPBUtil::checkEnum($var, \Rv\Analytics\Sync\Local\SyncType::class);
+        GPBUtil::checkEnum($var, \Rv\Analytics\Sync\Local\Type::class);
         $this->sync_type = $var;
 
         return $this;

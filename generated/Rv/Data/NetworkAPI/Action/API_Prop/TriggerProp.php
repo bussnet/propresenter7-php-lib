@@ -18,6 +18,10 @@ class TriggerProp extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.NetworkAPI.IndexOrNameIdentifier identifier = 1;</code>
      */
     protected $identifier = null;
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;</code>
+     */
+    private $index_path_components;
 
     /**
      * Constructor.
@@ -26,6 +30,7 @@ class TriggerProp extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Rv\Data\NetworkAPI\IndexOrNameIdentifier $identifier
+     *     @type array<\Rv\Data\NetworkAPI\IndexOrNameIdentifier>|\Google\Protobuf\Internal\RepeatedField $index_path_components
      * }
      */
     public function __construct($data = NULL) {
@@ -61,6 +66,28 @@ class TriggerProp extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\NetworkAPI\IndexOrNameIdentifier::class);
         $this->identifier = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;</code>
+     * @return \Google\Protobuf\Internal\RepeatedField
+     */
+    public function getIndexPathComponents()
+    {
+        return $this->index_path_components;
+    }
+
+    /**
+     * Generated from protobuf field <code>repeated .rv.data.NetworkAPI.IndexOrNameIdentifier index_path_components = 2;</code>
+     * @param array<\Rv\Data\NetworkAPI\IndexOrNameIdentifier>|\Google\Protobuf\Internal\RepeatedField $var
+     * @return $this
+     */
+    public function setIndexPathComponents($var)
+    {
+        $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\NetworkAPI\IndexOrNameIdentifier::class);
+        $this->index_path_components = $arr;
 
         return $this;
     }

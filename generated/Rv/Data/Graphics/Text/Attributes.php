@@ -66,6 +66,10 @@ class Attributes extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.Color background_color = 15;</code>
      */
     protected $background_color = null;
+    /**
+     * Generated from protobuf field <code>.rv.data.Graphics.Text.Attributes.LigatureStyle ligature_style = 19;</code>
+     */
+    protected $ligature_style = 0;
     protected $fill;
 
     /**
@@ -87,6 +91,7 @@ class Attributes extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\Color $stroke_color
      *     @type array<\Rv\Data\Graphics\Text\Attributes\CustomAttribute>|\Google\Protobuf\Internal\RepeatedField $custom_attributes
      *     @type \Rv\Data\Color $background_color
+     *     @type int $ligature_style
      *     @type \Rv\Data\Color $text_solid_fill
      *     @type \Rv\Data\Graphics\Text\GradientFill $text_gradient_fill
      *     @type \Rv\Data\Graphics\Text\CutOutFill $cut_out_fill
@@ -461,6 +466,28 @@ class Attributes extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Color::class);
         $this->background_color = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Graphics.Text.Attributes.LigatureStyle ligature_style = 19;</code>
+     * @return int
+     */
+    public function getLigatureStyle()
+    {
+        return $this->ligature_style;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Graphics.Text.Attributes.LigatureStyle ligature_style = 19;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setLigatureStyle($var)
+    {
+        GPBUtil::checkEnum($var, \Rv\Data\Graphics\Text\Attributes\LigatureStyle::class);
+        $this->ligature_style = $var;
 
         return $this;
     }

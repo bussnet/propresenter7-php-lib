@@ -26,6 +26,10 @@ class DowngradeAvailable extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string release_notes = 3;</code>
      */
     protected $release_notes = '';
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     */
+    protected $client_alert = 0;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class DowngradeAvailable extends \Google\Protobuf\Internal\Message
      *     @type int $status
      *     @type \Registration\Core\BuildInformation $downgrade
      *     @type string $release_notes
+     *     @type int $client_alert
      * }
      */
     public function __construct($data = NULL) {
@@ -115,6 +120,28 @@ class DowngradeAvailable extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->release_notes = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     * @return int
+     */
+    public function getClientAlert()
+    {
+        return $this->client_alert;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 4;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setClientAlert($var)
+    {
+        GPBUtil::checkEnum($var, \Registration\Core\ClientAlertMessage::class);
+        $this->client_alert = $var;
 
         return $this;
     }

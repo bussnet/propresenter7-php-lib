@@ -22,6 +22,10 @@ class TriggerMessage extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .rv.data.API_v1_Message.API_v1_MessageToken tokens = 2;</code>
      */
     private $tokens;
+    /**
+     * Generated from protobuf field <code>bool requires_confirmation = 3;</code>
+     */
+    protected $requires_confirmation = false;
 
     /**
      * Constructor.
@@ -31,6 +35,7 @@ class TriggerMessage extends \Google\Protobuf\Internal\Message
      *
      *     @type string $id
      *     @type array<\Rv\Data\API_v1_Message\API_v1_MessageToken>|\Google\Protobuf\Internal\RepeatedField $tokens
+     *     @type bool $requires_confirmation
      * }
      */
     public function __construct($data = NULL) {
@@ -78,6 +83,28 @@ class TriggerMessage extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Rv\Data\API_v1_Message\API_v1_MessageToken::class);
         $this->tokens = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool requires_confirmation = 3;</code>
+     * @return bool
+     */
+    public function getRequiresConfirmation()
+    {
+        return $this->requires_confirmation;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool requires_confirmation = 3;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setRequiresConfirmation($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->requires_confirmation = $var;
 
         return $this;
     }

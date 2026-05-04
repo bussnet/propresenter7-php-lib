@@ -8,27 +8,27 @@ namespace Rv\Analytics\Timeline\Action;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Timeline.Action.ActionType</code>
+ * Protobuf type <code>rv.analytics.timeline.Action.ActionType</code>
  */
 class ActionType
 {
     /**
-     * Generated from protobuf enum <code>ACTION_TYPE_PLAY = 0;</code>
+     * Generated from protobuf enum <code>PLAY = 0;</code>
      */
-    const ACTION_TYPE_PLAY = 0;
+    const PLAY = 0;
     /**
-     * Generated from protobuf enum <code>ACTION_TYPE_STOP = 1;</code>
+     * Generated from protobuf enum <code>STOP = 1;</code>
      */
-    const ACTION_TYPE_STOP = 1;
+    const STOP = 1;
     /**
-     * Generated from protobuf enum <code>ACTION_TYPE_RESET = 2;</code>
+     * Generated from protobuf enum <code>RESET = 2;</code>
      */
-    const ACTION_TYPE_RESET = 2;
+    const RESET = 2;
 
     private static $valueToName = [
-        self::ACTION_TYPE_PLAY => 'ACTION_TYPE_PLAY',
-        self::ACTION_TYPE_STOP => 'ACTION_TYPE_STOP',
-        self::ACTION_TYPE_RESET => 'ACTION_TYPE_RESET',
+        self::PLAY => 'PLAY',
+        self::STOP => 'STOP',
+        self::RESET => 'RESET',
     ];
 
     public static function name($value)

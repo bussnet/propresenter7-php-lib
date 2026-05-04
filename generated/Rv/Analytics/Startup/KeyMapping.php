@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Startup.KeyMapping</code>
+ * Generated from protobuf message <code>rv.analytics.startup.KeyMapping</code>
  */
 class KeyMapping extends \Google\Protobuf\Internal\Message
 {

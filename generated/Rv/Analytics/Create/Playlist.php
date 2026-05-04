@@ -10,16 +10,16 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Create.Playlist</code>
+ * Generated from protobuf message <code>rv.analytics.create.Playlist</code>
  */
 class Playlist extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Source source = 1;</code>
      */
     protected $source = 0;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Type type = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Type type = 2;</code>
      */
     protected $type = 0;
 
@@ -39,7 +39,7 @@ class Playlist extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Source source = 1;</code>
      * @return int
      */
     public function getSource()
@@ -48,7 +48,7 @@ class Playlist extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Source source = 1;</code>
      * @param int $var
      * @return $this
      */
@@ -61,7 +61,7 @@ class Playlist extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Type type = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Type type = 2;</code>
      * @return int
      */
     public function getType()
@@ -70,7 +70,7 @@ class Playlist extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Playlist.Type type = 2;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist.Type type = 2;</code>
      * @param int $var
      * @return $this
      */

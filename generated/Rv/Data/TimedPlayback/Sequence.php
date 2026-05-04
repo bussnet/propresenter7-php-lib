@@ -26,6 +26,10 @@ class Sequence extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.Presentation presentation = 3;</code>
      */
     protected $presentation = null;
+    /**
+     * Generated from protobuf field <code>.rv.data.Playlist playlist = 4;</code>
+     */
+    protected $playlist = null;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class Sequence extends \Google\Protobuf\Internal\Message
      *     @type array<\Rv\Data\TimedPlayback\Sequence\SequenceItem>|\Google\Protobuf\Internal\RepeatedField $sequence
      *     @type int $content_destination
      *     @type \Rv\Data\Presentation $presentation
+     *     @type \Rv\Data\Playlist $playlist
      * }
      */
     public function __construct($data = NULL) {
@@ -115,6 +120,38 @@ class Sequence extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Presentation::class);
         $this->presentation = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Playlist playlist = 4;</code>
+     * @return \Rv\Data\Playlist|null
+     */
+    public function getPlaylist()
+    {
+        return $this->playlist;
+    }
+
+    public function hasPlaylist()
+    {
+        return isset($this->playlist);
+    }
+
+    public function clearPlaylist()
+    {
+        unset($this->playlist);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Playlist playlist = 4;</code>
+     * @param \Rv\Data\Playlist $var
+     * @return $this
+     */
+    public function setPlaylist($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Playlist::class);
+        $this->playlist = $var;
 
         return $this;
     }

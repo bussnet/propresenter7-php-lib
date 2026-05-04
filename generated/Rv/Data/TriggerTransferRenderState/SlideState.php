@@ -46,6 +46,14 @@ class SlideState extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>int32 current_playlist_index = 8;</code>
      */
     protected $current_playlist_index = 0;
+    /**
+     * Generated from protobuf field <code>bool is_current_position = 9;</code>
+     */
+    protected $is_current_position = false;
+    /**
+     * Generated from protobuf field <code>.rv.data.TriggerTransferRenderState.SlideState.TriggerSource trigger_source = 10;</code>
+     */
+    protected $trigger_source = 0;
 
     /**
      * Constructor.
@@ -61,6 +69,8 @@ class SlideState extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\TriggerTransferRenderState\TimelineState $timeline_state
      *     @type int $current_cue_index
      *     @type int $current_playlist_index
+     *     @type bool $is_current_position
+     *     @type int $trigger_source
      * }
      */
     public function __construct($data = NULL) {
@@ -300,6 +310,50 @@ class SlideState extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkInt32($var);
         $this->current_playlist_index = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool is_current_position = 9;</code>
+     * @return bool
+     */
+    public function getIsCurrentPosition()
+    {
+        return $this->is_current_position;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool is_current_position = 9;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setIsCurrentPosition($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->is_current_position = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.TriggerTransferRenderState.SlideState.TriggerSource trigger_source = 10;</code>
+     * @return int
+     */
+    public function getTriggerSource()
+    {
+        return $this->trigger_source;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.TriggerTransferRenderState.SlideState.TriggerSource trigger_source = 10;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setTriggerSource($var)
+    {
+        GPBUtil::checkEnum($var, \Rv\Data\TriggerTransferRenderState\SlideState\TriggerSource::class);
+        $this->trigger_source = $var;
 
         return $this;
     }

@@ -10,12 +10,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Create.Presentation</code>
+ * Generated from protobuf message <code>rv.analytics.create.Presentation</code>
  */
 class Presentation extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Presentation.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Presentation.Source source = 1;</code>
      */
     protected $source = 0;
 
@@ -34,7 +34,7 @@ class Presentation extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Presentation.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Presentation.Source source = 1;</code>
      * @return int
      */
     public function getSource()
@@ -43,7 +43,7 @@ class Presentation extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create.Presentation.Source source = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.create.Presentation.Source source = 1;</code>
      * @param int $var
      * @return $this
      */

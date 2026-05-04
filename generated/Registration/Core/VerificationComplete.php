@@ -42,6 +42,14 @@ class VerificationComplete extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.registration.core.BannerMessage banner = 7;</code>
      */
     protected $banner = 0;
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 8;</code>
+     */
+    protected $client_alert = 0;
+    /**
+     * Generated from protobuf field <code>bool fully_launched = 9;</code>
+     */
+    protected $fully_launched = false;
 
     /**
      * Constructor.
@@ -56,6 +64,8 @@ class VerificationComplete extends \Google\Protobuf\Internal\Message
      *     @type \Registration\Core\SubscriptionInfo $subscription_info
      *     @type int $alert
      *     @type int $banner
+     *     @type int $client_alert
+     *     @type bool $fully_launched
      * }
      */
     public function __construct($data = NULL) {
@@ -253,6 +263,50 @@ class VerificationComplete extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkEnum($var, \Registration\Core\BannerMessage::class);
         $this->banner = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 8;</code>
+     * @return int
+     */
+    public function getClientAlert()
+    {
+        return $this->client_alert;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 8;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setClientAlert($var)
+    {
+        GPBUtil::checkEnum($var, \Registration\Core\ClientAlertMessage::class);
+        $this->client_alert = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool fully_launched = 9;</code>
+     * @return bool
+     */
+    public function getFullyLaunched()
+    {
+        return $this->fully_launched;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool fully_launched = 9;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setFullyLaunched($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->fully_launched = $var;
 
         return $this;
     }

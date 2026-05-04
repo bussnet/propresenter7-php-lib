@@ -15,7 +15,11 @@ use Google\Protobuf\Internal\GPBUtil;
 class API_v1_MessageToken extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>string name = 1;</code>
+     * Generated from protobuf field <code>string uuid = 1;</code>
+     */
+    protected $uuid = '';
+    /**
+     * Generated from protobuf field <code>string name = 2;</code>
      */
     protected $name = '';
     protected $TokenType;
@@ -26,6 +30,7 @@ class API_v1_MessageToken extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
+     *     @type string $uuid
      *     @type string $name
      *     @type \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TextToken $text
      *     @type \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken $timer
@@ -38,7 +43,29 @@ class API_v1_MessageToken extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 1;</code>
+     * Generated from protobuf field <code>string uuid = 1;</code>
+     * @return string
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * Generated from protobuf field <code>string uuid = 1;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setUuid($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->uuid = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>string name = 2;</code>
      * @return string
      */
     public function getName()
@@ -47,7 +74,7 @@ class API_v1_MessageToken extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>string name = 1;</code>
+     * Generated from protobuf field <code>string name = 2;</code>
      * @param string $var
      * @return $this
      */
@@ -60,82 +87,82 @@ class API_v1_MessageToken extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 2;</code>
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 3;</code>
      * @return \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TextToken|null
      */
     public function getText()
     {
-        return $this->readOneof(2);
+        return $this->readOneof(3);
     }
 
     public function hasText()
     {
-        return $this->hasOneof(2);
+        return $this->hasOneof(3);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 2;</code>
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TextToken text = 3;</code>
      * @param \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TextToken $var
      * @return $this
      */
     public function setText($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TextToken::class);
-        $this->writeOneof(2, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 3;</code>
-     * @return \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken|null
-     */
-    public function getTimer()
-    {
-        return $this->readOneof(3);
-    }
-
-    public function hasTimer()
-    {
-        return $this->hasOneof(3);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 3;</code>
-     * @param \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken $var
-     * @return $this
-     */
-    public function setTimer($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken::class);
         $this->writeOneof(3, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 4;</code>
-     * @return \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_ClockToken|null
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 4;</code>
+     * @return \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken|null
      */
-    public function getClock()
+    public function getTimer()
     {
         return $this->readOneof(4);
     }
 
-    public function hasClock()
+    public function hasTimer()
     {
         return $this->hasOneof(4);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 4;</code>
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_TimerToken timer = 4;</code>
+     * @param \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken $var
+     * @return $this
+     */
+    public function setTimer($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_TimerToken::class);
+        $this->writeOneof(4, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 5;</code>
+     * @return \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_ClockToken|null
+     */
+    public function getClock()
+    {
+        return $this->readOneof(5);
+    }
+
+    public function hasClock()
+    {
+        return $this->hasOneof(5);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Message.API_v1_MessageToken.API_v1_ClockToken clock = 5;</code>
      * @param \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_ClockToken $var
      * @return $this
      */
     public function setClock($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\API_v1_Message\API_v1_MessageToken\API_v1_ClockToken::class);
-        $this->writeOneof(4, $var);
+        $this->writeOneof(5, $var);
 
         return $this;
     }

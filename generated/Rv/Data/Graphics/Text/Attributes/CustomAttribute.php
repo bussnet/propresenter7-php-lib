@@ -36,6 +36,7 @@ class CustomAttribute extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\Graphics\Text\CutOutFill $cut_out_fill
      *     @type \Rv\Data\Graphics\Text\MediaFill $media_fill
      *     @type \Rv\Data\Graphics\BackgroundEffect $background_effect
+     *     @type int $character_size_mode
      * }
      */
     public function __construct($data = NULL) {
@@ -314,6 +315,33 @@ class CustomAttribute extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Graphics\BackgroundEffect::class);
         $this->writeOneof(10, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Graphics.Text.Attributes.CharacterSizeMode character_size_mode = 11;</code>
+     * @return int
+     */
+    public function getCharacterSizeMode()
+    {
+        return $this->readOneof(11);
+    }
+
+    public function hasCharacterSizeMode()
+    {
+        return $this->hasOneof(11);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Graphics.Text.Attributes.CharacterSizeMode character_size_mode = 11;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setCharacterSizeMode($var)
+    {
+        GPBUtil::checkEnum($var, \Rv\Data\Graphics\Text\Attributes\CharacterSizeMode::class);
+        $this->writeOneof(11, $var);
 
         return $this;
     }

@@ -22,6 +22,18 @@ class API_v1_PropData extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>bool is_active = 2;</code>
      */
     protected $is_active = false;
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     */
+    protected $auto_clear_enabled = false;
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     */
+    protected $auto_clear_duration = 0.0;
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Transition transition = 5;</code>
+     */
+    protected $transition = null;
 
     /**
      * Constructor.
@@ -31,6 +43,9 @@ class API_v1_PropData extends \Google\Protobuf\Internal\Message
      *
      *     @type \Rv\Data\API_v1_Identifier $id
      *     @type bool $is_active
+     *     @type bool $auto_clear_enabled
+     *     @type float $auto_clear_duration
+     *     @type \Rv\Data\API_v1_Transition $transition
      * }
      */
     public function __construct($data = NULL) {
@@ -88,6 +103,82 @@ class API_v1_PropData extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkBool($var);
         $this->is_active = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     * @return bool
+     */
+    public function getAutoClearEnabled()
+    {
+        return $this->auto_clear_enabled;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool auto_clear_enabled = 3;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setAutoClearEnabled($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->auto_clear_enabled = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     * @return float
+     */
+    public function getAutoClearDuration()
+    {
+        return $this->auto_clear_duration;
+    }
+
+    /**
+     * Generated from protobuf field <code>double auto_clear_duration = 4;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setAutoClearDuration($var)
+    {
+        GPBUtil::checkDouble($var);
+        $this->auto_clear_duration = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Transition transition = 5;</code>
+     * @return \Rv\Data\API_v1_Transition|null
+     */
+    public function getTransition()
+    {
+        return $this->transition;
+    }
+
+    public function hasTransition()
+    {
+        return isset($this->transition);
+    }
+
+    public function clearTransition()
+    {
+        unset($this->transition);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Transition transition = 5;</code>
+     * @param \Rv\Data\API_v1_Transition $var
+     * @return $this
+     */
+    public function setTransition($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Transition::class);
+        $this->transition = $var;
 
         return $this;
     }

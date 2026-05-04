@@ -16,12 +16,13 @@ class PresentationSlide
           return;
         }
         \GPBMetadata\AlignmentGuide::initOnce();
+        \GPBMetadata\CustomOptions::initOnce();
         \GPBMetadata\Effects::initOnce();
         \GPBMetadata\GraphicsData::initOnce();
         \GPBMetadata\Slide::initOnce();
         \GPBMetadata\Url::initOnce();
         $pool->internalAddGeneratedFile(
-            "\x0A\xDA\x03\x0A\x17presentationSlide.proto\x12\x07rv.data\x1A\x0Deffects.proto\x1A\x12graphicsData.proto\x1A\x0Bslide.proto\x1A\x09url.proto\"\xBC\x02\x0A\x11PresentationSlide\x12\"\x0A\x0Abase_slide\x18\x01 \x01(\x0B2\x0E.rv.data.Slide\x12/\x0A\x05notes\x18\x02 \x01(\x0B2 .rv.data.PresentationSlide.Notes\x124\x0A\x13template_guidelines\x18\x03 \x03(\x0B2\x17.rv.data.AlignmentGuide\x12!\x0A\x0Bchord_chart\x18\x04 \x01(\x0B2\x0C.rv.data.URL\x12'\x0A\x0Atransition\x18\x05 \x01(\x0B2\x13.rv.data.Transition\x1AP\x0A\x05Notes\x12\x10\x0A\x08rtf_data\x18\x01 \x01(\x0C\x125\x0A\x0Aattributes\x18\x02 \x01(\x0B2!.rv.data.Graphics.Text.AttributesB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
+            "\x0A\xEF\x03\x0A\x17presentationSlide.proto\x12\x07rv.data\x1A\x13customOptions.proto\x1A\x0Deffects.proto\x1A\x12graphicsData.proto\x1A\x0Bslide.proto\x1A\x09url.proto\"\xBC\x02\x0A\x11PresentationSlide\x12\"\x0A\x0Abase_slide\x18\x01 \x01(\x0B2\x0E.rv.data.Slide\x12/\x0A\x05notes\x18\x02 \x01(\x0B2 .rv.data.PresentationSlide.Notes\x124\x0A\x13template_guidelines\x18\x03 \x03(\x0B2\x17.rv.data.AlignmentGuide\x12!\x0A\x0Bchord_chart\x18\x04 \x01(\x0B2\x0C.rv.data.URL\x12'\x0A\x0Atransition\x18\x05 \x01(\x0B2\x13.rv.data.Transition\x1AP\x0A\x05Notes\x12\x10\x0A\x08rtf_data\x18\x01 \x01(\x0C\x125\x0A\x0Aattributes\x18\x02 \x01(\x0B2!.rv.data.Graphics.Text.AttributesB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

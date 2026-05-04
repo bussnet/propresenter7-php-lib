@@ -15,10 +15,11 @@ class PropSlide
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         \GPBMetadata\Slide::initOnce();
         \GPBMetadata\Effects::initOnce();
         $pool->internalAddGeneratedFile(
-            "\x0A\xC1\x01\x0A\x0FpropSlide.proto\x12\x07rv.data\x1A\x0Deffects.proto\"X\x0A\x09PropSlide\x12\"\x0A\x0Abase_slide\x18\x01 \x01(\x0B2\x0E.rv.data.Slide\x12'\x0A\x0Atransition\x18\x02 \x01(\x0B2\x13.rv.data.TransitionB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
+            "\x0A\x88\x02\x0A\x0FpropSlide.proto\x12\x07rv.data\x1A\x0Bslide.proto\x1A\x0Deffects.proto\"\x91\x01\x0A\x09PropSlide\x12\"\x0A\x0Abase_slide\x18\x01 \x01(\x0B2\x0E.rv.data.Slide\x12'\x0A\x0Atransition\x18\x02 \x01(\x0B2\x13.rv.data.Transition\x12\x1A\x0A\x12auto_clear_enabled\x18\x03 \x01(\x08\x12\x1B\x0A\x13auto_clear_duration\x18\x04 \x01(\x01B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

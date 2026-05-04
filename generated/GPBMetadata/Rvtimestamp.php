@@ -15,6 +15,7 @@ class Rvtimestamp
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         $pool->internalAddGeneratedFile(
             "\x0A\x87\x01\x0A\x11rvtimestamp.proto\x12\x07rv.data\"+\x0A\x09Timestamp\x12\x0F\x0A\x07seconds\x18\x01 \x01(\x03\x12\x0D\x0A\x05nanos\x18\x02 \x01(\x05B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);

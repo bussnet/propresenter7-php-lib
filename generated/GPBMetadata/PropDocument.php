@@ -17,9 +17,11 @@ class PropDocument
         }
         \GPBMetadata\ApplicationInfo::initOnce();
         \GPBMetadata\Cue::initOnce();
+        \GPBMetadata\CustomOptions::initOnce();
         \GPBMetadata\Effects::initOnce();
+        \GPBMetadata\Uuid::initOnce();
         $pool->internalAddGeneratedFile(
-            "\x0A\xFF\x01\x0A\x12propDocument.proto\x12\x07rv.data\x1A\x09cue.proto\x1A\x0Deffects.proto\"\x87\x01\x0A\x0CPropDocument\x122\x0A\x10application_info\x18\x01 \x01(\x0B2\x18.rv.data.ApplicationInfo\x12\x1A\x0A\x04cues\x18\x02 \x03(\x0B2\x0C.rv.data.Cue\x12'\x0A\x0Atransition\x18\x03 \x01(\x0B2\x13.rv.data.TransitionB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
+            "\x0A\xCD\x04\x0A\x12propDocument.proto\x12\x07rv.data\x1A\x09cue.proto\x1A\x13customOptions.proto\x1A\x0Deffects.proto\x1A\x0Auuid.proto\"\xB4\x03\x0A\x0CPropDocument\x122\x0A\x10application_info\x18\x01 \x01(\x0B2\x18.rv.data.ApplicationInfo\x12\x1A\x0A\x04cues\x18\x02 \x03(\x0B2\x0C.rv.data.Cue\x12'\x0A\x0Atransition\x18\x03 \x01(\x0B2\x13.rv.data.Transition\x12>\x0A\x10prop_collections\x18\x04 \x03(\x0B2\$.rv.data.PropDocument.PropCollection\x1A\xEA\x01\x0A\x0EPropCollection\x12\x1B\x0A\x04uuid\x18\x01 \x01(\x0B2\x0D.rv.data.UUID\x12\x0C\x0A\x04name\x18\x02 \x01(\x09\x128\x0A\x05items\x18\x03 \x03(\x0B2).rv.data.PropDocument.PropCollection.Item\x12\x1B\x0A\x13single_prop_enabled\x18\x04 \x01(\x08\x12\x1A\x0A\x04cues\x18\x05 \x03(\x0B2\x0C.rv.data.Cue\x1A:\x0A\x04Item\x12&\x0A\x0Dprop_cue_uuid\x18\x01 \x01(\x0B2\x0D.rv.data.UUIDH\x00B\x0A\x0A\x08ItemTypeB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

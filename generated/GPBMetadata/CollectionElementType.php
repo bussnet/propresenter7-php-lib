@@ -15,9 +15,10 @@ class CollectionElementType
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         \GPBMetadata\Uuid::initOnce();
         $pool->internalAddGeneratedFile(
-            "\x0A\xF8\x01\x0A\x1BcollectionElementType.proto\x12\x07rv.data\"\x91\x01\x0A\x15CollectionElementType\x12%\x0A\x0Eparameter_uuid\x18\x01 \x01(\x0B2\x0D.rv.data.UUID\x12\x16\x0A\x0Eparameter_name\x18\x02 \x01(\x09\x129\x0A\x11parent_collection\x18\x03 \x01(\x0B2\x1E.rv.data.CollectionElementTypeB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
+            "\x0A\x84\x02\x0A\x1BcollectionElementType.proto\x12\x07rv.data\x1A\x0Auuid.proto\"\x91\x01\x0A\x15CollectionElementType\x12%\x0A\x0Eparameter_uuid\x18\x01 \x01(\x0B2\x0D.rv.data.UUID\x12\x16\x0A\x0Eparameter_name\x18\x02 \x01(\x09\x129\x0A\x11parent_collection\x18\x03 \x01(\x0B2\x1E.rv.data.CollectionElementTypeB4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

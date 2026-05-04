@@ -18,6 +18,7 @@ class PropType extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.CollectionElementType identification = 3;</code>
      */
     protected $identification = null;
+    protected $TriggerType;
 
     /**
      * Constructor.
@@ -26,6 +27,8 @@ class PropType extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type \Rv\Data\CollectionElementType $identification
+     *     @type \Rv\Data\Action\PropType\PropTrigger $trigger
+     *     @type \Rv\Data\Action\PropType\PropClear $clear
      * }
      */
     public function __construct($data = NULL) {
@@ -63,6 +66,68 @@ class PropType extends \Google\Protobuf\Internal\Message
         $this->identification = $var;
 
         return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Action.PropType.PropTrigger trigger = 4;</code>
+     * @return \Rv\Data\Action\PropType\PropTrigger|null
+     */
+    public function getTrigger()
+    {
+        return $this->readOneof(4);
+    }
+
+    public function hasTrigger()
+    {
+        return $this->hasOneof(4);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Action.PropType.PropTrigger trigger = 4;</code>
+     * @param \Rv\Data\Action\PropType\PropTrigger $var
+     * @return $this
+     */
+    public function setTrigger($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Action\PropType\PropTrigger::class);
+        $this->writeOneof(4, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Action.PropType.PropClear clear = 5;</code>
+     * @return \Rv\Data\Action\PropType\PropClear|null
+     */
+    public function getClear()
+    {
+        return $this->readOneof(5);
+    }
+
+    public function hasClear()
+    {
+        return $this->hasOneof(5);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Action.PropType.PropClear clear = 5;</code>
+     * @param \Rv\Data\Action\PropType\PropClear $var
+     * @return $this
+     */
+    public function setClear($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Action\PropType\PropClear::class);
+        $this->writeOneof(5, $var);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTriggerType()
+    {
+        return $this->whichOneof("TriggerType");
     }
 
 }

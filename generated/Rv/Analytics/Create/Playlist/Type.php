@@ -8,7 +8,7 @@ namespace Rv\Analytics\Create\Playlist;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Create.Playlist.Type</code>
+ * Protobuf type <code>rv.analytics.create.Playlist.Type</code>
  */
 class Type
 {
@@ -17,28 +17,28 @@ class Type
      */
     const TYPE_UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>TYPE_PRESENTATION = 1;</code>
+     * Generated from protobuf enum <code>PRESENTATION = 1;</code>
      */
-    const TYPE_PRESENTATION = 1;
+    const PRESENTATION = 1;
     /**
-     * Generated from protobuf enum <code>TYPE_PLANNING_CENTER = 2;</code>
+     * Generated from protobuf enum <code>PLANNING_CENTER = 2;</code>
      */
-    const TYPE_PLANNING_CENTER = 2;
+    const PLANNING_CENTER = 2;
     /**
-     * Generated from protobuf enum <code>TYPE_FOLDER = 3;</code>
+     * Generated from protobuf enum <code>FOLDER = 3;</code>
      */
-    const TYPE_FOLDER = 3;
+    const FOLDER = 3;
     /**
-     * Generated from protobuf enum <code>TYPE_TEMPLATE_PLAYLIST = 4;</code>
+     * Generated from protobuf enum <code>TEMPLATE_PLAYLIST = 4;</code>
      */
-    const TYPE_TEMPLATE_PLAYLIST = 4;
+    const TEMPLATE_PLAYLIST = 4;
 
     private static $valueToName = [
         self::TYPE_UNKNOWN => 'TYPE_UNKNOWN',
-        self::TYPE_PRESENTATION => 'TYPE_PRESENTATION',
-        self::TYPE_PLANNING_CENTER => 'TYPE_PLANNING_CENTER',
-        self::TYPE_FOLDER => 'TYPE_FOLDER',
-        self::TYPE_TEMPLATE_PLAYLIST => 'TYPE_TEMPLATE_PLAYLIST',
+        self::PRESENTATION => 'PRESENTATION',
+        self::PLANNING_CENTER => 'PLANNING_CENTER',
+        self::FOLDER => 'FOLDER',
+        self::TEMPLATE_PLAYLIST => 'TEMPLATE_PLAYLIST',
     ];
 
     public static function name($value)

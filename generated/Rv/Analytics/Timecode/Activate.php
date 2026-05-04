@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Timecode.Activate</code>
+ * Generated from protobuf message <code>rv.analytics.timecode.Activate</code>
  */
 class Activate extends \Google\Protobuf\Internal\Message
 {

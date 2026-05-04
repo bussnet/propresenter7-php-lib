@@ -55,6 +55,10 @@ class DataLink extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\Slide\Element\DataLink\PlaybackMarkerIdentifier $playback_marker_color
      *     @type \Rv\Data\Slide\Element\DataLink\TimecodeText $timecode_text
      *     @type \Rv\Data\Slide\Element\DataLink\TimecodeStatus $timecode_status
+     *     @type \Rv\Data\Message $message_text
+     *     @type \Rv\Data\Slide\Element\DataLink\KeyValueText $key_value_text
+     *     @type \Rv\Data\Slide\Element\DataLink\KeyValueFill $key_value_fill
+     *     @type \Rv\Data\Slide\Element\DataLink\Zone $zone
      * }
      */
     public function __construct($data = NULL) {
@@ -949,6 +953,114 @@ class DataLink extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\Slide\Element\DataLink\TimecodeStatus::class);
         $this->writeOneof(34, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Message message_text = 35;</code>
+     * @return \Rv\Data\Message|null
+     */
+    public function getMessageText()
+    {
+        return $this->readOneof(35);
+    }
+
+    public function hasMessageText()
+    {
+        return $this->hasOneof(35);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Message message_text = 35;</code>
+     * @param \Rv\Data\Message $var
+     * @return $this
+     */
+    public function setMessageText($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Message::class);
+        $this->writeOneof(35, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.KeyValueText key_value_text = 36;</code>
+     * @return \Rv\Data\Slide\Element\DataLink\KeyValueText|null
+     */
+    public function getKeyValueText()
+    {
+        return $this->readOneof(36);
+    }
+
+    public function hasKeyValueText()
+    {
+        return $this->hasOneof(36);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.KeyValueText key_value_text = 36;</code>
+     * @param \Rv\Data\Slide\Element\DataLink\KeyValueText $var
+     * @return $this
+     */
+    public function setKeyValueText($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Slide\Element\DataLink\KeyValueText::class);
+        $this->writeOneof(36, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.KeyValueFill key_value_fill = 37;</code>
+     * @return \Rv\Data\Slide\Element\DataLink\KeyValueFill|null
+     */
+    public function getKeyValueFill()
+    {
+        return $this->readOneof(37);
+    }
+
+    public function hasKeyValueFill()
+    {
+        return $this->hasOneof(37);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.KeyValueFill key_value_fill = 37;</code>
+     * @param \Rv\Data\Slide\Element\DataLink\KeyValueFill $var
+     * @return $this
+     */
+    public function setKeyValueFill($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Slide\Element\DataLink\KeyValueFill::class);
+        $this->writeOneof(37, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.Zone zone = 38;</code>
+     * @return \Rv\Data\Slide\Element\DataLink\Zone|null
+     */
+    public function getZone()
+    {
+        return $this->readOneof(38);
+    }
+
+    public function hasZone()
+    {
+        return $this->hasOneof(38);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Slide.Element.DataLink.Zone zone = 38;</code>
+     * @param \Rv\Data\Slide\Element\DataLink\Zone $var
+     * @return $this
+     */
+    public function setZone($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Slide\Element\DataLink\Zone::class);
+        $this->writeOneof(38, $var);
 
         return $this;
     }

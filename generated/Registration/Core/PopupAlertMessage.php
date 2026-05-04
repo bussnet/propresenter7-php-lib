@@ -17,28 +17,48 @@ class PopupAlertMessage
      */
     const NoPopupAlert = 0;
     /**
-     * Generated from protobuf enum <code>Activation = 1;</code>
+     * Generated from protobuf enum <code>SeatActivated = 1;</code>
      */
-    const Activation = 1;
+    const SeatActivated = 1;
     /**
-     * Generated from protobuf enum <code>ActivationNoSeat = 2;</code>
+     * Generated from protobuf enum <code>NoSeatActivated = 2;</code>
      */
-    const ActivationNoSeat = 2;
+    const NoSeatActivated = 2;
     /**
-     * Generated from protobuf enum <code>NotSignedIn = 3;</code>
+     * Generated from protobuf enum <code>NoLicenseActivated = 3;</code>
      */
-    const NotSignedIn = 3;
+    const NoLicenseActivated = 3;
     /**
-     * Generated from protobuf enum <code>SignedInNoSubscription = 4;</code>
+     * Generated from protobuf enum <code>LegacyLicenseProContentActivated = 4;</code>
      */
-    const SignedInNoSubscription = 4;
+    const LegacyLicenseProContentActivated = 4;
+    /**
+     * Generated from protobuf enum <code>FirstLaunchLegacyLicense = 5;</code>
+     */
+    const FirstLaunchLegacyLicense = 5;
+    /**
+     * Generated from protobuf enum <code>FullySignedOut = 6;</code>
+     */
+    const FullySignedOut = 6;
+    /**
+     * Generated from protobuf enum <code>FirstLaunchSignedInNoSubscriptionNoLicense = 7;</code>
+     */
+    const FirstLaunchSignedInNoSubscriptionNoLicense = 7;
+    /**
+     * Generated from protobuf enum <code>FirstLaunchSignedInNoSubscriptionLegacyLicense = 8;</code>
+     */
+    const FirstLaunchSignedInNoSubscriptionLegacyLicense = 8;
 
     private static $valueToName = [
         self::NoPopupAlert => 'NoPopupAlert',
-        self::Activation => 'Activation',
-        self::ActivationNoSeat => 'ActivationNoSeat',
-        self::NotSignedIn => 'NotSignedIn',
-        self::SignedInNoSubscription => 'SignedInNoSubscription',
+        self::SeatActivated => 'SeatActivated',
+        self::NoSeatActivated => 'NoSeatActivated',
+        self::NoLicenseActivated => 'NoLicenseActivated',
+        self::LegacyLicenseProContentActivated => 'LegacyLicenseProContentActivated',
+        self::FirstLaunchLegacyLicense => 'FirstLaunchLegacyLicense',
+        self::FullySignedOut => 'FullySignedOut',
+        self::FirstLaunchSignedInNoSubscriptionNoLicense => 'FirstLaunchSignedInNoSubscriptionNoLicense',
+        self::FirstLaunchSignedInNoSubscriptionLegacyLicense => 'FirstLaunchSignedInNoSubscriptionLegacyLicense',
     ];
 
     public static function name($value)

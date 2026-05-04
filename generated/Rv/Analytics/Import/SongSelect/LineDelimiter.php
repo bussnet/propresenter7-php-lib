@@ -8,27 +8,27 @@ namespace Rv\Analytics\Import\SongSelect;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Import.SongSelect.LineDelimiter</code>
+ * Protobuf type <code>rv.analytics.import.SongSelect.LineDelimiter</code>
  */
 class LineDelimiter
 {
     /**
-     * Generated from protobuf enum <code>LINE_DELIMITER_UNKNOWN = 0;</code>
+     * Generated from protobuf enum <code>UNKNOWN = 0;</code>
      */
-    const LINE_DELIMITER_UNKNOWN = 0;
+    const UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>LINE_DELIMITER_LINE_BREAK = 1;</code>
+     * Generated from protobuf enum <code>LINE_BREAK = 1;</code>
      */
-    const LINE_DELIMITER_LINE_BREAK = 1;
+    const LINE_BREAK = 1;
     /**
-     * Generated from protobuf enum <code>LINE_DELIMITER_PARAGRAPH_BREAK = 2;</code>
+     * Generated from protobuf enum <code>PARAGRAPH_BREAK = 2;</code>
      */
-    const LINE_DELIMITER_PARAGRAPH_BREAK = 2;
+    const PARAGRAPH_BREAK = 2;
 
     private static $valueToName = [
-        self::LINE_DELIMITER_UNKNOWN => 'LINE_DELIMITER_UNKNOWN',
-        self::LINE_DELIMITER_LINE_BREAK => 'LINE_DELIMITER_LINE_BREAK',
-        self::LINE_DELIMITER_PARAGRAPH_BREAK => 'LINE_DELIMITER_PARAGRAPH_BREAK',
+        self::UNKNOWN => 'UNKNOWN',
+        self::LINE_BREAK => 'LINE_BREAK',
+        self::PARAGRAPH_BREAK => 'PARAGRAPH_BREAK',
     ];
 
     public static function name($value)

@@ -34,6 +34,10 @@ class UpgradesAvailable extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>repeated .registration.core.BuildInformation upgrades = 5;</code>
      */
     private $upgrades;
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 6;</code>
+     */
+    protected $client_alert = 0;
 
     /**
      * Constructor.
@@ -46,6 +50,7 @@ class UpgradesAvailable extends \Google\Protobuf\Internal\Message
      *     @type string $active_channel
      *     @type string $release_notes
      *     @type array<\Registration\Core\BuildInformation>|\Google\Protobuf\Internal\RepeatedField $upgrades
+     *     @type int $client_alert
      * }
      */
     public function __construct($data = NULL) {
@@ -159,6 +164,28 @@ class UpgradesAvailable extends \Google\Protobuf\Internal\Message
     {
         $arr = GPBUtil::checkRepeatedField($var, \Google\Protobuf\Internal\GPBType::MESSAGE, \Registration\Core\BuildInformation::class);
         $this->upgrades = $arr;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 6;</code>
+     * @return int
+     */
+    public function getClientAlert()
+    {
+        return $this->client_alert;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.ClientAlertMessage client_alert = 6;</code>
+     * @param int $var
+     * @return $this
+     */
+    public function setClientAlert($var)
+    {
+        GPBUtil::checkEnum($var, \Registration\Core\ClientAlertMessage::class);
+        $this->client_alert = $var;
 
         return $this;
     }

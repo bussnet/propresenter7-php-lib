@@ -8,7 +8,7 @@ namespace Rv\Analytics\Startup\Preferences;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Startup.Preferences.RenderMode</code>
+ * Protobuf type <code>rv.analytics.startup.Preferences.RenderMode</code>
  */
 class RenderMode
 {
@@ -17,23 +17,23 @@ class RenderMode
      */
     const RENDER_MODE_UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>RENDER_MODE_OPENGL = 1;</code>
+     * Generated from protobuf enum <code>OPENGL = 1;</code>
      */
-    const RENDER_MODE_OPENGL = 1;
+    const OPENGL = 1;
     /**
-     * Generated from protobuf enum <code>RENDER_MODE_METAL = 2;</code>
+     * Generated from protobuf enum <code>METAL = 2;</code>
      */
-    const RENDER_MODE_METAL = 2;
+    const METAL = 2;
     /**
-     * Generated from protobuf enum <code>RENDER_MODE_DIRECTX = 3;</code>
+     * Generated from protobuf enum <code>DIRECTX = 3;</code>
      */
-    const RENDER_MODE_DIRECTX = 3;
+    const DIRECTX = 3;
 
     private static $valueToName = [
         self::RENDER_MODE_UNKNOWN => 'RENDER_MODE_UNKNOWN',
-        self::RENDER_MODE_OPENGL => 'RENDER_MODE_OPENGL',
-        self::RENDER_MODE_METAL => 'RENDER_MODE_METAL',
-        self::RENDER_MODE_DIRECTX => 'RENDER_MODE_DIRECTX',
+        self::OPENGL => 'OPENGL',
+        self::METAL => 'METAL',
+        self::DIRECTX => 'DIRECTX',
     ];
 
     public static function name($value)

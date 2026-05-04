@@ -38,6 +38,10 @@ class VideoDevice extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>.rv.data.DigitalAudio.Device.Routing audio_routing = 6;</code>
      */
     protected $audio_routing = null;
+    /**
+     * Generated from protobuf field <code>.rv.data.Media.VideoDevice.AirCast aircast = 7;</code>
+     */
+    protected $aircast = null;
 
     /**
      * Constructor.
@@ -51,6 +55,7 @@ class VideoDevice extends \Google\Protobuf\Internal\Message
      *     @type string $model_id
      *     @type int $format_index
      *     @type \Rv\Data\DigitalAudio\Device\Routing $audio_routing
+     *     @type \Rv\Data\Media\VideoDevice\AirCast $aircast
      * }
      */
     public function __construct($data = NULL) {
@@ -196,6 +201,38 @@ class VideoDevice extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkMessage($var, \Rv\Data\DigitalAudio\Device\Routing::class);
         $this->audio_routing = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Media.VideoDevice.AirCast aircast = 7;</code>
+     * @return \Rv\Data\Media\VideoDevice\AirCast|null
+     */
+    public function getAircast()
+    {
+        return $this->aircast;
+    }
+
+    public function hasAircast()
+    {
+        return isset($this->aircast);
+    }
+
+    public function clearAircast()
+    {
+        unset($this->aircast);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.Media.VideoDevice.AirCast aircast = 7;</code>
+     * @param \Rv\Data\Media\VideoDevice\AirCast $var
+     * @return $this
+     */
+    public function setAircast($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\Media\VideoDevice\AirCast::class);
+        $this->aircast = $var;
 
         return $this;
     }

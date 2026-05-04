@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Startup.Preferences</code>
+ * Generated from protobuf message <code>rv.analytics.startup.Preferences</code>
  */
 class Preferences extends \Google\Protobuf\Internal\Message
 {
@@ -27,7 +27,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
      */
     protected $copyright_enabled = false;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.CopyrightStyle copyright_style = 4;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.CopyrightStyle copyright_style = 4;</code>
      */
     protected $copyright_style = 0;
     /**
@@ -35,7 +35,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
      */
     protected $copyright_has_license = false;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.RenderMode render_mode = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.RenderMode render_mode = 6;</code>
      */
     protected $render_mode = 0;
     /**
@@ -51,7 +51,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
      */
     protected $search_paths_relink = false;
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.UpdateChannel update_channel = 10;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.UpdateChannel update_channel = 10;</code>
      */
     protected $update_channel = 0;
 
@@ -145,7 +145,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.CopyrightStyle copyright_style = 4;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.CopyrightStyle copyright_style = 4;</code>
      * @return int
      */
     public function getCopyrightStyle()
@@ -154,7 +154,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.CopyrightStyle copyright_style = 4;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.CopyrightStyle copyright_style = 4;</code>
      * @param int $var
      * @return $this
      */
@@ -189,7 +189,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.RenderMode render_mode = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.RenderMode render_mode = 6;</code>
      * @return int
      */
     public function getRenderMode()
@@ -198,7 +198,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.RenderMode render_mode = 6;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.RenderMode render_mode = 6;</code>
      * @param int $var
      * @return $this
      */
@@ -277,7 +277,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.UpdateChannel update_channel = 10;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.UpdateChannel update_channel = 10;</code>
      * @return int
      */
     public function getUpdateChannel()
@@ -286,7 +286,7 @@ class Preferences extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup.Preferences.UpdateChannel update_channel = 10;</code>
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences.UpdateChannel update_channel = 10;</code>
      * @param int $var
      * @return $this
      */

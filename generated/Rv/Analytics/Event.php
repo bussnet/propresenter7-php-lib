@@ -22,20 +22,198 @@ class Event extends \Google\Protobuf\Internal\Message
      * @param array $data {
      *     Optional. Data for populating the Message object.
      *
-     *     @type \Rv\Analytics\UI $ui
-     *     @type \Rv\Analytics\Startup $startup
-     *     @type \Rv\Analytics\Trigger $trigger
-     *     @type \Rv\Analytics\Create $create
-     *     @type \Rv\Analytics\Import $import
-     *     @type \Rv\Analytics\Timeline $timeline
-     *     @type \Rv\Analytics\Sync $sync
-     *     @type \Rv\Analytics\API $api
-     *     @type \Rv\Analytics\Timecode $timecode
-     *     @type \Rv\Analytics\PlaybackMarker $playback_marker
-     *     @type \Rv\Analytics\Update $update
-     *     @type \Rv\Analytics\WHMStore $whm_store
-     *     @type \Rv\Analytics\ProContent $proContent
-     *     @type \Rv\Analytics\Capture $capture
+     *     @type \Rv\Analytics\Api\MessageReceived $api_message_received
+     *     @type \Rv\Analytics\Create\Library $create_library
+     *     @type \Rv\Analytics\Create\Playlist $create_playlist
+     *     @type \Rv\Analytics\Create\Presentation $create_presentation
+     *     @type \Rv\Analytics\Create\TemplatePlaylist $create_from_template_playlist
+     *     @type \Rv\Analytics\Edit\Presentation $edit_presentation
+     *     @type \Rv\Analytics\Import\SongSelect $import_songselect
+     *     @type \Rv\Analytics\Multitracks\Import $import_multitracks
+     *     @type \Rv\Analytics\Procontent\MediaBinView $procontent_mediabin_view
+     *     @type \Rv\Analytics\Procontent\Download $procontent_download
+     *     @type \Rv\Analytics\Procontent\DownloadRetry $procontent_download_retry
+     *     @type \Rv\Analytics\Playbackmarker\CreateMarker $playback_marker
+     *     @type \Rv\Analytics\Startup\Looks $startup_looks
+     *     @type \Rv\Analytics\Startup\Summary $startup_screen_configuration
+     *     @type \Rv\Analytics\Startup\Output $startup_screen_configuration_screen
+     *     @type \Rv\Analytics\Startup\Single $startup_screen_configuration_single_screen
+     *     @type \Rv\Analytics\Startup\Mirrored $startup_screen_configuration_mirrored_screen
+     *     @type \Rv\Analytics\Startup\EdgeBlend $startup_screen_configuration_edge_blend_screen
+     *     @type \Rv\Analytics\Startup\Grouped $startup_screen_configuration_grouped_screen
+     *     @type \Rv\Analytics\Startup\Preferences $startup_preferences
+     *     @type \Rv\Analytics\Startup\SongSelect $startup_songselect
+     *     @type \Rv\Analytics\Startup\Content $startup_content
+     *     @type \Rv\Analytics\Startup\Themes $startup_themes
+     *     @type \Rv\Analytics\Startup\Macro $startup_macro
+     *     @type \Rv\Analytics\Startup\ClearGroup $startup_clear_group
+     *     @type \Rv\Analytics\Startup\KeyMapping $startup_key_mapping
+     *     @type \Rv\Analytics\Multitracks\Startup $startup_multitracks
+     *     @type \Rv\Analytics\Startup\NetworkLink $startup_network_link
+     *     @type \Rv\Analytics\Startup\Capture $startup_capture
+     *     @type \Rv\Analytics\Startup\Versioning $startup_versioning
+     *     @type \Rv\Analytics\Startup\DiskUsage $startup_disk_usage
+     *     @type \Rv\Analytics\Startup\PBInterface $startup_interface
+     *     @type \Rv\Analytics\Sync\Local $sync_local
+     *     @type \Rv\Analytics\Timecode\Activate $timecode_activate
+     *     @type \Rv\Analytics\Timecode\Startup $timecode_startup
+     *     @type \Rv\Analytics\Timeline\Action $timeline_action
+     *     @type \Rv\Analytics\Timeline\RecordCue $timeline_record_cue
+     *     @type \Rv\Analytics\Timeline\CueTrigger $timeline_cue_trigger
+     *     @type \Rv\Analytics\Trackedevents\ApplicationLaunch $application_launch
+     *     @type \Rv\Analytics\Trackedevents\VideoInputTriggered $video_input_triggered
+     *     @type \Rv\Analytics\Trackedevents\VideoInputCustomMap $video_input_custom_map
+     *     @type \Rv\Analytics\Trackedevents\VideoInputStartUp $video_input_start_up
+     *     @type \Rv\Analytics\Trackedevents\VideoInputThumbnailUpdate $video_input_thumbnail_update
+     *     @type \Rv\Analytics\Trackedevents\AudioInputAutoOnChange $audio_input_auto_on_change
+     *     @type \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiActive $audio_settings_sdi_ndi_active
+     *     @type \Rv\Analytics\Trackedevents\AudioSettingsCustomMap $audio_settings_custom_map
+     *     @type \Rv\Analytics\Trackedevents\AudioInputModeSelection $audio_input_mode_selection
+     *     @type \Rv\Analytics\Trackedevents\AudioInputAutoOnStartup $audio_input_auto_on_startup
+     *     @type \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiState $audio_settings_sdi_ndi_state
+     *     @type \Rv\Analytics\Trackedevents\AudioInputStartUp $audio_input_start_up
+     *     @type \Rv\Analytics\Trackedevents\CueTriggered $cue_triggered
+     *     @type \Rv\Analytics\Trackedevents\InputAudioMonitoring $input_audio_monitoring
+     *     @type \Rv\Analytics\Trackedevents\ResiStartUp $resi_start_up
+     *     @type \Rv\Analytics\Trackedevents\ResiLoginChange $resi_login_change
+     *     @type \Rv\Analytics\Trackedevents\RemoteStreamStart $remote_stream_start
+     *     @type \Rv\Analytics\Trackedevents\RemoteStreamStop $remote_stream_stop
+     *     @type \Rv\Analytics\Trackedevents\StartCaptureDisk $start_capture_disk
+     *     @type \Rv\Analytics\Trackedevents\StartCaptureRtmp $start_capture_rtmp
+     *     @type \Rv\Analytics\Trackedevents\StartCaptureResi $start_capture_resi
+     *     @type \Rv\Analytics\Trackedevents\StopCapture $stop_capture
+     *     @type \Rv\Analytics\Trackedevents\GenericEvent $analytic_reset
+     *     @type \Rv\Analytics\Trackedevents\PBPrint $print
+     *     @type \Rv\Analytics\Trackedevents\Device $device
+     *     @type \Rv\Analytics\Trackedevents\Downgrade $downgrade
+     *     @type \Rv\Analytics\Trackedevents\CCLIReport $ccli_report
+     *     @type \Rv\Analytics\Trackedevents\TransitionWindow $transition_window
+     *     @type \Rv\Analytics\Trackedevents\EditorObjectAdded $editor_object_added
+     *     @type \Rv\Analytics\Trackedevents\DataIdDuplicated $data_id_duplicated
+     *     @type \Rv\Analytics\Trackedevents\ForceQuit $force_quit
+     *     @type \Rv\Analytics\Trackedevents\MediaCleanupSize $media_cleanup_size
+     *     @type \Rv\Analytics\Trackedevents\NetworkApp $network_app
+     *     @type \Rv\Analytics\Trigger\ActionCaptureStart $trigger_action_capture_start
+     *     @type \Rv\Analytics\Trigger\ActionCaptureStop $trigger_action_capture_stop
+     *     @type \Rv\Analytics\Trigger\ActionClear $trigger_action_clear
+     *     @type \Rv\Analytics\Trigger\ActionClearGroup $trigger_action_clear_group
+     *     @type \Rv\Analytics\Trigger\ActionCommunications $trigger_action_communications
+     *     @type \Rv\Analytics\Trigger\ActionLook $trigger_action_look
+     *     @type \Rv\Analytics\Trigger\ActionMacro $trigger_action_macro
+     *     @type \Rv\Analytics\Trigger\ActionMessage $trigger_action_message
+     *     @type \Rv\Analytics\Trigger\ActionProp $trigger_action_prop
+     *     @type \Rv\Analytics\Trigger\ActionSlideDestination $trigger_action_slide_destination
+     *     @type \Rv\Analytics\Trigger\ActionStage $trigger_action_stage
+     *     @type \Rv\Analytics\Trigger\ActionTimer $trigger_action_timer
+     *     @type \Rv\Analytics\Trigger\Media\Audio $trigger_media_audio
+     *     @type \Rv\Analytics\Trigger\Media\Image $trigger_media_image
+     *     @type \Rv\Analytics\Trigger\Media\VideoInput $trigger_media_video_input
+     *     @type \Rv\Analytics\Trigger\Media\Video $trigger_media_video
+     *     @type \Rv\Analytics\Trigger\Cue\Slide $trigger_cue_slide
+     *     @type \Rv\Analytics\Trigger\Cue\SlideFileFeedElement $trigger_cue_slide_file_feed_element
+     *     @type \Rv\Analytics\Trigger\Cue\SlideRssFeedElement $trigger_cue_slide_rss_feed_element
+     *     @type \Rv\Analytics\Trigger\Cue\SlideScrollingTextElement $trigger_cue_slide_scrolling_text_element
+     *     @type \Rv\Analytics\Trigger\TestPattern $trigger_test_pattern
+     *     @type \Rv\Analytics\Trigger\Media\AirCastVideo $trigger_media_aircast_video
+     *     @type \Rv\Analytics\Trigger\Media\AirCastAudio $trigger_media_aircast_audio
+     *     @type \Rv\Analytics\Trigger\Media\AirCastVideo $aircast_video_input_configured
+     *     @type \Rv\Analytics\Trigger\Media\AirCastAudio $aircast_audio_input_configured
+     *     @type \Rv\Analytics\Mediamanagement\InstallationComplete $media_management_installation_complete
+     *     @type \Rv\Analytics\Mediamanagement\BootstrappingComplete $media_management_bootstrapping_complete
+     *     @type \Rv\Analytics\Mediamanagement\MessageFailure $media_management_message_failure
+     *     @type \Rv\Analytics\Mediamanagement\UnexpectedlyNotRunning $media_management_unexpectedly_not_running
+     *     @type \Rv\Analytics\Mediamanagement\ConnectionChanged $media_management_connection_changed
+     *     @type \Rv\Analytics\Mediamanagement\AddedMediaReference $media_management_added_media_reference
+     *     @type \Rv\Analytics\Mediamanagement\NotResponding $media_management_not_responding
+     *     @type \Rv\Analytics\Ui\QuickSearchShown $ui_quicksearch
+     *     @type \Rv\Analytics\Ui\QuickSearchSearch $ui_quicksearch_search
+     *     @type \Rv\Analytics\Ui\QuickSearchOpenItems $ui_quicksearch_openitems
+     *     @type \Rv\Analytics\Ui\ToolbarThemeShown $ui_toolbar_theme
+     *     @type \Rv\Analytics\Ui\ToolbarThemeApplication $ui_toolbar_theme_application
+     *     @type \Rv\Analytics\Ui\MainViewShow $ui_mainview_show
+     *     @type \Rv\Analytics\Ui\MainViewPresentationEditor $ui_mainview_presentation_editor
+     *     @type \Rv\Analytics\Ui\MainViewReflowEditor $ui_mainview_reflow
+     *     @type \Rv\Analytics\Ui\MainViewBible $ui_mainview_bible
+     *     @type \Rv\Analytics\Ui\BibleTrigger $bible_trigger
+     *     @type \Rv\Analytics\Ui\BibleGenerateSlides $bible_generate_slides
+     *     @type \Rv\Analytics\Ui\BibleGenerateNext $bible_generate_next
+     *     @type \Rv\Analytics\Ui\BibleGenerateNext $bible_generate_previous
+     *     @type \Rv\Analytics\Ui\BibleSaveSlides $bible_save_slides
+     *     @type \Rv\Analytics\Ui\BibleLookup $bible_lookup
+     *     @type \Rv\Analytics\Ui\BibleStartup $bible_startup
+     *     @type \Rv\Analytics\Ui\BibleRemove $bible_remove
+     *     @type \Rv\Analytics\Ui\BibleInstall $bible_install
+     *     @type \Rv\Analytics\Ui\MainViewMaskEditor $ui_mainview_mask_editor
+     *     @type \Rv\Analytics\Ui\MainViewStageEditor $ui_mainview_stage_editor
+     *     @type \Rv\Analytics\Ui\MainViewThemeEditor $ui_mainview_theme_editor
+     *     @type \Rv\Analytics\Ui\MainViewCopyrightEditor $ui_mainview_copyright_editor
+     *     @type \Rv\Analytics\Ui\MainViewPropsEditor $ui_mainview_props_editor
+     *     @type \Rv\Analytics\Ui\LowerRightTimers $ui_lowerright_timers
+     *     @type \Rv\Analytics\Ui\LowerRightTimersCollapse $ui_lowerright_timers_collapse
+     *     @type \Rv\Analytics\Ui\LowerRightTimersEdit $ui_lowerright_timers_edit
+     *     @type \Rv\Analytics\Ui\LowerRightTimersState $ui_lowerright_timers_state
+     *     @type \Rv\Analytics\Ui\LowerRightTimersCreate $ui_lowerright_timers_create
+     *     @type \Rv\Analytics\Ui\LowerRightTimersDelete $ui_lowerright_timers_delete
+     *     @type \Rv\Analytics\Ui\LowerRightMessages $ui_lowerright_messages
+     *     @type \Rv\Analytics\Ui\LowerRightMessagesEdit $ui_lowerright_messages_edit
+     *     @type \Rv\Analytics\Ui\LowerRightMessagesState $ui_lowerright_messages_state
+     *     @type \Rv\Analytics\Ui\LowerRightMessagesCreate $ui_lowerright_messages_create
+     *     @type \Rv\Analytics\Ui\LowerRightMessagesDelete $ui_lowerright_messages_delete
+     *     @type \Rv\Analytics\Ui\LowerRightProps $ui_lowerright_props
+     *     @type \Rv\Analytics\Ui\LowerRightPropsTransition $ui_lowerright_props_transition
+     *     @type \Rv\Analytics\Ui\LowerRightPropsCreate $ui_lowerright_props_create
+     *     @type \Rv\Analytics\Ui\LowerRightPropsDelete $ui_lowerright_props_delete
+     *     @type \Rv\Analytics\Ui\LowerRightPropsState $ui_lowerright_props_state
+     *     @type \Rv\Analytics\Ui\LowerRightStage $ui_lowerright_stage
+     *     @type \Rv\Analytics\Ui\LowerRightStageChangeLayout $ui_lowerright_stage_changelayout
+     *     @type \Rv\Analytics\Ui\LowerRightStageMessageState $ui_lowerright_stage_messagestate
+     *     @type \Rv\Analytics\Ui\LowerRightStageConfigureScreens $ui_lowerright_stage_configurescreens
+     *     @type \Rv\Analytics\Ui\LowerRightStageEditLayouts $ui_lowerright_stage_editlayouts
+     *     @type \Rv\Analytics\Ui\LowerRightMacros $ui_lowerright_macros
+     *     @type \Rv\Analytics\Ui\LowerRightMacrosTrigger $ui_lowerright_macros_trigger
+     *     @type \Rv\Analytics\Ui\LowerRightMacrosCreate $ui_lowerright_macros_create
+     *     @type \Rv\Analytics\Ui\LowerRightMacrosDelete $ui_lowerright_macros_delete
+     *     @type \Rv\Analytics\Ui\TextInspector $ui_textinspector
+     *     @type \Rv\Analytics\Ui\TextInspectorScrollingText $ui_textinspector_scrolling_text
+     *     @type \Rv\Analytics\Ui\TextInspectorForeground $ui_textinspector_foreground
+     *     @type \Rv\Analytics\Ui\TextInspectorUnderlineColor $ui_textinspector_underline_color
+     *     @type \Rv\Analytics\Ui\TextInspectorBackgroundColor $ui_textinspector_background_color
+     *     @type \Rv\Analytics\Ui\TextInspectorLineTransform $ui_textinspector_line_transform
+     *     @type \Rv\Analytics\Ui\ShowSlideLabel $ui_show_slide_label
+     *     @type \Rv\Analytics\Ui\ShowSlideLabelChange $ui_show_slide_label_change
+     *     @type \Rv\Analytics\Ui\EditorOverlayShown $ui_editor_overlay_shown
+     *     @type \Rv\Analytics\Ui\EditorOverlayClosed $ui_editor_overlay_closed
+     *     @type \Rv\Analytics\Ui\WhatsNewViewed $ui_whats_new_viewed
+     *     @type \Rv\Analytics\Ui\ClearGroups $ui_clear_groups
+     *     @type \Rv\Analytics\Ui\ClearGroupsCreate $ui_clear_groups_create
+     *     @type \Rv\Analytics\Ui\ClearGroupsDelete $ui_clear_groups_delete
+     *     @type \Rv\Analytics\Ui\ClearGroupsChangeVisibility $ui_clear_groups_change_visibility
+     *     @type \Rv\Analytics\Ui\ClearGroupsChangeIcon $ui_clear_groups_change_icon
+     *     @type \Rv\Analytics\Ui\PreviewAreaClearGroupsTrigger $ui_preview_area_clear_groups_trigger
+     *     @type \Rv\Analytics\Ui\PreviewAreaClearGroupsChanged $ui_preview_area_clear_groups_changed
+     *     @type \Rv\Analytics\Ui\PlaceholderLink $ui_placeholder_link
+     *     @type \Rv\Analytics\Ui\PlaceholderUnlink $ui_placeholder_unlink
+     *     @type \Rv\Analytics\Ui\PlanningCenterLive $ui_planningCenterLive
+     *     @type \Rv\Analytics\Ui\NetworkGroupAdd $ui_networkgroup_add
+     *     @type \Rv\Analytics\Ui\NetworkGroupRemove $ui_networkgroup_remove
+     *     @type \Rv\Analytics\Ui\NetworkGroupLeave $ui_networkgroup_leave
+     *     @type \Rv\Analytics\Ui\CcliReportReset $ui_ccli_report_reset
+     *     @type \Rv\Analytics\Ui\CcliReportShown $ui_ccli_report_shown
+     *     @type \Rv\Analytics\Ui\Capture $ui_capture_shown
+     *     @type \Rv\Analytics\Ui\Welcome $ui_welcome
+     *     @type \Rv\Analytics\Ui\WelcomeScreenConfigurationHelp $ui_welcome_screen_configuration_help
+     *     @type \Rv\Analytics\Ui\WelcomeDownloadSampleContent $ui_welcome_download_sample_content
+     *     @type \Rv\Analytics\Ui\WelcomeUserGroup $ui_welcome_user_group
+     *     @type \Rv\Analytics\Ui\WelcomeTutorials $ui_welcome_tutorials
+     *     @type \Rv\Analytics\Ui\WelcomeKnowledgeBase $ui_welcome_knowlegdeBase
+     *     @type \Rv\Analytics\Ui\WelcomeBlog $ui_welcome_blog
+     *     @type \Rv\Analytics\Ui\WelcomeFacebook $ui_welcome_facebook
+     *     @type \Rv\Analytics\Ui\WelcomeInstagram $ui_welcome_instagram
+     *     @type \Rv\Analytics\Ui\WelcomeMigration $ui_welcome_migration
+     *     @type \Rv\Analytics\Ui\TestPatterns $ui_testPatterns
+     *     @type \Rv\Analytics\Ui\SettingsCustomLogo $ui_settings_customLogo
+     *     @type \Rv\Analytics\Ui\WindowedOutputCreated $ui_windowed_output_created
+     *     @type \Rv\Analytics\Powerpoint\ImportPowerPoint $import_powerpoint
      * }
      */
     public function __construct($data = NULL) {
@@ -44,379 +222,5185 @@ class Event extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI ui = 1;</code>
-     * @return \Rv\Analytics\UI|null
+     * Generated from protobuf field <code>.rv.analytics.api.MessageReceived api_message_received = 1;</code>
+     * @return \Rv\Analytics\Api\MessageReceived|null
      */
-    public function getUi()
+    public function getApiMessageReceived()
     {
         return $this->readOneof(1);
     }
 
-    public function hasUi()
+    public function hasApiMessageReceived()
     {
         return $this->hasOneof(1);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.UI ui = 1;</code>
-     * @param \Rv\Analytics\UI $var
+     * Generated from protobuf field <code>.rv.analytics.api.MessageReceived api_message_received = 1;</code>
+     * @param \Rv\Analytics\Api\MessageReceived $var
      * @return $this
      */
-    public function setUi($var)
+    public function setApiMessageReceived($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\UI::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Api\MessageReceived::class);
         $this->writeOneof(1, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup startup = 2;</code>
-     * @return \Rv\Analytics\Startup|null
+     * Generated from protobuf field <code>.rv.analytics.create.Library create_library = 2;</code>
+     * @return \Rv\Analytics\Create\Library|null
      */
-    public function getStartup()
+    public function getCreateLibrary()
     {
         return $this->readOneof(2);
     }
 
-    public function hasStartup()
+    public function hasCreateLibrary()
     {
         return $this->hasOneof(2);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Startup startup = 2;</code>
-     * @param \Rv\Analytics\Startup $var
+     * Generated from protobuf field <code>.rv.analytics.create.Library create_library = 2;</code>
+     * @param \Rv\Analytics\Create\Library $var
      * @return $this
      */
-    public function setStartup($var)
+    public function setCreateLibrary($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Startup::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Create\Library::class);
         $this->writeOneof(2, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger trigger = 3;</code>
-     * @return \Rv\Analytics\Trigger|null
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist create_playlist = 3;</code>
+     * @return \Rv\Analytics\Create\Playlist|null
      */
-    public function getTrigger()
+    public function getCreatePlaylist()
     {
         return $this->readOneof(3);
     }
 
-    public function hasTrigger()
+    public function hasCreatePlaylist()
     {
         return $this->hasOneof(3);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Trigger trigger = 3;</code>
-     * @param \Rv\Analytics\Trigger $var
+     * Generated from protobuf field <code>.rv.analytics.create.Playlist create_playlist = 3;</code>
+     * @param \Rv\Analytics\Create\Playlist $var
      * @return $this
      */
-    public function setTrigger($var)
+    public function setCreatePlaylist($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Create\Playlist::class);
         $this->writeOneof(3, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create create = 4;</code>
-     * @return \Rv\Analytics\Create|null
+     * Generated from protobuf field <code>.rv.analytics.create.Presentation create_presentation = 4;</code>
+     * @return \Rv\Analytics\Create\Presentation|null
      */
-    public function getCreate()
+    public function getCreatePresentation()
     {
         return $this->readOneof(4);
     }
 
-    public function hasCreate()
+    public function hasCreatePresentation()
     {
         return $this->hasOneof(4);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Create create = 4;</code>
-     * @param \Rv\Analytics\Create $var
+     * Generated from protobuf field <code>.rv.analytics.create.Presentation create_presentation = 4;</code>
+     * @param \Rv\Analytics\Create\Presentation $var
      * @return $this
      */
-    public function setCreate($var)
+    public function setCreatePresentation($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Create::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Create\Presentation::class);
         $this->writeOneof(4, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Import import = 5;</code>
-     * @return \Rv\Analytics\Import|null
+     * Generated from protobuf field <code>.rv.analytics.create.TemplatePlaylist create_from_template_playlist = 5;</code>
+     * @return \Rv\Analytics\Create\TemplatePlaylist|null
      */
-    public function getImport()
+    public function getCreateFromTemplatePlaylist()
     {
         return $this->readOneof(5);
     }
 
-    public function hasImport()
+    public function hasCreateFromTemplatePlaylist()
     {
         return $this->hasOneof(5);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Import import = 5;</code>
-     * @param \Rv\Analytics\Import $var
+     * Generated from protobuf field <code>.rv.analytics.create.TemplatePlaylist create_from_template_playlist = 5;</code>
+     * @param \Rv\Analytics\Create\TemplatePlaylist $var
      * @return $this
      */
-    public function setImport($var)
+    public function setCreateFromTemplatePlaylist($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Import::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Create\TemplatePlaylist::class);
         $this->writeOneof(5, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timeline timeline = 6;</code>
-     * @return \Rv\Analytics\Timeline|null
+     * Generated from protobuf field <code>.rv.analytics.edit.Presentation edit_presentation = 6;</code>
+     * @return \Rv\Analytics\Edit\Presentation|null
      */
-    public function getTimeline()
+    public function getEditPresentation()
     {
         return $this->readOneof(6);
     }
 
-    public function hasTimeline()
+    public function hasEditPresentation()
     {
         return $this->hasOneof(6);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timeline timeline = 6;</code>
-     * @param \Rv\Analytics\Timeline $var
+     * Generated from protobuf field <code>.rv.analytics.edit.Presentation edit_presentation = 6;</code>
+     * @param \Rv\Analytics\Edit\Presentation $var
      * @return $this
      */
-    public function setTimeline($var)
+    public function setEditPresentation($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Timeline::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Edit\Presentation::class);
         $this->writeOneof(6, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Sync sync = 7;</code>
-     * @return \Rv\Analytics\Sync|null
+     * Generated from protobuf field <code>.rv.analytics.import.SongSelect import_songselect = 7;</code>
+     * @return \Rv\Analytics\Import\SongSelect|null
      */
-    public function getSync()
+    public function getImportSongselect()
     {
         return $this->readOneof(7);
     }
 
-    public function hasSync()
+    public function hasImportSongselect()
     {
         return $this->hasOneof(7);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Sync sync = 7;</code>
-     * @param \Rv\Analytics\Sync $var
+     * Generated from protobuf field <code>.rv.analytics.import.SongSelect import_songselect = 7;</code>
+     * @param \Rv\Analytics\Import\SongSelect $var
      * @return $this
      */
-    public function setSync($var)
+    public function setImportSongselect($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Sync::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Import\SongSelect::class);
         $this->writeOneof(7, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.API api = 8;</code>
-     * @return \Rv\Analytics\API|null
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Import import_multitracks = 8;</code>
+     * @return \Rv\Analytics\Multitracks\Import|null
      */
-    public function getApi()
+    public function getImportMultitracks()
     {
         return $this->readOneof(8);
     }
 
-    public function hasApi()
+    public function hasImportMultitracks()
     {
         return $this->hasOneof(8);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.API api = 8;</code>
-     * @param \Rv\Analytics\API $var
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Import import_multitracks = 8;</code>
+     * @param \Rv\Analytics\Multitracks\Import $var
      * @return $this
      */
-    public function setApi($var)
+    public function setImportMultitracks($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\API::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Multitracks\Import::class);
         $this->writeOneof(8, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timecode timecode = 9;</code>
-     * @return \Rv\Analytics\Timecode|null
+     * Generated from protobuf field <code>.rv.analytics.procontent.MediaBinView procontent_mediabin_view = 9;</code>
+     * @return \Rv\Analytics\Procontent\MediaBinView|null
      */
-    public function getTimecode()
+    public function getProcontentMediabinView()
     {
         return $this->readOneof(9);
     }
 
-    public function hasTimecode()
+    public function hasProcontentMediabinView()
     {
         return $this->hasOneof(9);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timecode timecode = 9;</code>
-     * @param \Rv\Analytics\Timecode $var
+     * Generated from protobuf field <code>.rv.analytics.procontent.MediaBinView procontent_mediabin_view = 9;</code>
+     * @param \Rv\Analytics\Procontent\MediaBinView $var
      * @return $this
      */
-    public function setTimecode($var)
+    public function setProcontentMediabinView($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Timecode::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Procontent\MediaBinView::class);
         $this->writeOneof(9, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.PlaybackMarker playback_marker = 10;</code>
-     * @return \Rv\Analytics\PlaybackMarker|null
+     * Generated from protobuf field <code>.rv.analytics.procontent.Download procontent_download = 10;</code>
+     * @return \Rv\Analytics\Procontent\Download|null
      */
-    public function getPlaybackMarker()
+    public function getProcontentDownload()
     {
         return $this->readOneof(10);
     }
 
-    public function hasPlaybackMarker()
+    public function hasProcontentDownload()
     {
         return $this->hasOneof(10);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.PlaybackMarker playback_marker = 10;</code>
-     * @param \Rv\Analytics\PlaybackMarker $var
+     * Generated from protobuf field <code>.rv.analytics.procontent.Download procontent_download = 10;</code>
+     * @param \Rv\Analytics\Procontent\Download $var
      * @return $this
      */
-    public function setPlaybackMarker($var)
+    public function setProcontentDownload($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\PlaybackMarker::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Procontent\Download::class);
         $this->writeOneof(10, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Update update = 11;</code>
-     * @return \Rv\Analytics\Update|null
+     * Generated from protobuf field <code>.rv.analytics.procontent.DownloadRetry procontent_download_retry = 11;</code>
+     * @return \Rv\Analytics\Procontent\DownloadRetry|null
      */
-    public function getUpdate()
+    public function getProcontentDownloadRetry()
     {
         return $this->readOneof(11);
     }
 
-    public function hasUpdate()
+    public function hasProcontentDownloadRetry()
     {
         return $this->hasOneof(11);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Update update = 11;</code>
-     * @param \Rv\Analytics\Update $var
+     * Generated from protobuf field <code>.rv.analytics.procontent.DownloadRetry procontent_download_retry = 11;</code>
+     * @param \Rv\Analytics\Procontent\DownloadRetry $var
      * @return $this
      */
-    public function setUpdate($var)
+    public function setProcontentDownloadRetry($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Update::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Procontent\DownloadRetry::class);
         $this->writeOneof(11, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.WHMStore whm_store = 12;</code>
-     * @return \Rv\Analytics\WHMStore|null
+     * Generated from protobuf field <code>.rv.analytics.playbackmarker.CreateMarker playback_marker = 12;</code>
+     * @return \Rv\Analytics\Playbackmarker\CreateMarker|null
      */
-    public function getWhmStore()
+    public function getPlaybackMarker()
     {
         return $this->readOneof(12);
     }
 
-    public function hasWhmStore()
+    public function hasPlaybackMarker()
     {
         return $this->hasOneof(12);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.WHMStore whm_store = 12;</code>
-     * @param \Rv\Analytics\WHMStore $var
+     * Generated from protobuf field <code>.rv.analytics.playbackmarker.CreateMarker playback_marker = 12;</code>
+     * @param \Rv\Analytics\Playbackmarker\CreateMarker $var
      * @return $this
      */
-    public function setWhmStore($var)
+    public function setPlaybackMarker($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\WHMStore::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Playbackmarker\CreateMarker::class);
         $this->writeOneof(12, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.ProContent proContent = 13;</code>
-     * @return \Rv\Analytics\ProContent|null
+     * Generated from protobuf field <code>.rv.analytics.startup.Looks startup_looks = 13;</code>
+     * @return \Rv\Analytics\Startup\Looks|null
      */
-    public function getProContent()
+    public function getStartupLooks()
     {
         return $this->readOneof(13);
     }
 
-    public function hasProContent()
+    public function hasStartupLooks()
     {
         return $this->hasOneof(13);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.ProContent proContent = 13;</code>
-     * @param \Rv\Analytics\ProContent $var
+     * Generated from protobuf field <code>.rv.analytics.startup.Looks startup_looks = 13;</code>
+     * @param \Rv\Analytics\Startup\Looks $var
      * @return $this
      */
-    public function setProContent($var)
+    public function setStartupLooks($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\ProContent::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Looks::class);
         $this->writeOneof(13, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Capture capture = 14;</code>
-     * @return \Rv\Analytics\Capture|null
+     * Generated from protobuf field <code>.rv.analytics.startup.Summary startup_screen_configuration = 14;</code>
+     * @return \Rv\Analytics\Startup\Summary|null
      */
-    public function getCapture()
+    public function getStartupScreenConfiguration()
     {
         return $this->readOneof(14);
     }
 
-    public function hasCapture()
+    public function hasStartupScreenConfiguration()
     {
         return $this->hasOneof(14);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Capture capture = 14;</code>
-     * @param \Rv\Analytics\Capture $var
+     * Generated from protobuf field <code>.rv.analytics.startup.Summary startup_screen_configuration = 14;</code>
+     * @param \Rv\Analytics\Startup\Summary $var
      * @return $this
      */
-    public function setCapture($var)
+    public function setStartupScreenConfiguration($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Analytics\Capture::class);
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Summary::class);
         $this->writeOneof(14, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Output startup_screen_configuration_screen = 15;</code>
+     * @return \Rv\Analytics\Startup\Output|null
+     */
+    public function getStartupScreenConfigurationScreen()
+    {
+        return $this->readOneof(15);
+    }
+
+    public function hasStartupScreenConfigurationScreen()
+    {
+        return $this->hasOneof(15);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Output startup_screen_configuration_screen = 15;</code>
+     * @param \Rv\Analytics\Startup\Output $var
+     * @return $this
+     */
+    public function setStartupScreenConfigurationScreen($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Output::class);
+        $this->writeOneof(15, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Single startup_screen_configuration_single_screen = 16;</code>
+     * @return \Rv\Analytics\Startup\Single|null
+     */
+    public function getStartupScreenConfigurationSingleScreen()
+    {
+        return $this->readOneof(16);
+    }
+
+    public function hasStartupScreenConfigurationSingleScreen()
+    {
+        return $this->hasOneof(16);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Single startup_screen_configuration_single_screen = 16;</code>
+     * @param \Rv\Analytics\Startup\Single $var
+     * @return $this
+     */
+    public function setStartupScreenConfigurationSingleScreen($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Single::class);
+        $this->writeOneof(16, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Mirrored startup_screen_configuration_mirrored_screen = 17;</code>
+     * @return \Rv\Analytics\Startup\Mirrored|null
+     */
+    public function getStartupScreenConfigurationMirroredScreen()
+    {
+        return $this->readOneof(17);
+    }
+
+    public function hasStartupScreenConfigurationMirroredScreen()
+    {
+        return $this->hasOneof(17);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Mirrored startup_screen_configuration_mirrored_screen = 17;</code>
+     * @param \Rv\Analytics\Startup\Mirrored $var
+     * @return $this
+     */
+    public function setStartupScreenConfigurationMirroredScreen($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Mirrored::class);
+        $this->writeOneof(17, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.EdgeBlend startup_screen_configuration_edge_blend_screen = 18;</code>
+     * @return \Rv\Analytics\Startup\EdgeBlend|null
+     */
+    public function getStartupScreenConfigurationEdgeBlendScreen()
+    {
+        return $this->readOneof(18);
+    }
+
+    public function hasStartupScreenConfigurationEdgeBlendScreen()
+    {
+        return $this->hasOneof(18);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.EdgeBlend startup_screen_configuration_edge_blend_screen = 18;</code>
+     * @param \Rv\Analytics\Startup\EdgeBlend $var
+     * @return $this
+     */
+    public function setStartupScreenConfigurationEdgeBlendScreen($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\EdgeBlend::class);
+        $this->writeOneof(18, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Grouped startup_screen_configuration_grouped_screen = 19;</code>
+     * @return \Rv\Analytics\Startup\Grouped|null
+     */
+    public function getStartupScreenConfigurationGroupedScreen()
+    {
+        return $this->readOneof(19);
+    }
+
+    public function hasStartupScreenConfigurationGroupedScreen()
+    {
+        return $this->hasOneof(19);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Grouped startup_screen_configuration_grouped_screen = 19;</code>
+     * @param \Rv\Analytics\Startup\Grouped $var
+     * @return $this
+     */
+    public function setStartupScreenConfigurationGroupedScreen($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Grouped::class);
+        $this->writeOneof(19, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences startup_preferences = 20;</code>
+     * @return \Rv\Analytics\Startup\Preferences|null
+     */
+    public function getStartupPreferences()
+    {
+        return $this->readOneof(20);
+    }
+
+    public function hasStartupPreferences()
+    {
+        return $this->hasOneof(20);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Preferences startup_preferences = 20;</code>
+     * @param \Rv\Analytics\Startup\Preferences $var
+     * @return $this
+     */
+    public function setStartupPreferences($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Preferences::class);
+        $this->writeOneof(20, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.SongSelect startup_songselect = 21;</code>
+     * @return \Rv\Analytics\Startup\SongSelect|null
+     */
+    public function getStartupSongselect()
+    {
+        return $this->readOneof(21);
+    }
+
+    public function hasStartupSongselect()
+    {
+        return $this->hasOneof(21);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.SongSelect startup_songselect = 21;</code>
+     * @param \Rv\Analytics\Startup\SongSelect $var
+     * @return $this
+     */
+    public function setStartupSongselect($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\SongSelect::class);
+        $this->writeOneof(21, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Content startup_content = 22;</code>
+     * @return \Rv\Analytics\Startup\Content|null
+     */
+    public function getStartupContent()
+    {
+        return $this->readOneof(22);
+    }
+
+    public function hasStartupContent()
+    {
+        return $this->hasOneof(22);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Content startup_content = 22;</code>
+     * @param \Rv\Analytics\Startup\Content $var
+     * @return $this
+     */
+    public function setStartupContent($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Content::class);
+        $this->writeOneof(22, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Themes startup_themes = 23;</code>
+     * @return \Rv\Analytics\Startup\Themes|null
+     */
+    public function getStartupThemes()
+    {
+        return $this->readOneof(23);
+    }
+
+    public function hasStartupThemes()
+    {
+        return $this->hasOneof(23);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Themes startup_themes = 23;</code>
+     * @param \Rv\Analytics\Startup\Themes $var
+     * @return $this
+     */
+    public function setStartupThemes($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Themes::class);
+        $this->writeOneof(23, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Macro startup_macro = 24;</code>
+     * @return \Rv\Analytics\Startup\Macro|null
+     */
+    public function getStartupMacro()
+    {
+        return $this->readOneof(24);
+    }
+
+    public function hasStartupMacro()
+    {
+        return $this->hasOneof(24);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Macro startup_macro = 24;</code>
+     * @param \Rv\Analytics\Startup\Macro $var
+     * @return $this
+     */
+    public function setStartupMacro($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Macro::class);
+        $this->writeOneof(24, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.ClearGroup startup_clear_group = 25;</code>
+     * @return \Rv\Analytics\Startup\ClearGroup|null
+     */
+    public function getStartupClearGroup()
+    {
+        return $this->readOneof(25);
+    }
+
+    public function hasStartupClearGroup()
+    {
+        return $this->hasOneof(25);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.ClearGroup startup_clear_group = 25;</code>
+     * @param \Rv\Analytics\Startup\ClearGroup $var
+     * @return $this
+     */
+    public function setStartupClearGroup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\ClearGroup::class);
+        $this->writeOneof(25, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.KeyMapping startup_key_mapping = 26;</code>
+     * @return \Rv\Analytics\Startup\KeyMapping|null
+     */
+    public function getStartupKeyMapping()
+    {
+        return $this->readOneof(26);
+    }
+
+    public function hasStartupKeyMapping()
+    {
+        return $this->hasOneof(26);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.KeyMapping startup_key_mapping = 26;</code>
+     * @param \Rv\Analytics\Startup\KeyMapping $var
+     * @return $this
+     */
+    public function setStartupKeyMapping($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\KeyMapping::class);
+        $this->writeOneof(26, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Startup startup_multitracks = 27;</code>
+     * @return \Rv\Analytics\Multitracks\Startup|null
+     */
+    public function getStartupMultitracks()
+    {
+        return $this->readOneof(27);
+    }
+
+    public function hasStartupMultitracks()
+    {
+        return $this->hasOneof(27);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.multitracks.Startup startup_multitracks = 27;</code>
+     * @param \Rv\Analytics\Multitracks\Startup $var
+     * @return $this
+     */
+    public function setStartupMultitracks($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Multitracks\Startup::class);
+        $this->writeOneof(27, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.NetworkLink startup_network_link = 28;</code>
+     * @return \Rv\Analytics\Startup\NetworkLink|null
+     */
+    public function getStartupNetworkLink()
+    {
+        return $this->readOneof(28);
+    }
+
+    public function hasStartupNetworkLink()
+    {
+        return $this->hasOneof(28);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.NetworkLink startup_network_link = 28;</code>
+     * @param \Rv\Analytics\Startup\NetworkLink $var
+     * @return $this
+     */
+    public function setStartupNetworkLink($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\NetworkLink::class);
+        $this->writeOneof(28, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Capture startup_capture = 29;</code>
+     * @return \Rv\Analytics\Startup\Capture|null
+     */
+    public function getStartupCapture()
+    {
+        return $this->readOneof(29);
+    }
+
+    public function hasStartupCapture()
+    {
+        return $this->hasOneof(29);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Capture startup_capture = 29;</code>
+     * @param \Rv\Analytics\Startup\Capture $var
+     * @return $this
+     */
+    public function setStartupCapture($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Capture::class);
+        $this->writeOneof(29, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Versioning startup_versioning = 30;</code>
+     * @return \Rv\Analytics\Startup\Versioning|null
+     */
+    public function getStartupVersioning()
+    {
+        return $this->readOneof(30);
+    }
+
+    public function hasStartupVersioning()
+    {
+        return $this->hasOneof(30);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Versioning startup_versioning = 30;</code>
+     * @param \Rv\Analytics\Startup\Versioning $var
+     * @return $this
+     */
+    public function setStartupVersioning($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\Versioning::class);
+        $this->writeOneof(30, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.DiskUsage startup_disk_usage = 31;</code>
+     * @return \Rv\Analytics\Startup\DiskUsage|null
+     */
+    public function getStartupDiskUsage()
+    {
+        return $this->readOneof(31);
+    }
+
+    public function hasStartupDiskUsage()
+    {
+        return $this->hasOneof(31);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.DiskUsage startup_disk_usage = 31;</code>
+     * @param \Rv\Analytics\Startup\DiskUsage $var
+     * @return $this
+     */
+    public function setStartupDiskUsage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\DiskUsage::class);
+        $this->writeOneof(31, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface startup_interface = 32;</code>
+     * @return \Rv\Analytics\Startup\PBInterface|null
+     */
+    public function getStartupInterface()
+    {
+        return $this->readOneof(32);
+    }
+
+    public function hasStartupInterface()
+    {
+        return $this->hasOneof(32);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.startup.Interface startup_interface = 32;</code>
+     * @param \Rv\Analytics\Startup\PBInterface $var
+     * @return $this
+     */
+    public function setStartupInterface($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Startup\PBInterface::class);
+        $this->writeOneof(32, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.sync.Local sync_local = 33;</code>
+     * @return \Rv\Analytics\Sync\Local|null
+     */
+    public function getSyncLocal()
+    {
+        return $this->readOneof(33);
+    }
+
+    public function hasSyncLocal()
+    {
+        return $this->hasOneof(33);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.sync.Local sync_local = 33;</code>
+     * @param \Rv\Analytics\Sync\Local $var
+     * @return $this
+     */
+    public function setSyncLocal($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Sync\Local::class);
+        $this->writeOneof(33, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timecode.Activate timecode_activate = 34;</code>
+     * @return \Rv\Analytics\Timecode\Activate|null
+     */
+    public function getTimecodeActivate()
+    {
+        return $this->readOneof(34);
+    }
+
+    public function hasTimecodeActivate()
+    {
+        return $this->hasOneof(34);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timecode.Activate timecode_activate = 34;</code>
+     * @param \Rv\Analytics\Timecode\Activate $var
+     * @return $this
+     */
+    public function setTimecodeActivate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Timecode\Activate::class);
+        $this->writeOneof(34, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timecode.Startup timecode_startup = 35;</code>
+     * @return \Rv\Analytics\Timecode\Startup|null
+     */
+    public function getTimecodeStartup()
+    {
+        return $this->readOneof(35);
+    }
+
+    public function hasTimecodeStartup()
+    {
+        return $this->hasOneof(35);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timecode.Startup timecode_startup = 35;</code>
+     * @param \Rv\Analytics\Timecode\Startup $var
+     * @return $this
+     */
+    public function setTimecodeStartup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Timecode\Startup::class);
+        $this->writeOneof(35, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.Action timeline_action = 36;</code>
+     * @return \Rv\Analytics\Timeline\Action|null
+     */
+    public function getTimelineAction()
+    {
+        return $this->readOneof(36);
+    }
+
+    public function hasTimelineAction()
+    {
+        return $this->hasOneof(36);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.Action timeline_action = 36;</code>
+     * @param \Rv\Analytics\Timeline\Action $var
+     * @return $this
+     */
+    public function setTimelineAction($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Timeline\Action::class);
+        $this->writeOneof(36, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.RecordCue timeline_record_cue = 37;</code>
+     * @return \Rv\Analytics\Timeline\RecordCue|null
+     */
+    public function getTimelineRecordCue()
+    {
+        return $this->readOneof(37);
+    }
+
+    public function hasTimelineRecordCue()
+    {
+        return $this->hasOneof(37);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.RecordCue timeline_record_cue = 37;</code>
+     * @param \Rv\Analytics\Timeline\RecordCue $var
+     * @return $this
+     */
+    public function setTimelineRecordCue($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Timeline\RecordCue::class);
+        $this->writeOneof(37, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.CueTrigger timeline_cue_trigger = 38;</code>
+     * @return \Rv\Analytics\Timeline\CueTrigger|null
+     */
+    public function getTimelineCueTrigger()
+    {
+        return $this->readOneof(38);
+    }
+
+    public function hasTimelineCueTrigger()
+    {
+        return $this->hasOneof(38);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.timeline.CueTrigger timeline_cue_trigger = 38;</code>
+     * @param \Rv\Analytics\Timeline\CueTrigger $var
+     * @return $this
+     */
+    public function setTimelineCueTrigger($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Timeline\CueTrigger::class);
+        $this->writeOneof(38, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ApplicationLaunch application_launch = 50;</code>
+     * @return \Rv\Analytics\Trackedevents\ApplicationLaunch|null
+     */
+    public function getApplicationLaunch()
+    {
+        return $this->readOneof(50);
+    }
+
+    public function hasApplicationLaunch()
+    {
+        return $this->hasOneof(50);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ApplicationLaunch application_launch = 50;</code>
+     * @param \Rv\Analytics\Trackedevents\ApplicationLaunch $var
+     * @return $this
+     */
+    public function setApplicationLaunch($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\ApplicationLaunch::class);
+        $this->writeOneof(50, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputTriggered video_input_triggered = 51;</code>
+     * @return \Rv\Analytics\Trackedevents\VideoInputTriggered|null
+     */
+    public function getVideoInputTriggered()
+    {
+        return $this->readOneof(51);
+    }
+
+    public function hasVideoInputTriggered()
+    {
+        return $this->hasOneof(51);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputTriggered video_input_triggered = 51;</code>
+     * @param \Rv\Analytics\Trackedevents\VideoInputTriggered $var
+     * @return $this
+     */
+    public function setVideoInputTriggered($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\VideoInputTriggered::class);
+        $this->writeOneof(51, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputCustomMap video_input_custom_map = 52;</code>
+     * @return \Rv\Analytics\Trackedevents\VideoInputCustomMap|null
+     */
+    public function getVideoInputCustomMap()
+    {
+        return $this->readOneof(52);
+    }
+
+    public function hasVideoInputCustomMap()
+    {
+        return $this->hasOneof(52);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputCustomMap video_input_custom_map = 52;</code>
+     * @param \Rv\Analytics\Trackedevents\VideoInputCustomMap $var
+     * @return $this
+     */
+    public function setVideoInputCustomMap($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\VideoInputCustomMap::class);
+        $this->writeOneof(52, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputStartUp video_input_start_up = 53;</code>
+     * @return \Rv\Analytics\Trackedevents\VideoInputStartUp|null
+     */
+    public function getVideoInputStartUp()
+    {
+        return $this->readOneof(53);
+    }
+
+    public function hasVideoInputStartUp()
+    {
+        return $this->hasOneof(53);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputStartUp video_input_start_up = 53;</code>
+     * @param \Rv\Analytics\Trackedevents\VideoInputStartUp $var
+     * @return $this
+     */
+    public function setVideoInputStartUp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\VideoInputStartUp::class);
+        $this->writeOneof(53, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputThumbnailUpdate video_input_thumbnail_update = 54;</code>
+     * @return \Rv\Analytics\Trackedevents\VideoInputThumbnailUpdate|null
+     */
+    public function getVideoInputThumbnailUpdate()
+    {
+        return $this->readOneof(54);
+    }
+
+    public function hasVideoInputThumbnailUpdate()
+    {
+        return $this->hasOneof(54);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.VideoInputThumbnailUpdate video_input_thumbnail_update = 54;</code>
+     * @param \Rv\Analytics\Trackedevents\VideoInputThumbnailUpdate $var
+     * @return $this
+     */
+    public function setVideoInputThumbnailUpdate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\VideoInputThumbnailUpdate::class);
+        $this->writeOneof(54, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputAutoOnChange audio_input_auto_on_change = 55;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioInputAutoOnChange|null
+     */
+    public function getAudioInputAutoOnChange()
+    {
+        return $this->readOneof(55);
+    }
+
+    public function hasAudioInputAutoOnChange()
+    {
+        return $this->hasOneof(55);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputAutoOnChange audio_input_auto_on_change = 55;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioInputAutoOnChange $var
+     * @return $this
+     */
+    public function setAudioInputAutoOnChange($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioInputAutoOnChange::class);
+        $this->writeOneof(55, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsSdiNdiActive audio_settings_sdi_ndi_active = 56;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiActive|null
+     */
+    public function getAudioSettingsSdiNdiActive()
+    {
+        return $this->readOneof(56);
+    }
+
+    public function hasAudioSettingsSdiNdiActive()
+    {
+        return $this->hasOneof(56);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsSdiNdiActive audio_settings_sdi_ndi_active = 56;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiActive $var
+     * @return $this
+     */
+    public function setAudioSettingsSdiNdiActive($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiActive::class);
+        $this->writeOneof(56, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsCustomMap audio_settings_custom_map = 57;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioSettingsCustomMap|null
+     */
+    public function getAudioSettingsCustomMap()
+    {
+        return $this->readOneof(57);
+    }
+
+    public function hasAudioSettingsCustomMap()
+    {
+        return $this->hasOneof(57);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsCustomMap audio_settings_custom_map = 57;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioSettingsCustomMap $var
+     * @return $this
+     */
+    public function setAudioSettingsCustomMap($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioSettingsCustomMap::class);
+        $this->writeOneof(57, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputModeSelection audio_input_mode_selection = 58;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioInputModeSelection|null
+     */
+    public function getAudioInputModeSelection()
+    {
+        return $this->readOneof(58);
+    }
+
+    public function hasAudioInputModeSelection()
+    {
+        return $this->hasOneof(58);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputModeSelection audio_input_mode_selection = 58;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioInputModeSelection $var
+     * @return $this
+     */
+    public function setAudioInputModeSelection($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioInputModeSelection::class);
+        $this->writeOneof(58, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputAutoOnStartup audio_input_auto_on_startup = 59;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioInputAutoOnStartup|null
+     */
+    public function getAudioInputAutoOnStartup()
+    {
+        return $this->readOneof(59);
+    }
+
+    public function hasAudioInputAutoOnStartup()
+    {
+        return $this->hasOneof(59);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputAutoOnStartup audio_input_auto_on_startup = 59;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioInputAutoOnStartup $var
+     * @return $this
+     */
+    public function setAudioInputAutoOnStartup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioInputAutoOnStartup::class);
+        $this->writeOneof(59, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsSdiNdiState audio_settings_sdi_ndi_state = 60;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiState|null
+     */
+    public function getAudioSettingsSdiNdiState()
+    {
+        return $this->readOneof(60);
+    }
+
+    public function hasAudioSettingsSdiNdiState()
+    {
+        return $this->hasOneof(60);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioSettingsSdiNdiState audio_settings_sdi_ndi_state = 60;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiState $var
+     * @return $this
+     */
+    public function setAudioSettingsSdiNdiState($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioSettingsSdiNdiState::class);
+        $this->writeOneof(60, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputStartUp audio_input_start_up = 61;</code>
+     * @return \Rv\Analytics\Trackedevents\AudioInputStartUp|null
+     */
+    public function getAudioInputStartUp()
+    {
+        return $this->readOneof(61);
+    }
+
+    public function hasAudioInputStartUp()
+    {
+        return $this->hasOneof(61);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.AudioInputStartUp audio_input_start_up = 61;</code>
+     * @param \Rv\Analytics\Trackedevents\AudioInputStartUp $var
+     * @return $this
+     */
+    public function setAudioInputStartUp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\AudioInputStartUp::class);
+        $this->writeOneof(61, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.CueTriggered cue_triggered = 62;</code>
+     * @return \Rv\Analytics\Trackedevents\CueTriggered|null
+     */
+    public function getCueTriggered()
+    {
+        return $this->readOneof(62);
+    }
+
+    public function hasCueTriggered()
+    {
+        return $this->hasOneof(62);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.CueTriggered cue_triggered = 62;</code>
+     * @param \Rv\Analytics\Trackedevents\CueTriggered $var
+     * @return $this
+     */
+    public function setCueTriggered($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\CueTriggered::class);
+        $this->writeOneof(62, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.InputAudioMonitoring input_audio_monitoring = 63;</code>
+     * @return \Rv\Analytics\Trackedevents\InputAudioMonitoring|null
+     */
+    public function getInputAudioMonitoring()
+    {
+        return $this->readOneof(63);
+    }
+
+    public function hasInputAudioMonitoring()
+    {
+        return $this->hasOneof(63);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.InputAudioMonitoring input_audio_monitoring = 63;</code>
+     * @param \Rv\Analytics\Trackedevents\InputAudioMonitoring $var
+     * @return $this
+     */
+    public function setInputAudioMonitoring($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\InputAudioMonitoring::class);
+        $this->writeOneof(63, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ResiStartUp resi_start_up = 64;</code>
+     * @return \Rv\Analytics\Trackedevents\ResiStartUp|null
+     */
+    public function getResiStartUp()
+    {
+        return $this->readOneof(64);
+    }
+
+    public function hasResiStartUp()
+    {
+        return $this->hasOneof(64);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ResiStartUp resi_start_up = 64;</code>
+     * @param \Rv\Analytics\Trackedevents\ResiStartUp $var
+     * @return $this
+     */
+    public function setResiStartUp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\ResiStartUp::class);
+        $this->writeOneof(64, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ResiLoginChange resi_login_change = 65;</code>
+     * @return \Rv\Analytics\Trackedevents\ResiLoginChange|null
+     */
+    public function getResiLoginChange()
+    {
+        return $this->readOneof(65);
+    }
+
+    public function hasResiLoginChange()
+    {
+        return $this->hasOneof(65);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ResiLoginChange resi_login_change = 65;</code>
+     * @param \Rv\Analytics\Trackedevents\ResiLoginChange $var
+     * @return $this
+     */
+    public function setResiLoginChange($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\ResiLoginChange::class);
+        $this->writeOneof(65, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.RemoteStreamStart remote_stream_start = 66;</code>
+     * @return \Rv\Analytics\Trackedevents\RemoteStreamStart|null
+     */
+    public function getRemoteStreamStart()
+    {
+        return $this->readOneof(66);
+    }
+
+    public function hasRemoteStreamStart()
+    {
+        return $this->hasOneof(66);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.RemoteStreamStart remote_stream_start = 66;</code>
+     * @param \Rv\Analytics\Trackedevents\RemoteStreamStart $var
+     * @return $this
+     */
+    public function setRemoteStreamStart($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\RemoteStreamStart::class);
+        $this->writeOneof(66, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.RemoteStreamStop remote_stream_stop = 67;</code>
+     * @return \Rv\Analytics\Trackedevents\RemoteStreamStop|null
+     */
+    public function getRemoteStreamStop()
+    {
+        return $this->readOneof(67);
+    }
+
+    public function hasRemoteStreamStop()
+    {
+        return $this->hasOneof(67);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.RemoteStreamStop remote_stream_stop = 67;</code>
+     * @param \Rv\Analytics\Trackedevents\RemoteStreamStop $var
+     * @return $this
+     */
+    public function setRemoteStreamStop($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\RemoteStreamStop::class);
+        $this->writeOneof(67, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureDisk start_capture_disk = 68;</code>
+     * @return \Rv\Analytics\Trackedevents\StartCaptureDisk|null
+     */
+    public function getStartCaptureDisk()
+    {
+        return $this->readOneof(68);
+    }
+
+    public function hasStartCaptureDisk()
+    {
+        return $this->hasOneof(68);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureDisk start_capture_disk = 68;</code>
+     * @param \Rv\Analytics\Trackedevents\StartCaptureDisk $var
+     * @return $this
+     */
+    public function setStartCaptureDisk($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\StartCaptureDisk::class);
+        $this->writeOneof(68, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureRtmp start_capture_rtmp = 69;</code>
+     * @return \Rv\Analytics\Trackedevents\StartCaptureRtmp|null
+     */
+    public function getStartCaptureRtmp()
+    {
+        return $this->readOneof(69);
+    }
+
+    public function hasStartCaptureRtmp()
+    {
+        return $this->hasOneof(69);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureRtmp start_capture_rtmp = 69;</code>
+     * @param \Rv\Analytics\Trackedevents\StartCaptureRtmp $var
+     * @return $this
+     */
+    public function setStartCaptureRtmp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\StartCaptureRtmp::class);
+        $this->writeOneof(69, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureResi start_capture_resi = 70;</code>
+     * @return \Rv\Analytics\Trackedevents\StartCaptureResi|null
+     */
+    public function getStartCaptureResi()
+    {
+        return $this->readOneof(70);
+    }
+
+    public function hasStartCaptureResi()
+    {
+        return $this->hasOneof(70);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StartCaptureResi start_capture_resi = 70;</code>
+     * @param \Rv\Analytics\Trackedevents\StartCaptureResi $var
+     * @return $this
+     */
+    public function setStartCaptureResi($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\StartCaptureResi::class);
+        $this->writeOneof(70, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StopCapture stop_capture = 71;</code>
+     * @return \Rv\Analytics\Trackedevents\StopCapture|null
+     */
+    public function getStopCapture()
+    {
+        return $this->readOneof(71);
+    }
+
+    public function hasStopCapture()
+    {
+        return $this->hasOneof(71);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.StopCapture stop_capture = 71;</code>
+     * @param \Rv\Analytics\Trackedevents\StopCapture $var
+     * @return $this
+     */
+    public function setStopCapture($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\StopCapture::class);
+        $this->writeOneof(71, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.GenericEvent analytic_reset = 72;</code>
+     * @return \Rv\Analytics\Trackedevents\GenericEvent|null
+     */
+    public function getAnalyticReset()
+    {
+        return $this->readOneof(72);
+    }
+
+    public function hasAnalyticReset()
+    {
+        return $this->hasOneof(72);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.GenericEvent analytic_reset = 72;</code>
+     * @param \Rv\Analytics\Trackedevents\GenericEvent $var
+     * @return $this
+     */
+    public function setAnalyticReset($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\GenericEvent::class);
+        $this->writeOneof(72, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Print print = 73;</code>
+     * @return \Rv\Analytics\Trackedevents\PBPrint|null
+     */
+    public function getPrint()
+    {
+        return $this->readOneof(73);
+    }
+
+    public function hasPrint()
+    {
+        return $this->hasOneof(73);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Print print = 73;</code>
+     * @param \Rv\Analytics\Trackedevents\PBPrint $var
+     * @return $this
+     */
+    public function setPrint($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\PBPrint::class);
+        $this->writeOneof(73, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Device device = 74;</code>
+     * @return \Rv\Analytics\Trackedevents\Device|null
+     */
+    public function getDevice()
+    {
+        return $this->readOneof(74);
+    }
+
+    public function hasDevice()
+    {
+        return $this->hasOneof(74);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Device device = 74;</code>
+     * @param \Rv\Analytics\Trackedevents\Device $var
+     * @return $this
+     */
+    public function setDevice($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\Device::class);
+        $this->writeOneof(74, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Downgrade downgrade = 75;</code>
+     * @return \Rv\Analytics\Trackedevents\Downgrade|null
+     */
+    public function getDowngrade()
+    {
+        return $this->readOneof(75);
+    }
+
+    public function hasDowngrade()
+    {
+        return $this->hasOneof(75);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.Downgrade downgrade = 75;</code>
+     * @param \Rv\Analytics\Trackedevents\Downgrade $var
+     * @return $this
+     */
+    public function setDowngrade($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\Downgrade::class);
+        $this->writeOneof(75, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.CCLIReport ccli_report = 76;</code>
+     * @return \Rv\Analytics\Trackedevents\CCLIReport|null
+     */
+    public function getCcliReport()
+    {
+        return $this->readOneof(76);
+    }
+
+    public function hasCcliReport()
+    {
+        return $this->hasOneof(76);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.CCLIReport ccli_report = 76;</code>
+     * @param \Rv\Analytics\Trackedevents\CCLIReport $var
+     * @return $this
+     */
+    public function setCcliReport($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\CCLIReport::class);
+        $this->writeOneof(76, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.TransitionWindow transition_window = 77;</code>
+     * @return \Rv\Analytics\Trackedevents\TransitionWindow|null
+     */
+    public function getTransitionWindow()
+    {
+        return $this->readOneof(77);
+    }
+
+    public function hasTransitionWindow()
+    {
+        return $this->hasOneof(77);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.TransitionWindow transition_window = 77;</code>
+     * @param \Rv\Analytics\Trackedevents\TransitionWindow $var
+     * @return $this
+     */
+    public function setTransitionWindow($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\TransitionWindow::class);
+        $this->writeOneof(77, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.EditorObjectAdded editor_object_added = 78;</code>
+     * @return \Rv\Analytics\Trackedevents\EditorObjectAdded|null
+     */
+    public function getEditorObjectAdded()
+    {
+        return $this->readOneof(78);
+    }
+
+    public function hasEditorObjectAdded()
+    {
+        return $this->hasOneof(78);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.EditorObjectAdded editor_object_added = 78;</code>
+     * @param \Rv\Analytics\Trackedevents\EditorObjectAdded $var
+     * @return $this
+     */
+    public function setEditorObjectAdded($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\EditorObjectAdded::class);
+        $this->writeOneof(78, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.DataIdDuplicated data_id_duplicated = 79;</code>
+     * @return \Rv\Analytics\Trackedevents\DataIdDuplicated|null
+     */
+    public function getDataIdDuplicated()
+    {
+        return $this->readOneof(79);
+    }
+
+    public function hasDataIdDuplicated()
+    {
+        return $this->hasOneof(79);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.DataIdDuplicated data_id_duplicated = 79;</code>
+     * @param \Rv\Analytics\Trackedevents\DataIdDuplicated $var
+     * @return $this
+     */
+    public function setDataIdDuplicated($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\DataIdDuplicated::class);
+        $this->writeOneof(79, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ForceQuit force_quit = 80;</code>
+     * @return \Rv\Analytics\Trackedevents\ForceQuit|null
+     */
+    public function getForceQuit()
+    {
+        return $this->readOneof(80);
+    }
+
+    public function hasForceQuit()
+    {
+        return $this->hasOneof(80);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.ForceQuit force_quit = 80;</code>
+     * @param \Rv\Analytics\Trackedevents\ForceQuit $var
+     * @return $this
+     */
+    public function setForceQuit($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\ForceQuit::class);
+        $this->writeOneof(80, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.MediaCleanupSize media_cleanup_size = 81;</code>
+     * @return \Rv\Analytics\Trackedevents\MediaCleanupSize|null
+     */
+    public function getMediaCleanupSize()
+    {
+        return $this->readOneof(81);
+    }
+
+    public function hasMediaCleanupSize()
+    {
+        return $this->hasOneof(81);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.MediaCleanupSize media_cleanup_size = 81;</code>
+     * @param \Rv\Analytics\Trackedevents\MediaCleanupSize $var
+     * @return $this
+     */
+    public function setMediaCleanupSize($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\MediaCleanupSize::class);
+        $this->writeOneof(81, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.NetworkApp network_app = 82;</code>
+     * @return \Rv\Analytics\Trackedevents\NetworkApp|null
+     */
+    public function getNetworkApp()
+    {
+        return $this->readOneof(82);
+    }
+
+    public function hasNetworkApp()
+    {
+        return $this->hasOneof(82);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trackedevents.NetworkApp network_app = 82;</code>
+     * @param \Rv\Analytics\Trackedevents\NetworkApp $var
+     * @return $this
+     */
+    public function setNetworkApp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trackedevents\NetworkApp::class);
+        $this->writeOneof(82, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCaptureStart trigger_action_capture_start = 100;</code>
+     * @return \Rv\Analytics\Trigger\ActionCaptureStart|null
+     */
+    public function getTriggerActionCaptureStart()
+    {
+        return $this->readOneof(100);
+    }
+
+    public function hasTriggerActionCaptureStart()
+    {
+        return $this->hasOneof(100);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCaptureStart trigger_action_capture_start = 100;</code>
+     * @param \Rv\Analytics\Trigger\ActionCaptureStart $var
+     * @return $this
+     */
+    public function setTriggerActionCaptureStart($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionCaptureStart::class);
+        $this->writeOneof(100, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCaptureStop trigger_action_capture_stop = 101;</code>
+     * @return \Rv\Analytics\Trigger\ActionCaptureStop|null
+     */
+    public function getTriggerActionCaptureStop()
+    {
+        return $this->readOneof(101);
+    }
+
+    public function hasTriggerActionCaptureStop()
+    {
+        return $this->hasOneof(101);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCaptureStop trigger_action_capture_stop = 101;</code>
+     * @param \Rv\Analytics\Trigger\ActionCaptureStop $var
+     * @return $this
+     */
+    public function setTriggerActionCaptureStop($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionCaptureStop::class);
+        $this->writeOneof(101, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionClear trigger_action_clear = 102;</code>
+     * @return \Rv\Analytics\Trigger\ActionClear|null
+     */
+    public function getTriggerActionClear()
+    {
+        return $this->readOneof(102);
+    }
+
+    public function hasTriggerActionClear()
+    {
+        return $this->hasOneof(102);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionClear trigger_action_clear = 102;</code>
+     * @param \Rv\Analytics\Trigger\ActionClear $var
+     * @return $this
+     */
+    public function setTriggerActionClear($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionClear::class);
+        $this->writeOneof(102, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionClearGroup trigger_action_clear_group = 103;</code>
+     * @return \Rv\Analytics\Trigger\ActionClearGroup|null
+     */
+    public function getTriggerActionClearGroup()
+    {
+        return $this->readOneof(103);
+    }
+
+    public function hasTriggerActionClearGroup()
+    {
+        return $this->hasOneof(103);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionClearGroup trigger_action_clear_group = 103;</code>
+     * @param \Rv\Analytics\Trigger\ActionClearGroup $var
+     * @return $this
+     */
+    public function setTriggerActionClearGroup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionClearGroup::class);
+        $this->writeOneof(103, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCommunications trigger_action_communications = 104;</code>
+     * @return \Rv\Analytics\Trigger\ActionCommunications|null
+     */
+    public function getTriggerActionCommunications()
+    {
+        return $this->readOneof(104);
+    }
+
+    public function hasTriggerActionCommunications()
+    {
+        return $this->hasOneof(104);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionCommunications trigger_action_communications = 104;</code>
+     * @param \Rv\Analytics\Trigger\ActionCommunications $var
+     * @return $this
+     */
+    public function setTriggerActionCommunications($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionCommunications::class);
+        $this->writeOneof(104, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionLook trigger_action_look = 105;</code>
+     * @return \Rv\Analytics\Trigger\ActionLook|null
+     */
+    public function getTriggerActionLook()
+    {
+        return $this->readOneof(105);
+    }
+
+    public function hasTriggerActionLook()
+    {
+        return $this->hasOneof(105);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionLook trigger_action_look = 105;</code>
+     * @param \Rv\Analytics\Trigger\ActionLook $var
+     * @return $this
+     */
+    public function setTriggerActionLook($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionLook::class);
+        $this->writeOneof(105, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionMacro trigger_action_macro = 106;</code>
+     * @return \Rv\Analytics\Trigger\ActionMacro|null
+     */
+    public function getTriggerActionMacro()
+    {
+        return $this->readOneof(106);
+    }
+
+    public function hasTriggerActionMacro()
+    {
+        return $this->hasOneof(106);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionMacro trigger_action_macro = 106;</code>
+     * @param \Rv\Analytics\Trigger\ActionMacro $var
+     * @return $this
+     */
+    public function setTriggerActionMacro($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionMacro::class);
+        $this->writeOneof(106, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionMessage trigger_action_message = 107;</code>
+     * @return \Rv\Analytics\Trigger\ActionMessage|null
+     */
+    public function getTriggerActionMessage()
+    {
+        return $this->readOneof(107);
+    }
+
+    public function hasTriggerActionMessage()
+    {
+        return $this->hasOneof(107);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionMessage trigger_action_message = 107;</code>
+     * @param \Rv\Analytics\Trigger\ActionMessage $var
+     * @return $this
+     */
+    public function setTriggerActionMessage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionMessage::class);
+        $this->writeOneof(107, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionProp trigger_action_prop = 108;</code>
+     * @return \Rv\Analytics\Trigger\ActionProp|null
+     */
+    public function getTriggerActionProp()
+    {
+        return $this->readOneof(108);
+    }
+
+    public function hasTriggerActionProp()
+    {
+        return $this->hasOneof(108);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionProp trigger_action_prop = 108;</code>
+     * @param \Rv\Analytics\Trigger\ActionProp $var
+     * @return $this
+     */
+    public function setTriggerActionProp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionProp::class);
+        $this->writeOneof(108, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionSlideDestination trigger_action_slide_destination = 109;</code>
+     * @return \Rv\Analytics\Trigger\ActionSlideDestination|null
+     */
+    public function getTriggerActionSlideDestination()
+    {
+        return $this->readOneof(109);
+    }
+
+    public function hasTriggerActionSlideDestination()
+    {
+        return $this->hasOneof(109);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionSlideDestination trigger_action_slide_destination = 109;</code>
+     * @param \Rv\Analytics\Trigger\ActionSlideDestination $var
+     * @return $this
+     */
+    public function setTriggerActionSlideDestination($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionSlideDestination::class);
+        $this->writeOneof(109, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionStage trigger_action_stage = 110;</code>
+     * @return \Rv\Analytics\Trigger\ActionStage|null
+     */
+    public function getTriggerActionStage()
+    {
+        return $this->readOneof(110);
+    }
+
+    public function hasTriggerActionStage()
+    {
+        return $this->hasOneof(110);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionStage trigger_action_stage = 110;</code>
+     * @param \Rv\Analytics\Trigger\ActionStage $var
+     * @return $this
+     */
+    public function setTriggerActionStage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionStage::class);
+        $this->writeOneof(110, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionTimer trigger_action_timer = 111;</code>
+     * @return \Rv\Analytics\Trigger\ActionTimer|null
+     */
+    public function getTriggerActionTimer()
+    {
+        return $this->readOneof(111);
+    }
+
+    public function hasTriggerActionTimer()
+    {
+        return $this->hasOneof(111);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.ActionTimer trigger_action_timer = 111;</code>
+     * @param \Rv\Analytics\Trigger\ActionTimer $var
+     * @return $this
+     */
+    public function setTriggerActionTimer($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\ActionTimer::class);
+        $this->writeOneof(111, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Audio trigger_media_audio = 112;</code>
+     * @return \Rv\Analytics\Trigger\Media\Audio|null
+     */
+    public function getTriggerMediaAudio()
+    {
+        return $this->readOneof(112);
+    }
+
+    public function hasTriggerMediaAudio()
+    {
+        return $this->hasOneof(112);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Audio trigger_media_audio = 112;</code>
+     * @param \Rv\Analytics\Trigger\Media\Audio $var
+     * @return $this
+     */
+    public function setTriggerMediaAudio($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\Audio::class);
+        $this->writeOneof(112, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Image trigger_media_image = 113;</code>
+     * @return \Rv\Analytics\Trigger\Media\Image|null
+     */
+    public function getTriggerMediaImage()
+    {
+        return $this->readOneof(113);
+    }
+
+    public function hasTriggerMediaImage()
+    {
+        return $this->hasOneof(113);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Image trigger_media_image = 113;</code>
+     * @param \Rv\Analytics\Trigger\Media\Image $var
+     * @return $this
+     */
+    public function setTriggerMediaImage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\Image::class);
+        $this->writeOneof(113, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.VideoInput trigger_media_video_input = 114;</code>
+     * @return \Rv\Analytics\Trigger\Media\VideoInput|null
+     */
+    public function getTriggerMediaVideoInput()
+    {
+        return $this->readOneof(114);
+    }
+
+    public function hasTriggerMediaVideoInput()
+    {
+        return $this->hasOneof(114);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.VideoInput trigger_media_video_input = 114;</code>
+     * @param \Rv\Analytics\Trigger\Media\VideoInput $var
+     * @return $this
+     */
+    public function setTriggerMediaVideoInput($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\VideoInput::class);
+        $this->writeOneof(114, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Video trigger_media_video = 115;</code>
+     * @return \Rv\Analytics\Trigger\Media\Video|null
+     */
+    public function getTriggerMediaVideo()
+    {
+        return $this->readOneof(115);
+    }
+
+    public function hasTriggerMediaVideo()
+    {
+        return $this->hasOneof(115);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.Video trigger_media_video = 115;</code>
+     * @param \Rv\Analytics\Trigger\Media\Video $var
+     * @return $this
+     */
+    public function setTriggerMediaVideo($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\Video::class);
+        $this->writeOneof(115, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.Slide trigger_cue_slide = 116;</code>
+     * @return \Rv\Analytics\Trigger\Cue\Slide|null
+     */
+    public function getTriggerCueSlide()
+    {
+        return $this->readOneof(116);
+    }
+
+    public function hasTriggerCueSlide()
+    {
+        return $this->hasOneof(116);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.Slide trigger_cue_slide = 116;</code>
+     * @param \Rv\Analytics\Trigger\Cue\Slide $var
+     * @return $this
+     */
+    public function setTriggerCueSlide($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Cue\Slide::class);
+        $this->writeOneof(116, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideFileFeedElement trigger_cue_slide_file_feed_element = 117;</code>
+     * @return \Rv\Analytics\Trigger\Cue\SlideFileFeedElement|null
+     */
+    public function getTriggerCueSlideFileFeedElement()
+    {
+        return $this->readOneof(117);
+    }
+
+    public function hasTriggerCueSlideFileFeedElement()
+    {
+        return $this->hasOneof(117);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideFileFeedElement trigger_cue_slide_file_feed_element = 117;</code>
+     * @param \Rv\Analytics\Trigger\Cue\SlideFileFeedElement $var
+     * @return $this
+     */
+    public function setTriggerCueSlideFileFeedElement($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Cue\SlideFileFeedElement::class);
+        $this->writeOneof(117, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideRssFeedElement trigger_cue_slide_rss_feed_element = 118;</code>
+     * @return \Rv\Analytics\Trigger\Cue\SlideRssFeedElement|null
+     */
+    public function getTriggerCueSlideRssFeedElement()
+    {
+        return $this->readOneof(118);
+    }
+
+    public function hasTriggerCueSlideRssFeedElement()
+    {
+        return $this->hasOneof(118);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideRssFeedElement trigger_cue_slide_rss_feed_element = 118;</code>
+     * @param \Rv\Analytics\Trigger\Cue\SlideRssFeedElement $var
+     * @return $this
+     */
+    public function setTriggerCueSlideRssFeedElement($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Cue\SlideRssFeedElement::class);
+        $this->writeOneof(118, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideScrollingTextElement trigger_cue_slide_scrolling_text_element = 119;</code>
+     * @return \Rv\Analytics\Trigger\Cue\SlideScrollingTextElement|null
+     */
+    public function getTriggerCueSlideScrollingTextElement()
+    {
+        return $this->readOneof(119);
+    }
+
+    public function hasTriggerCueSlideScrollingTextElement()
+    {
+        return $this->hasOneof(119);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.cue.SlideScrollingTextElement trigger_cue_slide_scrolling_text_element = 119;</code>
+     * @param \Rv\Analytics\Trigger\Cue\SlideScrollingTextElement $var
+     * @return $this
+     */
+    public function setTriggerCueSlideScrollingTextElement($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Cue\SlideScrollingTextElement::class);
+        $this->writeOneof(119, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern trigger_test_pattern = 120;</code>
+     * @return \Rv\Analytics\Trigger\TestPattern|null
+     */
+    public function getTriggerTestPattern()
+    {
+        return $this->readOneof(120);
+    }
+
+    public function hasTriggerTestPattern()
+    {
+        return $this->hasOneof(120);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.TestPattern trigger_test_pattern = 120;</code>
+     * @param \Rv\Analytics\Trigger\TestPattern $var
+     * @return $this
+     */
+    public function setTriggerTestPattern($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\TestPattern::class);
+        $this->writeOneof(120, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastVideo trigger_media_aircast_video = 121;</code>
+     * @return \Rv\Analytics\Trigger\Media\AirCastVideo|null
+     */
+    public function getTriggerMediaAircastVideo()
+    {
+        return $this->readOneof(121);
+    }
+
+    public function hasTriggerMediaAircastVideo()
+    {
+        return $this->hasOneof(121);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastVideo trigger_media_aircast_video = 121;</code>
+     * @param \Rv\Analytics\Trigger\Media\AirCastVideo $var
+     * @return $this
+     */
+    public function setTriggerMediaAircastVideo($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\AirCastVideo::class);
+        $this->writeOneof(121, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastAudio trigger_media_aircast_audio = 122;</code>
+     * @return \Rv\Analytics\Trigger\Media\AirCastAudio|null
+     */
+    public function getTriggerMediaAircastAudio()
+    {
+        return $this->readOneof(122);
+    }
+
+    public function hasTriggerMediaAircastAudio()
+    {
+        return $this->hasOneof(122);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastAudio trigger_media_aircast_audio = 122;</code>
+     * @param \Rv\Analytics\Trigger\Media\AirCastAudio $var
+     * @return $this
+     */
+    public function setTriggerMediaAircastAudio($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\AirCastAudio::class);
+        $this->writeOneof(122, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastVideo aircast_video_input_configured = 123;</code>
+     * @return \Rv\Analytics\Trigger\Media\AirCastVideo|null
+     */
+    public function getAircastVideoInputConfigured()
+    {
+        return $this->readOneof(123);
+    }
+
+    public function hasAircastVideoInputConfigured()
+    {
+        return $this->hasOneof(123);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastVideo aircast_video_input_configured = 123;</code>
+     * @param \Rv\Analytics\Trigger\Media\AirCastVideo $var
+     * @return $this
+     */
+    public function setAircastVideoInputConfigured($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\AirCastVideo::class);
+        $this->writeOneof(123, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastAudio aircast_audio_input_configured = 124;</code>
+     * @return \Rv\Analytics\Trigger\Media\AirCastAudio|null
+     */
+    public function getAircastAudioInputConfigured()
+    {
+        return $this->readOneof(124);
+    }
+
+    public function hasAircastAudioInputConfigured()
+    {
+        return $this->hasOneof(124);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.trigger.media.AirCastAudio aircast_audio_input_configured = 124;</code>
+     * @param \Rv\Analytics\Trigger\Media\AirCastAudio $var
+     * @return $this
+     */
+    public function setAircastAudioInputConfigured($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Trigger\Media\AirCastAudio::class);
+        $this->writeOneof(124, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.InstallationComplete media_management_installation_complete = 140;</code>
+     * @return \Rv\Analytics\Mediamanagement\InstallationComplete|null
+     */
+    public function getMediaManagementInstallationComplete()
+    {
+        return $this->readOneof(140);
+    }
+
+    public function hasMediaManagementInstallationComplete()
+    {
+        return $this->hasOneof(140);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.InstallationComplete media_management_installation_complete = 140;</code>
+     * @param \Rv\Analytics\Mediamanagement\InstallationComplete $var
+     * @return $this
+     */
+    public function setMediaManagementInstallationComplete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\InstallationComplete::class);
+        $this->writeOneof(140, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.BootstrappingComplete media_management_bootstrapping_complete = 141;</code>
+     * @return \Rv\Analytics\Mediamanagement\BootstrappingComplete|null
+     */
+    public function getMediaManagementBootstrappingComplete()
+    {
+        return $this->readOneof(141);
+    }
+
+    public function hasMediaManagementBootstrappingComplete()
+    {
+        return $this->hasOneof(141);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.BootstrappingComplete media_management_bootstrapping_complete = 141;</code>
+     * @param \Rv\Analytics\Mediamanagement\BootstrappingComplete $var
+     * @return $this
+     */
+    public function setMediaManagementBootstrappingComplete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\BootstrappingComplete::class);
+        $this->writeOneof(141, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.MessageFailure media_management_message_failure = 142;</code>
+     * @return \Rv\Analytics\Mediamanagement\MessageFailure|null
+     */
+    public function getMediaManagementMessageFailure()
+    {
+        return $this->readOneof(142);
+    }
+
+    public function hasMediaManagementMessageFailure()
+    {
+        return $this->hasOneof(142);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.MessageFailure media_management_message_failure = 142;</code>
+     * @param \Rv\Analytics\Mediamanagement\MessageFailure $var
+     * @return $this
+     */
+    public function setMediaManagementMessageFailure($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\MessageFailure::class);
+        $this->writeOneof(142, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.UnexpectedlyNotRunning media_management_unexpectedly_not_running = 143;</code>
+     * @return \Rv\Analytics\Mediamanagement\UnexpectedlyNotRunning|null
+     */
+    public function getMediaManagementUnexpectedlyNotRunning()
+    {
+        return $this->readOneof(143);
+    }
+
+    public function hasMediaManagementUnexpectedlyNotRunning()
+    {
+        return $this->hasOneof(143);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.UnexpectedlyNotRunning media_management_unexpectedly_not_running = 143;</code>
+     * @param \Rv\Analytics\Mediamanagement\UnexpectedlyNotRunning $var
+     * @return $this
+     */
+    public function setMediaManagementUnexpectedlyNotRunning($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\UnexpectedlyNotRunning::class);
+        $this->writeOneof(143, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.ConnectionChanged media_management_connection_changed = 144;</code>
+     * @return \Rv\Analytics\Mediamanagement\ConnectionChanged|null
+     */
+    public function getMediaManagementConnectionChanged()
+    {
+        return $this->readOneof(144);
+    }
+
+    public function hasMediaManagementConnectionChanged()
+    {
+        return $this->hasOneof(144);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.ConnectionChanged media_management_connection_changed = 144;</code>
+     * @param \Rv\Analytics\Mediamanagement\ConnectionChanged $var
+     * @return $this
+     */
+    public function setMediaManagementConnectionChanged($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\ConnectionChanged::class);
+        $this->writeOneof(144, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.AddedMediaReference media_management_added_media_reference = 145;</code>
+     * @return \Rv\Analytics\Mediamanagement\AddedMediaReference|null
+     */
+    public function getMediaManagementAddedMediaReference()
+    {
+        return $this->readOneof(145);
+    }
+
+    public function hasMediaManagementAddedMediaReference()
+    {
+        return $this->hasOneof(145);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.AddedMediaReference media_management_added_media_reference = 145;</code>
+     * @param \Rv\Analytics\Mediamanagement\AddedMediaReference $var
+     * @return $this
+     */
+    public function setMediaManagementAddedMediaReference($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\AddedMediaReference::class);
+        $this->writeOneof(145, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.NotResponding media_management_not_responding = 146;</code>
+     * @return \Rv\Analytics\Mediamanagement\NotResponding|null
+     */
+    public function getMediaManagementNotResponding()
+    {
+        return $this->readOneof(146);
+    }
+
+    public function hasMediaManagementNotResponding()
+    {
+        return $this->hasOneof(146);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.mediamanagement.NotResponding media_management_not_responding = 146;</code>
+     * @param \Rv\Analytics\Mediamanagement\NotResponding $var
+     * @return $this
+     */
+    public function setMediaManagementNotResponding($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Mediamanagement\NotResponding::class);
+        $this->writeOneof(146, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchShown ui_quicksearch = 200;</code>
+     * @return \Rv\Analytics\Ui\QuickSearchShown|null
+     */
+    public function getUiQuicksearch()
+    {
+        return $this->readOneof(200);
+    }
+
+    public function hasUiQuicksearch()
+    {
+        return $this->hasOneof(200);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchShown ui_quicksearch = 200;</code>
+     * @param \Rv\Analytics\Ui\QuickSearchShown $var
+     * @return $this
+     */
+    public function setUiQuicksearch($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\QuickSearchShown::class);
+        $this->writeOneof(200, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchSearch ui_quicksearch_search = 201;</code>
+     * @return \Rv\Analytics\Ui\QuickSearchSearch|null
+     */
+    public function getUiQuicksearchSearch()
+    {
+        return $this->readOneof(201);
+    }
+
+    public function hasUiQuicksearchSearch()
+    {
+        return $this->hasOneof(201);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchSearch ui_quicksearch_search = 201;</code>
+     * @param \Rv\Analytics\Ui\QuickSearchSearch $var
+     * @return $this
+     */
+    public function setUiQuicksearchSearch($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\QuickSearchSearch::class);
+        $this->writeOneof(201, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchOpenItems ui_quicksearch_openitems = 202;</code>
+     * @return \Rv\Analytics\Ui\QuickSearchOpenItems|null
+     */
+    public function getUiQuicksearchOpenitems()
+    {
+        return $this->readOneof(202);
+    }
+
+    public function hasUiQuicksearchOpenitems()
+    {
+        return $this->hasOneof(202);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.QuickSearchOpenItems ui_quicksearch_openitems = 202;</code>
+     * @param \Rv\Analytics\Ui\QuickSearchOpenItems $var
+     * @return $this
+     */
+    public function setUiQuicksearchOpenitems($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\QuickSearchOpenItems::class);
+        $this->writeOneof(202, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ToolbarThemeShown ui_toolbar_theme = 203;</code>
+     * @return \Rv\Analytics\Ui\ToolbarThemeShown|null
+     */
+    public function getUiToolbarTheme()
+    {
+        return $this->readOneof(203);
+    }
+
+    public function hasUiToolbarTheme()
+    {
+        return $this->hasOneof(203);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ToolbarThemeShown ui_toolbar_theme = 203;</code>
+     * @param \Rv\Analytics\Ui\ToolbarThemeShown $var
+     * @return $this
+     */
+    public function setUiToolbarTheme($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ToolbarThemeShown::class);
+        $this->writeOneof(203, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ToolbarThemeApplication ui_toolbar_theme_application = 204;</code>
+     * @return \Rv\Analytics\Ui\ToolbarThemeApplication|null
+     */
+    public function getUiToolbarThemeApplication()
+    {
+        return $this->readOneof(204);
+    }
+
+    public function hasUiToolbarThemeApplication()
+    {
+        return $this->hasOneof(204);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ToolbarThemeApplication ui_toolbar_theme_application = 204;</code>
+     * @param \Rv\Analytics\Ui\ToolbarThemeApplication $var
+     * @return $this
+     */
+    public function setUiToolbarThemeApplication($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ToolbarThemeApplication::class);
+        $this->writeOneof(204, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewShow ui_mainview_show = 205;</code>
+     * @return \Rv\Analytics\Ui\MainViewShow|null
+     */
+    public function getUiMainviewShow()
+    {
+        return $this->readOneof(205);
+    }
+
+    public function hasUiMainviewShow()
+    {
+        return $this->hasOneof(205);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewShow ui_mainview_show = 205;</code>
+     * @param \Rv\Analytics\Ui\MainViewShow $var
+     * @return $this
+     */
+    public function setUiMainviewShow($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewShow::class);
+        $this->writeOneof(205, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewPresentationEditor ui_mainview_presentation_editor = 206;</code>
+     * @return \Rv\Analytics\Ui\MainViewPresentationEditor|null
+     */
+    public function getUiMainviewPresentationEditor()
+    {
+        return $this->readOneof(206);
+    }
+
+    public function hasUiMainviewPresentationEditor()
+    {
+        return $this->hasOneof(206);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewPresentationEditor ui_mainview_presentation_editor = 206;</code>
+     * @param \Rv\Analytics\Ui\MainViewPresentationEditor $var
+     * @return $this
+     */
+    public function setUiMainviewPresentationEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewPresentationEditor::class);
+        $this->writeOneof(206, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewReflowEditor ui_mainview_reflow = 207;</code>
+     * @return \Rv\Analytics\Ui\MainViewReflowEditor|null
+     */
+    public function getUiMainviewReflow()
+    {
+        return $this->readOneof(207);
+    }
+
+    public function hasUiMainviewReflow()
+    {
+        return $this->hasOneof(207);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewReflowEditor ui_mainview_reflow = 207;</code>
+     * @param \Rv\Analytics\Ui\MainViewReflowEditor $var
+     * @return $this
+     */
+    public function setUiMainviewReflow($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewReflowEditor::class);
+        $this->writeOneof(207, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewBible ui_mainview_bible = 208;</code>
+     * @return \Rv\Analytics\Ui\MainViewBible|null
+     */
+    public function getUiMainviewBible()
+    {
+        return $this->readOneof(208);
+    }
+
+    public function hasUiMainviewBible()
+    {
+        return $this->hasOneof(208);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewBible ui_mainview_bible = 208;</code>
+     * @param \Rv\Analytics\Ui\MainViewBible $var
+     * @return $this
+     */
+    public function setUiMainviewBible($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewBible::class);
+        $this->writeOneof(208, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleTrigger bible_trigger = 209;</code>
+     * @return \Rv\Analytics\Ui\BibleTrigger|null
+     */
+    public function getBibleTrigger()
+    {
+        return $this->readOneof(209);
+    }
+
+    public function hasBibleTrigger()
+    {
+        return $this->hasOneof(209);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleTrigger bible_trigger = 209;</code>
+     * @param \Rv\Analytics\Ui\BibleTrigger $var
+     * @return $this
+     */
+    public function setBibleTrigger($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleTrigger::class);
+        $this->writeOneof(209, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateSlides bible_generate_slides = 210;</code>
+     * @return \Rv\Analytics\Ui\BibleGenerateSlides|null
+     */
+    public function getBibleGenerateSlides()
+    {
+        return $this->readOneof(210);
+    }
+
+    public function hasBibleGenerateSlides()
+    {
+        return $this->hasOneof(210);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateSlides bible_generate_slides = 210;</code>
+     * @param \Rv\Analytics\Ui\BibleGenerateSlides $var
+     * @return $this
+     */
+    public function setBibleGenerateSlides($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleGenerateSlides::class);
+        $this->writeOneof(210, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateNext bible_generate_next = 211;</code>
+     * @return \Rv\Analytics\Ui\BibleGenerateNext|null
+     */
+    public function getBibleGenerateNext()
+    {
+        return $this->readOneof(211);
+    }
+
+    public function hasBibleGenerateNext()
+    {
+        return $this->hasOneof(211);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateNext bible_generate_next = 211;</code>
+     * @param \Rv\Analytics\Ui\BibleGenerateNext $var
+     * @return $this
+     */
+    public function setBibleGenerateNext($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleGenerateNext::class);
+        $this->writeOneof(211, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateNext bible_generate_previous = 212;</code>
+     * @return \Rv\Analytics\Ui\BibleGenerateNext|null
+     */
+    public function getBibleGeneratePrevious()
+    {
+        return $this->readOneof(212);
+    }
+
+    public function hasBibleGeneratePrevious()
+    {
+        return $this->hasOneof(212);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleGenerateNext bible_generate_previous = 212;</code>
+     * @param \Rv\Analytics\Ui\BibleGenerateNext $var
+     * @return $this
+     */
+    public function setBibleGeneratePrevious($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleGenerateNext::class);
+        $this->writeOneof(212, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleSaveSlides bible_save_slides = 213;</code>
+     * @return \Rv\Analytics\Ui\BibleSaveSlides|null
+     */
+    public function getBibleSaveSlides()
+    {
+        return $this->readOneof(213);
+    }
+
+    public function hasBibleSaveSlides()
+    {
+        return $this->hasOneof(213);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleSaveSlides bible_save_slides = 213;</code>
+     * @param \Rv\Analytics\Ui\BibleSaveSlides $var
+     * @return $this
+     */
+    public function setBibleSaveSlides($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleSaveSlides::class);
+        $this->writeOneof(213, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleLookup bible_lookup = 214;</code>
+     * @return \Rv\Analytics\Ui\BibleLookup|null
+     */
+    public function getBibleLookup()
+    {
+        return $this->readOneof(214);
+    }
+
+    public function hasBibleLookup()
+    {
+        return $this->hasOneof(214);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleLookup bible_lookup = 214;</code>
+     * @param \Rv\Analytics\Ui\BibleLookup $var
+     * @return $this
+     */
+    public function setBibleLookup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleLookup::class);
+        $this->writeOneof(214, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleStartup bible_startup = 215;</code>
+     * @return \Rv\Analytics\Ui\BibleStartup|null
+     */
+    public function getBibleStartup()
+    {
+        return $this->readOneof(215);
+    }
+
+    public function hasBibleStartup()
+    {
+        return $this->hasOneof(215);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleStartup bible_startup = 215;</code>
+     * @param \Rv\Analytics\Ui\BibleStartup $var
+     * @return $this
+     */
+    public function setBibleStartup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleStartup::class);
+        $this->writeOneof(215, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleRemove bible_remove = 216;</code>
+     * @return \Rv\Analytics\Ui\BibleRemove|null
+     */
+    public function getBibleRemove()
+    {
+        return $this->readOneof(216);
+    }
+
+    public function hasBibleRemove()
+    {
+        return $this->hasOneof(216);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleRemove bible_remove = 216;</code>
+     * @param \Rv\Analytics\Ui\BibleRemove $var
+     * @return $this
+     */
+    public function setBibleRemove($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleRemove::class);
+        $this->writeOneof(216, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleInstall bible_install = 217;</code>
+     * @return \Rv\Analytics\Ui\BibleInstall|null
+     */
+    public function getBibleInstall()
+    {
+        return $this->readOneof(217);
+    }
+
+    public function hasBibleInstall()
+    {
+        return $this->hasOneof(217);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.BibleInstall bible_install = 217;</code>
+     * @param \Rv\Analytics\Ui\BibleInstall $var
+     * @return $this
+     */
+    public function setBibleInstall($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\BibleInstall::class);
+        $this->writeOneof(217, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewMaskEditor ui_mainview_mask_editor = 218;</code>
+     * @return \Rv\Analytics\Ui\MainViewMaskEditor|null
+     */
+    public function getUiMainviewMaskEditor()
+    {
+        return $this->readOneof(218);
+    }
+
+    public function hasUiMainviewMaskEditor()
+    {
+        return $this->hasOneof(218);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewMaskEditor ui_mainview_mask_editor = 218;</code>
+     * @param \Rv\Analytics\Ui\MainViewMaskEditor $var
+     * @return $this
+     */
+    public function setUiMainviewMaskEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewMaskEditor::class);
+        $this->writeOneof(218, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewStageEditor ui_mainview_stage_editor = 219;</code>
+     * @return \Rv\Analytics\Ui\MainViewStageEditor|null
+     */
+    public function getUiMainviewStageEditor()
+    {
+        return $this->readOneof(219);
+    }
+
+    public function hasUiMainviewStageEditor()
+    {
+        return $this->hasOneof(219);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewStageEditor ui_mainview_stage_editor = 219;</code>
+     * @param \Rv\Analytics\Ui\MainViewStageEditor $var
+     * @return $this
+     */
+    public function setUiMainviewStageEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewStageEditor::class);
+        $this->writeOneof(219, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewThemeEditor ui_mainview_theme_editor = 220;</code>
+     * @return \Rv\Analytics\Ui\MainViewThemeEditor|null
+     */
+    public function getUiMainviewThemeEditor()
+    {
+        return $this->readOneof(220);
+    }
+
+    public function hasUiMainviewThemeEditor()
+    {
+        return $this->hasOneof(220);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewThemeEditor ui_mainview_theme_editor = 220;</code>
+     * @param \Rv\Analytics\Ui\MainViewThemeEditor $var
+     * @return $this
+     */
+    public function setUiMainviewThemeEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewThemeEditor::class);
+        $this->writeOneof(220, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewCopyrightEditor ui_mainview_copyright_editor = 221;</code>
+     * @return \Rv\Analytics\Ui\MainViewCopyrightEditor|null
+     */
+    public function getUiMainviewCopyrightEditor()
+    {
+        return $this->readOneof(221);
+    }
+
+    public function hasUiMainviewCopyrightEditor()
+    {
+        return $this->hasOneof(221);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewCopyrightEditor ui_mainview_copyright_editor = 221;</code>
+     * @param \Rv\Analytics\Ui\MainViewCopyrightEditor $var
+     * @return $this
+     */
+    public function setUiMainviewCopyrightEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewCopyrightEditor::class);
+        $this->writeOneof(221, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewPropsEditor ui_mainview_props_editor = 222;</code>
+     * @return \Rv\Analytics\Ui\MainViewPropsEditor|null
+     */
+    public function getUiMainviewPropsEditor()
+    {
+        return $this->readOneof(222);
+    }
+
+    public function hasUiMainviewPropsEditor()
+    {
+        return $this->hasOneof(222);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.MainViewPropsEditor ui_mainview_props_editor = 222;</code>
+     * @param \Rv\Analytics\Ui\MainViewPropsEditor $var
+     * @return $this
+     */
+    public function setUiMainviewPropsEditor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\MainViewPropsEditor::class);
+        $this->writeOneof(222, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimers ui_lowerright_timers = 223;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimers|null
+     */
+    public function getUiLowerrightTimers()
+    {
+        return $this->readOneof(223);
+    }
+
+    public function hasUiLowerrightTimers()
+    {
+        return $this->hasOneof(223);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimers ui_lowerright_timers = 223;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimers $var
+     * @return $this
+     */
+    public function setUiLowerrightTimers($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimers::class);
+        $this->writeOneof(223, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersCollapse ui_lowerright_timers_collapse = 224;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimersCollapse|null
+     */
+    public function getUiLowerrightTimersCollapse()
+    {
+        return $this->readOneof(224);
+    }
+
+    public function hasUiLowerrightTimersCollapse()
+    {
+        return $this->hasOneof(224);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersCollapse ui_lowerright_timers_collapse = 224;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimersCollapse $var
+     * @return $this
+     */
+    public function setUiLowerrightTimersCollapse($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimersCollapse::class);
+        $this->writeOneof(224, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersEdit ui_lowerright_timers_edit = 225;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimersEdit|null
+     */
+    public function getUiLowerrightTimersEdit()
+    {
+        return $this->readOneof(225);
+    }
+
+    public function hasUiLowerrightTimersEdit()
+    {
+        return $this->hasOneof(225);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersEdit ui_lowerright_timers_edit = 225;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimersEdit $var
+     * @return $this
+     */
+    public function setUiLowerrightTimersEdit($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimersEdit::class);
+        $this->writeOneof(225, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersState ui_lowerright_timers_state = 226;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimersState|null
+     */
+    public function getUiLowerrightTimersState()
+    {
+        return $this->readOneof(226);
+    }
+
+    public function hasUiLowerrightTimersState()
+    {
+        return $this->hasOneof(226);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersState ui_lowerright_timers_state = 226;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimersState $var
+     * @return $this
+     */
+    public function setUiLowerrightTimersState($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimersState::class);
+        $this->writeOneof(226, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersCreate ui_lowerright_timers_create = 227;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimersCreate|null
+     */
+    public function getUiLowerrightTimersCreate()
+    {
+        return $this->readOneof(227);
+    }
+
+    public function hasUiLowerrightTimersCreate()
+    {
+        return $this->hasOneof(227);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersCreate ui_lowerright_timers_create = 227;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimersCreate $var
+     * @return $this
+     */
+    public function setUiLowerrightTimersCreate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimersCreate::class);
+        $this->writeOneof(227, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersDelete ui_lowerright_timers_delete = 228;</code>
+     * @return \Rv\Analytics\Ui\LowerRightTimersDelete|null
+     */
+    public function getUiLowerrightTimersDelete()
+    {
+        return $this->readOneof(228);
+    }
+
+    public function hasUiLowerrightTimersDelete()
+    {
+        return $this->hasOneof(228);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightTimersDelete ui_lowerright_timers_delete = 228;</code>
+     * @param \Rv\Analytics\Ui\LowerRightTimersDelete $var
+     * @return $this
+     */
+    public function setUiLowerrightTimersDelete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightTimersDelete::class);
+        $this->writeOneof(228, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessages ui_lowerright_messages = 229;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMessages|null
+     */
+    public function getUiLowerrightMessages()
+    {
+        return $this->readOneof(229);
+    }
+
+    public function hasUiLowerrightMessages()
+    {
+        return $this->hasOneof(229);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessages ui_lowerright_messages = 229;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMessages $var
+     * @return $this
+     */
+    public function setUiLowerrightMessages($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMessages::class);
+        $this->writeOneof(229, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesEdit ui_lowerright_messages_edit = 230;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMessagesEdit|null
+     */
+    public function getUiLowerrightMessagesEdit()
+    {
+        return $this->readOneof(230);
+    }
+
+    public function hasUiLowerrightMessagesEdit()
+    {
+        return $this->hasOneof(230);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesEdit ui_lowerright_messages_edit = 230;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMessagesEdit $var
+     * @return $this
+     */
+    public function setUiLowerrightMessagesEdit($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMessagesEdit::class);
+        $this->writeOneof(230, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesState ui_lowerright_messages_state = 231;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMessagesState|null
+     */
+    public function getUiLowerrightMessagesState()
+    {
+        return $this->readOneof(231);
+    }
+
+    public function hasUiLowerrightMessagesState()
+    {
+        return $this->hasOneof(231);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesState ui_lowerright_messages_state = 231;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMessagesState $var
+     * @return $this
+     */
+    public function setUiLowerrightMessagesState($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMessagesState::class);
+        $this->writeOneof(231, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesCreate ui_lowerright_messages_create = 232;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMessagesCreate|null
+     */
+    public function getUiLowerrightMessagesCreate()
+    {
+        return $this->readOneof(232);
+    }
+
+    public function hasUiLowerrightMessagesCreate()
+    {
+        return $this->hasOneof(232);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesCreate ui_lowerright_messages_create = 232;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMessagesCreate $var
+     * @return $this
+     */
+    public function setUiLowerrightMessagesCreate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMessagesCreate::class);
+        $this->writeOneof(232, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesDelete ui_lowerright_messages_delete = 233;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMessagesDelete|null
+     */
+    public function getUiLowerrightMessagesDelete()
+    {
+        return $this->readOneof(233);
+    }
+
+    public function hasUiLowerrightMessagesDelete()
+    {
+        return $this->hasOneof(233);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMessagesDelete ui_lowerright_messages_delete = 233;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMessagesDelete $var
+     * @return $this
+     */
+    public function setUiLowerrightMessagesDelete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMessagesDelete::class);
+        $this->writeOneof(233, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightProps ui_lowerright_props = 234;</code>
+     * @return \Rv\Analytics\Ui\LowerRightProps|null
+     */
+    public function getUiLowerrightProps()
+    {
+        return $this->readOneof(234);
+    }
+
+    public function hasUiLowerrightProps()
+    {
+        return $this->hasOneof(234);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightProps ui_lowerright_props = 234;</code>
+     * @param \Rv\Analytics\Ui\LowerRightProps $var
+     * @return $this
+     */
+    public function setUiLowerrightProps($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightProps::class);
+        $this->writeOneof(234, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsTransition ui_lowerright_props_transition = 235;</code>
+     * @return \Rv\Analytics\Ui\LowerRightPropsTransition|null
+     */
+    public function getUiLowerrightPropsTransition()
+    {
+        return $this->readOneof(235);
+    }
+
+    public function hasUiLowerrightPropsTransition()
+    {
+        return $this->hasOneof(235);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsTransition ui_lowerright_props_transition = 235;</code>
+     * @param \Rv\Analytics\Ui\LowerRightPropsTransition $var
+     * @return $this
+     */
+    public function setUiLowerrightPropsTransition($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightPropsTransition::class);
+        $this->writeOneof(235, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsCreate ui_lowerright_props_create = 236;</code>
+     * @return \Rv\Analytics\Ui\LowerRightPropsCreate|null
+     */
+    public function getUiLowerrightPropsCreate()
+    {
+        return $this->readOneof(236);
+    }
+
+    public function hasUiLowerrightPropsCreate()
+    {
+        return $this->hasOneof(236);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsCreate ui_lowerright_props_create = 236;</code>
+     * @param \Rv\Analytics\Ui\LowerRightPropsCreate $var
+     * @return $this
+     */
+    public function setUiLowerrightPropsCreate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightPropsCreate::class);
+        $this->writeOneof(236, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsDelete ui_lowerright_props_delete = 237;</code>
+     * @return \Rv\Analytics\Ui\LowerRightPropsDelete|null
+     */
+    public function getUiLowerrightPropsDelete()
+    {
+        return $this->readOneof(237);
+    }
+
+    public function hasUiLowerrightPropsDelete()
+    {
+        return $this->hasOneof(237);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsDelete ui_lowerright_props_delete = 237;</code>
+     * @param \Rv\Analytics\Ui\LowerRightPropsDelete $var
+     * @return $this
+     */
+    public function setUiLowerrightPropsDelete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightPropsDelete::class);
+        $this->writeOneof(237, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsState ui_lowerright_props_state = 238;</code>
+     * @return \Rv\Analytics\Ui\LowerRightPropsState|null
+     */
+    public function getUiLowerrightPropsState()
+    {
+        return $this->readOneof(238);
+    }
+
+    public function hasUiLowerrightPropsState()
+    {
+        return $this->hasOneof(238);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightPropsState ui_lowerright_props_state = 238;</code>
+     * @param \Rv\Analytics\Ui\LowerRightPropsState $var
+     * @return $this
+     */
+    public function setUiLowerrightPropsState($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightPropsState::class);
+        $this->writeOneof(238, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStage ui_lowerright_stage = 239;</code>
+     * @return \Rv\Analytics\Ui\LowerRightStage|null
+     */
+    public function getUiLowerrightStage()
+    {
+        return $this->readOneof(239);
+    }
+
+    public function hasUiLowerrightStage()
+    {
+        return $this->hasOneof(239);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStage ui_lowerright_stage = 239;</code>
+     * @param \Rv\Analytics\Ui\LowerRightStage $var
+     * @return $this
+     */
+    public function setUiLowerrightStage($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightStage::class);
+        $this->writeOneof(239, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageChangeLayout ui_lowerright_stage_changelayout = 240;</code>
+     * @return \Rv\Analytics\Ui\LowerRightStageChangeLayout|null
+     */
+    public function getUiLowerrightStageChangelayout()
+    {
+        return $this->readOneof(240);
+    }
+
+    public function hasUiLowerrightStageChangelayout()
+    {
+        return $this->hasOneof(240);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageChangeLayout ui_lowerright_stage_changelayout = 240;</code>
+     * @param \Rv\Analytics\Ui\LowerRightStageChangeLayout $var
+     * @return $this
+     */
+    public function setUiLowerrightStageChangelayout($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightStageChangeLayout::class);
+        $this->writeOneof(240, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageMessageState ui_lowerright_stage_messagestate = 241;</code>
+     * @return \Rv\Analytics\Ui\LowerRightStageMessageState|null
+     */
+    public function getUiLowerrightStageMessagestate()
+    {
+        return $this->readOneof(241);
+    }
+
+    public function hasUiLowerrightStageMessagestate()
+    {
+        return $this->hasOneof(241);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageMessageState ui_lowerright_stage_messagestate = 241;</code>
+     * @param \Rv\Analytics\Ui\LowerRightStageMessageState $var
+     * @return $this
+     */
+    public function setUiLowerrightStageMessagestate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightStageMessageState::class);
+        $this->writeOneof(241, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageConfigureScreens ui_lowerright_stage_configurescreens = 242;</code>
+     * @return \Rv\Analytics\Ui\LowerRightStageConfigureScreens|null
+     */
+    public function getUiLowerrightStageConfigurescreens()
+    {
+        return $this->readOneof(242);
+    }
+
+    public function hasUiLowerrightStageConfigurescreens()
+    {
+        return $this->hasOneof(242);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageConfigureScreens ui_lowerright_stage_configurescreens = 242;</code>
+     * @param \Rv\Analytics\Ui\LowerRightStageConfigureScreens $var
+     * @return $this
+     */
+    public function setUiLowerrightStageConfigurescreens($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightStageConfigureScreens::class);
+        $this->writeOneof(242, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageEditLayouts ui_lowerright_stage_editlayouts = 243;</code>
+     * @return \Rv\Analytics\Ui\LowerRightStageEditLayouts|null
+     */
+    public function getUiLowerrightStageEditlayouts()
+    {
+        return $this->readOneof(243);
+    }
+
+    public function hasUiLowerrightStageEditlayouts()
+    {
+        return $this->hasOneof(243);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightStageEditLayouts ui_lowerright_stage_editlayouts = 243;</code>
+     * @param \Rv\Analytics\Ui\LowerRightStageEditLayouts $var
+     * @return $this
+     */
+    public function setUiLowerrightStageEditlayouts($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightStageEditLayouts::class);
+        $this->writeOneof(243, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacros ui_lowerright_macros = 244;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMacros|null
+     */
+    public function getUiLowerrightMacros()
+    {
+        return $this->readOneof(244);
+    }
+
+    public function hasUiLowerrightMacros()
+    {
+        return $this->hasOneof(244);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacros ui_lowerright_macros = 244;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMacros $var
+     * @return $this
+     */
+    public function setUiLowerrightMacros($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMacros::class);
+        $this->writeOneof(244, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosTrigger ui_lowerright_macros_trigger = 245;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMacrosTrigger|null
+     */
+    public function getUiLowerrightMacrosTrigger()
+    {
+        return $this->readOneof(245);
+    }
+
+    public function hasUiLowerrightMacrosTrigger()
+    {
+        return $this->hasOneof(245);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosTrigger ui_lowerright_macros_trigger = 245;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMacrosTrigger $var
+     * @return $this
+     */
+    public function setUiLowerrightMacrosTrigger($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMacrosTrigger::class);
+        $this->writeOneof(245, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosCreate ui_lowerright_macros_create = 246;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMacrosCreate|null
+     */
+    public function getUiLowerrightMacrosCreate()
+    {
+        return $this->readOneof(246);
+    }
+
+    public function hasUiLowerrightMacrosCreate()
+    {
+        return $this->hasOneof(246);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosCreate ui_lowerright_macros_create = 246;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMacrosCreate $var
+     * @return $this
+     */
+    public function setUiLowerrightMacrosCreate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMacrosCreate::class);
+        $this->writeOneof(246, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosDelete ui_lowerright_macros_delete = 247;</code>
+     * @return \Rv\Analytics\Ui\LowerRightMacrosDelete|null
+     */
+    public function getUiLowerrightMacrosDelete()
+    {
+        return $this->readOneof(247);
+    }
+
+    public function hasUiLowerrightMacrosDelete()
+    {
+        return $this->hasOneof(247);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.LowerRightMacrosDelete ui_lowerright_macros_delete = 247;</code>
+     * @param \Rv\Analytics\Ui\LowerRightMacrosDelete $var
+     * @return $this
+     */
+    public function setUiLowerrightMacrosDelete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\LowerRightMacrosDelete::class);
+        $this->writeOneof(247, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspector ui_textinspector = 248;</code>
+     * @return \Rv\Analytics\Ui\TextInspector|null
+     */
+    public function getUiTextinspector()
+    {
+        return $this->readOneof(248);
+    }
+
+    public function hasUiTextinspector()
+    {
+        return $this->hasOneof(248);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspector ui_textinspector = 248;</code>
+     * @param \Rv\Analytics\Ui\TextInspector $var
+     * @return $this
+     */
+    public function setUiTextinspector($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspector::class);
+        $this->writeOneof(248, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorScrollingText ui_textinspector_scrolling_text = 249;</code>
+     * @return \Rv\Analytics\Ui\TextInspectorScrollingText|null
+     */
+    public function getUiTextinspectorScrollingText()
+    {
+        return $this->readOneof(249);
+    }
+
+    public function hasUiTextinspectorScrollingText()
+    {
+        return $this->hasOneof(249);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorScrollingText ui_textinspector_scrolling_text = 249;</code>
+     * @param \Rv\Analytics\Ui\TextInspectorScrollingText $var
+     * @return $this
+     */
+    public function setUiTextinspectorScrollingText($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspectorScrollingText::class);
+        $this->writeOneof(249, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorForeground ui_textinspector_foreground = 250;</code>
+     * @return \Rv\Analytics\Ui\TextInspectorForeground|null
+     */
+    public function getUiTextinspectorForeground()
+    {
+        return $this->readOneof(250);
+    }
+
+    public function hasUiTextinspectorForeground()
+    {
+        return $this->hasOneof(250);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorForeground ui_textinspector_foreground = 250;</code>
+     * @param \Rv\Analytics\Ui\TextInspectorForeground $var
+     * @return $this
+     */
+    public function setUiTextinspectorForeground($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspectorForeground::class);
+        $this->writeOneof(250, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorUnderlineColor ui_textinspector_underline_color = 251;</code>
+     * @return \Rv\Analytics\Ui\TextInspectorUnderlineColor|null
+     */
+    public function getUiTextinspectorUnderlineColor()
+    {
+        return $this->readOneof(251);
+    }
+
+    public function hasUiTextinspectorUnderlineColor()
+    {
+        return $this->hasOneof(251);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorUnderlineColor ui_textinspector_underline_color = 251;</code>
+     * @param \Rv\Analytics\Ui\TextInspectorUnderlineColor $var
+     * @return $this
+     */
+    public function setUiTextinspectorUnderlineColor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspectorUnderlineColor::class);
+        $this->writeOneof(251, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorBackgroundColor ui_textinspector_background_color = 252;</code>
+     * @return \Rv\Analytics\Ui\TextInspectorBackgroundColor|null
+     */
+    public function getUiTextinspectorBackgroundColor()
+    {
+        return $this->readOneof(252);
+    }
+
+    public function hasUiTextinspectorBackgroundColor()
+    {
+        return $this->hasOneof(252);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorBackgroundColor ui_textinspector_background_color = 252;</code>
+     * @param \Rv\Analytics\Ui\TextInspectorBackgroundColor $var
+     * @return $this
+     */
+    public function setUiTextinspectorBackgroundColor($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspectorBackgroundColor::class);
+        $this->writeOneof(252, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorLineTransform ui_textinspector_line_transform = 253;</code>
+     * @return \Rv\Analytics\Ui\TextInspectorLineTransform|null
+     */
+    public function getUiTextinspectorLineTransform()
+    {
+        return $this->readOneof(253);
+    }
+
+    public function hasUiTextinspectorLineTransform()
+    {
+        return $this->hasOneof(253);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TextInspectorLineTransform ui_textinspector_line_transform = 253;</code>
+     * @param \Rv\Analytics\Ui\TextInspectorLineTransform $var
+     * @return $this
+     */
+    public function setUiTextinspectorLineTransform($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TextInspectorLineTransform::class);
+        $this->writeOneof(253, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ShowSlideLabel ui_show_slide_label = 254;</code>
+     * @return \Rv\Analytics\Ui\ShowSlideLabel|null
+     */
+    public function getUiShowSlideLabel()
+    {
+        return $this->readOneof(254);
+    }
+
+    public function hasUiShowSlideLabel()
+    {
+        return $this->hasOneof(254);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ShowSlideLabel ui_show_slide_label = 254;</code>
+     * @param \Rv\Analytics\Ui\ShowSlideLabel $var
+     * @return $this
+     */
+    public function setUiShowSlideLabel($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ShowSlideLabel::class);
+        $this->writeOneof(254, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ShowSlideLabelChange ui_show_slide_label_change = 255;</code>
+     * @return \Rv\Analytics\Ui\ShowSlideLabelChange|null
+     */
+    public function getUiShowSlideLabelChange()
+    {
+        return $this->readOneof(255);
+    }
+
+    public function hasUiShowSlideLabelChange()
+    {
+        return $this->hasOneof(255);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ShowSlideLabelChange ui_show_slide_label_change = 255;</code>
+     * @param \Rv\Analytics\Ui\ShowSlideLabelChange $var
+     * @return $this
+     */
+    public function setUiShowSlideLabelChange($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ShowSlideLabelChange::class);
+        $this->writeOneof(255, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.EditorOverlayShown ui_editor_overlay_shown = 258;</code>
+     * @return \Rv\Analytics\Ui\EditorOverlayShown|null
+     */
+    public function getUiEditorOverlayShown()
+    {
+        return $this->readOneof(258);
+    }
+
+    public function hasUiEditorOverlayShown()
+    {
+        return $this->hasOneof(258);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.EditorOverlayShown ui_editor_overlay_shown = 258;</code>
+     * @param \Rv\Analytics\Ui\EditorOverlayShown $var
+     * @return $this
+     */
+    public function setUiEditorOverlayShown($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\EditorOverlayShown::class);
+        $this->writeOneof(258, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.EditorOverlayClosed ui_editor_overlay_closed = 259;</code>
+     * @return \Rv\Analytics\Ui\EditorOverlayClosed|null
+     */
+    public function getUiEditorOverlayClosed()
+    {
+        return $this->readOneof(259);
+    }
+
+    public function hasUiEditorOverlayClosed()
+    {
+        return $this->hasOneof(259);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.EditorOverlayClosed ui_editor_overlay_closed = 259;</code>
+     * @param \Rv\Analytics\Ui\EditorOverlayClosed $var
+     * @return $this
+     */
+    public function setUiEditorOverlayClosed($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\EditorOverlayClosed::class);
+        $this->writeOneof(259, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WhatsNewViewed ui_whats_new_viewed = 260;</code>
+     * @return \Rv\Analytics\Ui\WhatsNewViewed|null
+     */
+    public function getUiWhatsNewViewed()
+    {
+        return $this->readOneof(260);
+    }
+
+    public function hasUiWhatsNewViewed()
+    {
+        return $this->hasOneof(260);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WhatsNewViewed ui_whats_new_viewed = 260;</code>
+     * @param \Rv\Analytics\Ui\WhatsNewViewed $var
+     * @return $this
+     */
+    public function setUiWhatsNewViewed($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WhatsNewViewed::class);
+        $this->writeOneof(260, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroups ui_clear_groups = 261;</code>
+     * @return \Rv\Analytics\Ui\ClearGroups|null
+     */
+    public function getUiClearGroups()
+    {
+        return $this->readOneof(261);
+    }
+
+    public function hasUiClearGroups()
+    {
+        return $this->hasOneof(261);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroups ui_clear_groups = 261;</code>
+     * @param \Rv\Analytics\Ui\ClearGroups $var
+     * @return $this
+     */
+    public function setUiClearGroups($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ClearGroups::class);
+        $this->writeOneof(261, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsCreate ui_clear_groups_create = 262;</code>
+     * @return \Rv\Analytics\Ui\ClearGroupsCreate|null
+     */
+    public function getUiClearGroupsCreate()
+    {
+        return $this->readOneof(262);
+    }
+
+    public function hasUiClearGroupsCreate()
+    {
+        return $this->hasOneof(262);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsCreate ui_clear_groups_create = 262;</code>
+     * @param \Rv\Analytics\Ui\ClearGroupsCreate $var
+     * @return $this
+     */
+    public function setUiClearGroupsCreate($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ClearGroupsCreate::class);
+        $this->writeOneof(262, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsDelete ui_clear_groups_delete = 263;</code>
+     * @return \Rv\Analytics\Ui\ClearGroupsDelete|null
+     */
+    public function getUiClearGroupsDelete()
+    {
+        return $this->readOneof(263);
+    }
+
+    public function hasUiClearGroupsDelete()
+    {
+        return $this->hasOneof(263);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsDelete ui_clear_groups_delete = 263;</code>
+     * @param \Rv\Analytics\Ui\ClearGroupsDelete $var
+     * @return $this
+     */
+    public function setUiClearGroupsDelete($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ClearGroupsDelete::class);
+        $this->writeOneof(263, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsChangeVisibility ui_clear_groups_change_visibility = 264;</code>
+     * @return \Rv\Analytics\Ui\ClearGroupsChangeVisibility|null
+     */
+    public function getUiClearGroupsChangeVisibility()
+    {
+        return $this->readOneof(264);
+    }
+
+    public function hasUiClearGroupsChangeVisibility()
+    {
+        return $this->hasOneof(264);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsChangeVisibility ui_clear_groups_change_visibility = 264;</code>
+     * @param \Rv\Analytics\Ui\ClearGroupsChangeVisibility $var
+     * @return $this
+     */
+    public function setUiClearGroupsChangeVisibility($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ClearGroupsChangeVisibility::class);
+        $this->writeOneof(264, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsChangeIcon ui_clear_groups_change_icon = 265;</code>
+     * @return \Rv\Analytics\Ui\ClearGroupsChangeIcon|null
+     */
+    public function getUiClearGroupsChangeIcon()
+    {
+        return $this->readOneof(265);
+    }
+
+    public function hasUiClearGroupsChangeIcon()
+    {
+        return $this->hasOneof(265);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.ClearGroupsChangeIcon ui_clear_groups_change_icon = 265;</code>
+     * @param \Rv\Analytics\Ui\ClearGroupsChangeIcon $var
+     * @return $this
+     */
+    public function setUiClearGroupsChangeIcon($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\ClearGroupsChangeIcon::class);
+        $this->writeOneof(265, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PreviewAreaClearGroupsTrigger ui_preview_area_clear_groups_trigger = 266;</code>
+     * @return \Rv\Analytics\Ui\PreviewAreaClearGroupsTrigger|null
+     */
+    public function getUiPreviewAreaClearGroupsTrigger()
+    {
+        return $this->readOneof(266);
+    }
+
+    public function hasUiPreviewAreaClearGroupsTrigger()
+    {
+        return $this->hasOneof(266);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PreviewAreaClearGroupsTrigger ui_preview_area_clear_groups_trigger = 266;</code>
+     * @param \Rv\Analytics\Ui\PreviewAreaClearGroupsTrigger $var
+     * @return $this
+     */
+    public function setUiPreviewAreaClearGroupsTrigger($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\PreviewAreaClearGroupsTrigger::class);
+        $this->writeOneof(266, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PreviewAreaClearGroupsChanged ui_preview_area_clear_groups_changed = 267;</code>
+     * @return \Rv\Analytics\Ui\PreviewAreaClearGroupsChanged|null
+     */
+    public function getUiPreviewAreaClearGroupsChanged()
+    {
+        return $this->readOneof(267);
+    }
+
+    public function hasUiPreviewAreaClearGroupsChanged()
+    {
+        return $this->hasOneof(267);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PreviewAreaClearGroupsChanged ui_preview_area_clear_groups_changed = 267;</code>
+     * @param \Rv\Analytics\Ui\PreviewAreaClearGroupsChanged $var
+     * @return $this
+     */
+    public function setUiPreviewAreaClearGroupsChanged($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\PreviewAreaClearGroupsChanged::class);
+        $this->writeOneof(267, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlaceholderLink ui_placeholder_link = 268;</code>
+     * @return \Rv\Analytics\Ui\PlaceholderLink|null
+     */
+    public function getUiPlaceholderLink()
+    {
+        return $this->readOneof(268);
+    }
+
+    public function hasUiPlaceholderLink()
+    {
+        return $this->hasOneof(268);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlaceholderLink ui_placeholder_link = 268;</code>
+     * @param \Rv\Analytics\Ui\PlaceholderLink $var
+     * @return $this
+     */
+    public function setUiPlaceholderLink($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\PlaceholderLink::class);
+        $this->writeOneof(268, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlaceholderUnlink ui_placeholder_unlink = 269;</code>
+     * @return \Rv\Analytics\Ui\PlaceholderUnlink|null
+     */
+    public function getUiPlaceholderUnlink()
+    {
+        return $this->readOneof(269);
+    }
+
+    public function hasUiPlaceholderUnlink()
+    {
+        return $this->hasOneof(269);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlaceholderUnlink ui_placeholder_unlink = 269;</code>
+     * @param \Rv\Analytics\Ui\PlaceholderUnlink $var
+     * @return $this
+     */
+    public function setUiPlaceholderUnlink($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\PlaceholderUnlink::class);
+        $this->writeOneof(269, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlanningCenterLive ui_planningCenterLive = 270;</code>
+     * @return \Rv\Analytics\Ui\PlanningCenterLive|null
+     */
+    public function getUiPlanningCenterLive()
+    {
+        return $this->readOneof(270);
+    }
+
+    public function hasUiPlanningCenterLive()
+    {
+        return $this->hasOneof(270);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.PlanningCenterLive ui_planningCenterLive = 270;</code>
+     * @param \Rv\Analytics\Ui\PlanningCenterLive $var
+     * @return $this
+     */
+    public function setUiPlanningCenterLive($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\PlanningCenterLive::class);
+        $this->writeOneof(270, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupAdd ui_networkgroup_add = 271;</code>
+     * @return \Rv\Analytics\Ui\NetworkGroupAdd|null
+     */
+    public function getUiNetworkgroupAdd()
+    {
+        return $this->readOneof(271);
+    }
+
+    public function hasUiNetworkgroupAdd()
+    {
+        return $this->hasOneof(271);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupAdd ui_networkgroup_add = 271;</code>
+     * @param \Rv\Analytics\Ui\NetworkGroupAdd $var
+     * @return $this
+     */
+    public function setUiNetworkgroupAdd($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\NetworkGroupAdd::class);
+        $this->writeOneof(271, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupRemove ui_networkgroup_remove = 272;</code>
+     * @return \Rv\Analytics\Ui\NetworkGroupRemove|null
+     */
+    public function getUiNetworkgroupRemove()
+    {
+        return $this->readOneof(272);
+    }
+
+    public function hasUiNetworkgroupRemove()
+    {
+        return $this->hasOneof(272);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupRemove ui_networkgroup_remove = 272;</code>
+     * @param \Rv\Analytics\Ui\NetworkGroupRemove $var
+     * @return $this
+     */
+    public function setUiNetworkgroupRemove($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\NetworkGroupRemove::class);
+        $this->writeOneof(272, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupLeave ui_networkgroup_leave = 283;</code>
+     * @return \Rv\Analytics\Ui\NetworkGroupLeave|null
+     */
+    public function getUiNetworkgroupLeave()
+    {
+        return $this->readOneof(283);
+    }
+
+    public function hasUiNetworkgroupLeave()
+    {
+        return $this->hasOneof(283);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.NetworkGroupLeave ui_networkgroup_leave = 283;</code>
+     * @param \Rv\Analytics\Ui\NetworkGroupLeave $var
+     * @return $this
+     */
+    public function setUiNetworkgroupLeave($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\NetworkGroupLeave::class);
+        $this->writeOneof(283, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.CcliReportReset ui_ccli_report_reset = 273;</code>
+     * @return \Rv\Analytics\Ui\CcliReportReset|null
+     */
+    public function getUiCcliReportReset()
+    {
+        return $this->readOneof(273);
+    }
+
+    public function hasUiCcliReportReset()
+    {
+        return $this->hasOneof(273);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.CcliReportReset ui_ccli_report_reset = 273;</code>
+     * @param \Rv\Analytics\Ui\CcliReportReset $var
+     * @return $this
+     */
+    public function setUiCcliReportReset($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\CcliReportReset::class);
+        $this->writeOneof(273, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.CcliReportShown ui_ccli_report_shown = 274;</code>
+     * @return \Rv\Analytics\Ui\CcliReportShown|null
+     */
+    public function getUiCcliReportShown()
+    {
+        return $this->readOneof(274);
+    }
+
+    public function hasUiCcliReportShown()
+    {
+        return $this->hasOneof(274);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.CcliReportShown ui_ccli_report_shown = 274;</code>
+     * @param \Rv\Analytics\Ui\CcliReportShown $var
+     * @return $this
+     */
+    public function setUiCcliReportShown($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\CcliReportShown::class);
+        $this->writeOneof(274, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.Capture ui_capture_shown = 275;</code>
+     * @return \Rv\Analytics\Ui\Capture|null
+     */
+    public function getUiCaptureShown()
+    {
+        return $this->readOneof(275);
+    }
+
+    public function hasUiCaptureShown()
+    {
+        return $this->hasOneof(275);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.Capture ui_capture_shown = 275;</code>
+     * @param \Rv\Analytics\Ui\Capture $var
+     * @return $this
+     */
+    public function setUiCaptureShown($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\Capture::class);
+        $this->writeOneof(275, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.Welcome ui_welcome = 276;</code>
+     * @return \Rv\Analytics\Ui\Welcome|null
+     */
+    public function getUiWelcome()
+    {
+        return $this->readOneof(276);
+    }
+
+    public function hasUiWelcome()
+    {
+        return $this->hasOneof(276);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.Welcome ui_welcome = 276;</code>
+     * @param \Rv\Analytics\Ui\Welcome $var
+     * @return $this
+     */
+    public function setUiWelcome($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\Welcome::class);
+        $this->writeOneof(276, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeScreenConfigurationHelp ui_welcome_screen_configuration_help = 277;</code>
+     * @return \Rv\Analytics\Ui\WelcomeScreenConfigurationHelp|null
+     */
+    public function getUiWelcomeScreenConfigurationHelp()
+    {
+        return $this->readOneof(277);
+    }
+
+    public function hasUiWelcomeScreenConfigurationHelp()
+    {
+        return $this->hasOneof(277);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeScreenConfigurationHelp ui_welcome_screen_configuration_help = 277;</code>
+     * @param \Rv\Analytics\Ui\WelcomeScreenConfigurationHelp $var
+     * @return $this
+     */
+    public function setUiWelcomeScreenConfigurationHelp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeScreenConfigurationHelp::class);
+        $this->writeOneof(277, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeDownloadSampleContent ui_welcome_download_sample_content = 278;</code>
+     * @return \Rv\Analytics\Ui\WelcomeDownloadSampleContent|null
+     */
+    public function getUiWelcomeDownloadSampleContent()
+    {
+        return $this->readOneof(278);
+    }
+
+    public function hasUiWelcomeDownloadSampleContent()
+    {
+        return $this->hasOneof(278);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeDownloadSampleContent ui_welcome_download_sample_content = 278;</code>
+     * @param \Rv\Analytics\Ui\WelcomeDownloadSampleContent $var
+     * @return $this
+     */
+    public function setUiWelcomeDownloadSampleContent($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeDownloadSampleContent::class);
+        $this->writeOneof(278, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeUserGroup ui_welcome_user_group = 279;</code>
+     * @return \Rv\Analytics\Ui\WelcomeUserGroup|null
+     */
+    public function getUiWelcomeUserGroup()
+    {
+        return $this->readOneof(279);
+    }
+
+    public function hasUiWelcomeUserGroup()
+    {
+        return $this->hasOneof(279);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeUserGroup ui_welcome_user_group = 279;</code>
+     * @param \Rv\Analytics\Ui\WelcomeUserGroup $var
+     * @return $this
+     */
+    public function setUiWelcomeUserGroup($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeUserGroup::class);
+        $this->writeOneof(279, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeTutorials ui_welcome_tutorials = 280;</code>
+     * @return \Rv\Analytics\Ui\WelcomeTutorials|null
+     */
+    public function getUiWelcomeTutorials()
+    {
+        return $this->readOneof(280);
+    }
+
+    public function hasUiWelcomeTutorials()
+    {
+        return $this->hasOneof(280);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeTutorials ui_welcome_tutorials = 280;</code>
+     * @param \Rv\Analytics\Ui\WelcomeTutorials $var
+     * @return $this
+     */
+    public function setUiWelcomeTutorials($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeTutorials::class);
+        $this->writeOneof(280, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeKnowledgeBase ui_welcome_knowlegdeBase = 284;</code>
+     * @return \Rv\Analytics\Ui\WelcomeKnowledgeBase|null
+     */
+    public function getUiWelcomeKnowlegdeBase()
+    {
+        return $this->readOneof(284);
+    }
+
+    public function hasUiWelcomeKnowlegdeBase()
+    {
+        return $this->hasOneof(284);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeKnowledgeBase ui_welcome_knowlegdeBase = 284;</code>
+     * @param \Rv\Analytics\Ui\WelcomeKnowledgeBase $var
+     * @return $this
+     */
+    public function setUiWelcomeKnowlegdeBase($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeKnowledgeBase::class);
+        $this->writeOneof(284, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeBlog ui_welcome_blog = 285;</code>
+     * @return \Rv\Analytics\Ui\WelcomeBlog|null
+     */
+    public function getUiWelcomeBlog()
+    {
+        return $this->readOneof(285);
+    }
+
+    public function hasUiWelcomeBlog()
+    {
+        return $this->hasOneof(285);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeBlog ui_welcome_blog = 285;</code>
+     * @param \Rv\Analytics\Ui\WelcomeBlog $var
+     * @return $this
+     */
+    public function setUiWelcomeBlog($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeBlog::class);
+        $this->writeOneof(285, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeFacebook ui_welcome_facebook = 286;</code>
+     * @return \Rv\Analytics\Ui\WelcomeFacebook|null
+     */
+    public function getUiWelcomeFacebook()
+    {
+        return $this->readOneof(286);
+    }
+
+    public function hasUiWelcomeFacebook()
+    {
+        return $this->hasOneof(286);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeFacebook ui_welcome_facebook = 286;</code>
+     * @param \Rv\Analytics\Ui\WelcomeFacebook $var
+     * @return $this
+     */
+    public function setUiWelcomeFacebook($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeFacebook::class);
+        $this->writeOneof(286, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeInstagram ui_welcome_instagram = 287;</code>
+     * @return \Rv\Analytics\Ui\WelcomeInstagram|null
+     */
+    public function getUiWelcomeInstagram()
+    {
+        return $this->readOneof(287);
+    }
+
+    public function hasUiWelcomeInstagram()
+    {
+        return $this->hasOneof(287);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeInstagram ui_welcome_instagram = 287;</code>
+     * @param \Rv\Analytics\Ui\WelcomeInstagram $var
+     * @return $this
+     */
+    public function setUiWelcomeInstagram($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeInstagram::class);
+        $this->writeOneof(287, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeMigration ui_welcome_migration = 288;</code>
+     * @return \Rv\Analytics\Ui\WelcomeMigration|null
+     */
+    public function getUiWelcomeMigration()
+    {
+        return $this->readOneof(288);
+    }
+
+    public function hasUiWelcomeMigration()
+    {
+        return $this->hasOneof(288);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WelcomeMigration ui_welcome_migration = 288;</code>
+     * @param \Rv\Analytics\Ui\WelcomeMigration $var
+     * @return $this
+     */
+    public function setUiWelcomeMigration($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WelcomeMigration::class);
+        $this->writeOneof(288, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TestPatterns ui_testPatterns = 281;</code>
+     * @return \Rv\Analytics\Ui\TestPatterns|null
+     */
+    public function getUiTestPatterns()
+    {
+        return $this->readOneof(281);
+    }
+
+    public function hasUiTestPatterns()
+    {
+        return $this->hasOneof(281);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.TestPatterns ui_testPatterns = 281;</code>
+     * @param \Rv\Analytics\Ui\TestPatterns $var
+     * @return $this
+     */
+    public function setUiTestPatterns($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\TestPatterns::class);
+        $this->writeOneof(281, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.SettingsCustomLogo ui_settings_customLogo = 282;</code>
+     * @return \Rv\Analytics\Ui\SettingsCustomLogo|null
+     */
+    public function getUiSettingsCustomLogo()
+    {
+        return $this->readOneof(282);
+    }
+
+    public function hasUiSettingsCustomLogo()
+    {
+        return $this->hasOneof(282);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.SettingsCustomLogo ui_settings_customLogo = 282;</code>
+     * @param \Rv\Analytics\Ui\SettingsCustomLogo $var
+     * @return $this
+     */
+    public function setUiSettingsCustomLogo($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\SettingsCustomLogo::class);
+        $this->writeOneof(282, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WindowedOutputCreated ui_windowed_output_created = 289;</code>
+     * @return \Rv\Analytics\Ui\WindowedOutputCreated|null
+     */
+    public function getUiWindowedOutputCreated()
+    {
+        return $this->readOneof(289);
+    }
+
+    public function hasUiWindowedOutputCreated()
+    {
+        return $this->hasOneof(289);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.ui.WindowedOutputCreated ui_windowed_output_created = 289;</code>
+     * @param \Rv\Analytics\Ui\WindowedOutputCreated $var
+     * @return $this
+     */
+    public function setUiWindowedOutputCreated($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Ui\WindowedOutputCreated::class);
+        $this->writeOneof(289, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.powerpoint.ImportPowerPoint import_powerpoint = 290;</code>
+     * @return \Rv\Analytics\Powerpoint\ImportPowerPoint|null
+     */
+    public function getImportPowerpoint()
+    {
+        return $this->readOneof(290);
+    }
+
+    public function hasImportPowerpoint()
+    {
+        return $this->hasOneof(290);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.analytics.powerpoint.ImportPowerPoint import_powerpoint = 290;</code>
+     * @param \Rv\Analytics\Powerpoint\ImportPowerPoint $var
+     * @return $this
+     */
+    public function setImportPowerpoint($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Analytics\Powerpoint\ImportPowerPoint::class);
+        $this->writeOneof(290, $var);
 
         return $this;
     }

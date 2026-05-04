@@ -26,6 +26,10 @@ class GetAvailableVersion extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string format = 3;</code>
      */
     protected $format = '';
+    /**
+     * Generated from protobuf field <code>bool user_initiated = 4;</code>
+     */
+    protected $user_initiated = false;
 
     /**
      * Constructor.
@@ -36,6 +40,7 @@ class GetAvailableVersion extends \Google\Protobuf\Internal\Message
      *     @type bool $include_notes
      *     @type string $channel
      *     @type string $format
+     *     @type bool $user_initiated
      * }
      */
     public function __construct($data = NULL) {
@@ -105,6 +110,28 @@ class GetAvailableVersion extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->format = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool user_initiated = 4;</code>
+     * @return bool
+     */
+    public function getUserInitiated()
+    {
+        return $this->user_initiated;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool user_initiated = 4;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setUserInitiated($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->user_initiated = $var;
 
         return $this;
     }

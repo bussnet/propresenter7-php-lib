@@ -24,10 +24,18 @@ class API_v1_Prop_Request extends \Google\Protobuf\Internal\Message
      *
      *     @type \Rv\Data\API_v1_Prop_Request\Props $props
      *     @type \Rv\Data\API_v1_Prop_Request\GetProp $get_prop
+     *     @type \Rv\Data\API_v1_Prop_Request\PutProp $put_prop
      *     @type \Rv\Data\API_v1_Prop_Request\DeleteProp $delete_prop
      *     @type \Rv\Data\API_v1_Prop_Request\TriggerProp $trigger_prop
      *     @type \Rv\Data\API_v1_Prop_Request\ClearProp $clear_prop
      *     @type \Rv\Data\API_v1_Prop_Request\GetThumbnail $get_thumbnail
+     *     @type \Rv\Data\API_v1_Prop_Request\GetPropCollections $get_prop_collections
+     *     @type \Rv\Data\API_v1_Prop_Request\GetPropCollection $get_prop_collection
+     *     @type \Rv\Data\API_v1_Prop_Request\PostPropCollections $post_prop_collections
+     *     @type \Rv\Data\API_v1_Prop_Request\PutPropCollection $put_prop_collection
+     *     @type \Rv\Data\API_v1_Prop_Request\DeletePropCollection $delete_prop_collection
+     *     @type \Rv\Data\API_v1_Prop_Request\PauseProp $pause_prop
+     *     @type \Rv\Data\API_v1_Prop_Request\ResumeProp $resume_prop
      * }
      */
     public function __construct($data = NULL) {
@@ -90,109 +98,325 @@ class API_v1_Prop_Request extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 3;</code>
-     * @return \Rv\Data\API_v1_Prop_Request\DeleteProp|null
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PutProp put_prop = 3;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\PutProp|null
      */
-    public function getDeleteProp()
+    public function getPutProp()
     {
         return $this->readOneof(3);
     }
 
-    public function hasDeleteProp()
+    public function hasPutProp()
     {
         return $this->hasOneof(3);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 3;</code>
-     * @param \Rv\Data\API_v1_Prop_Request\DeleteProp $var
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PutProp put_prop = 3;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\PutProp $var
      * @return $this
      */
-    public function setDeleteProp($var)
+    public function setPutProp($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\DeleteProp::class);
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\PutProp::class);
         $this->writeOneof(3, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 4;</code>
-     * @return \Rv\Data\API_v1_Prop_Request\TriggerProp|null
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 4;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\DeleteProp|null
      */
-    public function getTriggerProp()
+    public function getDeleteProp()
     {
         return $this->readOneof(4);
     }
 
-    public function hasTriggerProp()
+    public function hasDeleteProp()
     {
         return $this->hasOneof(4);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 4;</code>
-     * @param \Rv\Data\API_v1_Prop_Request\TriggerProp $var
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeleteProp delete_prop = 4;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\DeleteProp $var
      * @return $this
      */
-    public function setTriggerProp($var)
+    public function setDeleteProp($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\TriggerProp::class);
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\DeleteProp::class);
         $this->writeOneof(4, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ClearProp clear_prop = 5;</code>
-     * @return \Rv\Data\API_v1_Prop_Request\ClearProp|null
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 5;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\TriggerProp|null
      */
-    public function getClearProp()
+    public function getTriggerProp()
     {
         return $this->readOneof(5);
     }
 
-    public function hasClearProp()
+    public function hasTriggerProp()
     {
         return $this->hasOneof(5);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ClearProp clear_prop = 5;</code>
-     * @param \Rv\Data\API_v1_Prop_Request\ClearProp $var
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.TriggerProp trigger_prop = 5;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\TriggerProp $var
      * @return $this
      */
-    public function setClearProp($var)
+    public function setTriggerProp($var)
     {
-        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\ClearProp::class);
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\TriggerProp::class);
         $this->writeOneof(5, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 6;</code>
-     * @return \Rv\Data\API_v1_Prop_Request\GetThumbnail|null
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ClearProp clear_prop = 6;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\ClearProp|null
      */
-    public function getGetThumbnail()
+    public function getClearProp()
     {
         return $this->readOneof(6);
     }
 
-    public function hasGetThumbnail()
+    public function hasClearProp()
     {
         return $this->hasOneof(6);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 6;</code>
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ClearProp clear_prop = 6;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\ClearProp $var
+     * @return $this
+     */
+    public function setClearProp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\ClearProp::class);
+        $this->writeOneof(6, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 7;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\GetThumbnail|null
+     */
+    public function getGetThumbnail()
+    {
+        return $this->readOneof(7);
+    }
+
+    public function hasGetThumbnail()
+    {
+        return $this->hasOneof(7);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetThumbnail get_thumbnail = 7;</code>
      * @param \Rv\Data\API_v1_Prop_Request\GetThumbnail $var
      * @return $this
      */
     public function setGetThumbnail($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\GetThumbnail::class);
-        $this->writeOneof(6, $var);
+        $this->writeOneof(7, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetPropCollections get_prop_collections = 8;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\GetPropCollections|null
+     */
+    public function getGetPropCollections()
+    {
+        return $this->readOneof(8);
+    }
+
+    public function hasGetPropCollections()
+    {
+        return $this->hasOneof(8);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetPropCollections get_prop_collections = 8;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\GetPropCollections $var
+     * @return $this
+     */
+    public function setGetPropCollections($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\GetPropCollections::class);
+        $this->writeOneof(8, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetPropCollection get_prop_collection = 9;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\GetPropCollection|null
+     */
+    public function getGetPropCollection()
+    {
+        return $this->readOneof(9);
+    }
+
+    public function hasGetPropCollection()
+    {
+        return $this->hasOneof(9);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.GetPropCollection get_prop_collection = 9;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\GetPropCollection $var
+     * @return $this
+     */
+    public function setGetPropCollection($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\GetPropCollection::class);
+        $this->writeOneof(9, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PostPropCollections post_prop_collections = 10;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\PostPropCollections|null
+     */
+    public function getPostPropCollections()
+    {
+        return $this->readOneof(10);
+    }
+
+    public function hasPostPropCollections()
+    {
+        return $this->hasOneof(10);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PostPropCollections post_prop_collections = 10;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\PostPropCollections $var
+     * @return $this
+     */
+    public function setPostPropCollections($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\PostPropCollections::class);
+        $this->writeOneof(10, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PutPropCollection put_prop_collection = 11;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\PutPropCollection|null
+     */
+    public function getPutPropCollection()
+    {
+        return $this->readOneof(11);
+    }
+
+    public function hasPutPropCollection()
+    {
+        return $this->hasOneof(11);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PutPropCollection put_prop_collection = 11;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\PutPropCollection $var
+     * @return $this
+     */
+    public function setPutPropCollection($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\PutPropCollection::class);
+        $this->writeOneof(11, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeletePropCollection delete_prop_collection = 12;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\DeletePropCollection|null
+     */
+    public function getDeletePropCollection()
+    {
+        return $this->readOneof(12);
+    }
+
+    public function hasDeletePropCollection()
+    {
+        return $this->hasOneof(12);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.DeletePropCollection delete_prop_collection = 12;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\DeletePropCollection $var
+     * @return $this
+     */
+    public function setDeletePropCollection($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\DeletePropCollection::class);
+        $this->writeOneof(12, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PauseProp pause_prop = 13;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\PauseProp|null
+     */
+    public function getPauseProp()
+    {
+        return $this->readOneof(13);
+    }
+
+    public function hasPauseProp()
+    {
+        return $this->hasOneof(13);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.PauseProp pause_prop = 13;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\PauseProp $var
+     * @return $this
+     */
+    public function setPauseProp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\PauseProp::class);
+        $this->writeOneof(13, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ResumeProp resume_prop = 14;</code>
+     * @return \Rv\Data\API_v1_Prop_Request\ResumeProp|null
+     */
+    public function getResumeProp()
+    {
+        return $this->readOneof(14);
+    }
+
+    public function hasResumeProp()
+    {
+        return $this->hasOneof(14);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.API_v1_Prop_Request.ResumeProp resume_prop = 14;</code>
+     * @param \Rv\Data\API_v1_Prop_Request\ResumeProp $var
+     * @return $this
+     */
+    public function setResumeProp($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\API_v1_Prop_Request\ResumeProp::class);
+        $this->writeOneof(14, $var);
 
         return $this;
     }

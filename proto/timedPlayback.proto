@@ -9,6 +9,7 @@ option swift_prefix = "RVData_";
 import "action.proto";
 import "cue.proto";
 import "presentation.proto";
+import "playlist.proto";
 import "uuid.proto";
 
 message TriggerSource {
@@ -47,6 +48,7 @@ message TimedPlayback {
     repeated .rv.data.TimedPlayback.Sequence.SequenceItem sequence = 1;
     .rv.data.Action.ContentDestination content_destination = 2;
     .rv.data.Presentation presentation = 3;
+    .rv.data.Playlist playlist = 4;
   }
 
   message Timing {

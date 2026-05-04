@@ -8,6 +8,7 @@ option swift_prefix = "RVData_";
 
 import "alphaType.proto";
 import "color.proto";
+import "customOptions.proto";
 import "digitalAudio.proto";
 import "effects.proto";
 import "fileProperties.proto";
@@ -331,6 +332,7 @@ message Graphics {
           .rv.data.Graphics.Text.CutOutFill cut_out_fill = 8;
           .rv.data.Graphics.Text.MediaFill media_fill = 9;
           .rv.data.Graphics.BackgroundEffect background_effect = 10;
+          .rv.data.Graphics.Text.Attributes.CharacterSizeMode character_size_mode = 11;
         }
       }
 
@@ -350,6 +352,17 @@ message Graphics {
         ALIGNMENT_NATURAL = 4;
       }
 
+      enum CharacterSizeMode {
+        CHARACTER_SIZE_MODE_NORMAL = 0;
+        CHARACTER_SIZE_MODE_SCALED_BY_DOCUMENT_HEIGHT = 1;
+        CHARACTER_SIZE_MODE_SCALED_BY_DOCUMENT_WIDTH = 2;
+      }
+
+      enum LigatureStyle {
+        LIGATURE_STYLE_DEFAULT = 0;
+        LIGATURE_STYLE_NONE = 1;
+      }
+
       .rv.data.Font font = 1;
       .rv.data.Graphics.Text.Attributes.Capitalization capitalization = 2;
       .rv.data.Graphics.Text.Attributes.Underline underline_style = 4;
@@ -363,12 +376,20 @@ message Graphics {
       .rv.data.Color stroke_color = 12;
       repeated .rv.data.Graphics.Text.Attributes.CustomAttribute custom_attributes = 13;
       .rv.data.Color background_color = 15;
+      .rv.data.Graphics.Text.Attributes.LigatureStyle ligature_style = 19;
       oneof fill {
         .rv.data.Color text_solid_fill = 3;
         .rv.data.Graphics.Text.GradientFill text_gradient_fill = 14;
         .rv.data.Graphics.Text.CutOutFill cut_out_fill = 16;
         .rv.data.Graphics.Text.MediaFill media_fill = 17;
         .rv.data.Graphics.BackgroundEffect background_effect = 18;
+      }
+    }
+
+    message AlternateText {
+      string key = 1;
+      oneof ContentType {
+        string plain_text = 2;
       }
     }
 
@@ -404,6 +425,7 @@ message Graphics {
     .rv.data.Graphics.Text.Transform transform = 10;
     string transformDelimiter = 11;
     .rv.data.Graphics.Text.ChordPro chord_pro = 12;
+    repeated .rv.data.Graphics.Text.AlternateText alternate_texts = 13;
   }
 
 }
@@ -418,6 +440,12 @@ message Media {
   }
 
   message VideoDevice {
+    message AirCast {
+      string service_name = 1;
+      string password = 2;
+      bool password_enabled = 3;
+    }
+
     enum Type {
       TYPE_GENERIC = 0;
       TYPE_DIRECTSHOW = 1;
@@ -427,6 +455,7 @@ message Media {
       TYPE_SYPHON = 5;
       TYPE_NDI = 6;
       TYPE_BLUEFISH = 7;
+      TYPE_AIRCAST = 8;
     }
 
     .rv.data.Media.VideoDevice.Type type = 1;
@@ -435,6 +464,7 @@ message Media {
     string model_id = 4;
     uint32 format_index = 5;
     .rv.data.DigitalAudio.Device.Routing audio_routing = 6;
+    .rv.data.Media.VideoDevice.AirCast aircast = 7;
   }
 
   message AudioDevice {

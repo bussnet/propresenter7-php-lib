@@ -10,7 +10,7 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Create.TemplatePlaylist</code>
+ * Generated from protobuf message <code>rv.analytics.create.TemplatePlaylist</code>
  */
 class TemplatePlaylist extends \Google\Protobuf\Internal\Message
 {

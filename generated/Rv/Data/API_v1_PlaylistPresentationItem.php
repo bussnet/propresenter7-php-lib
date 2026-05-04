@@ -18,6 +18,10 @@ class API_v1_PlaylistPresentationItem extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>string presentation_uuid = 1;</code>
      */
     protected $presentation_uuid = '';
+    /**
+     * Generated from protobuf field <code>string arrangement_name = 2;</code>
+     */
+    protected $arrangement_name = '';
 
     /**
      * Constructor.
@@ -26,6 +30,7 @@ class API_v1_PlaylistPresentationItem extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type string $presentation_uuid
+     *     @type string $arrangement_name
      * }
      */
     public function __construct($data = NULL) {
@@ -51,6 +56,28 @@ class API_v1_PlaylistPresentationItem extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkString($var, True);
         $this->presentation_uuid = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>string arrangement_name = 2;</code>
+     * @return string
+     */
+    public function getArrangementName()
+    {
+        return $this->arrangement_name;
+    }
+
+    /**
+     * Generated from protobuf field <code>string arrangement_name = 2;</code>
+     * @param string $var
+     * @return $this
+     */
+    public function setArrangementName($var)
+    {
+        GPBUtil::checkString($var, True);
+        $this->arrangement_name = $var;
 
         return $this;
     }

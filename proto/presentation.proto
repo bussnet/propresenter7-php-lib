@@ -10,6 +10,7 @@ import "action.proto";
 import "applicationInfo.proto";
 import "background.proto";
 import "cue.proto";
+import "customOptions.proto";
 import "effects.proto";
 import "groups.proto";
 import "intRange.proto";

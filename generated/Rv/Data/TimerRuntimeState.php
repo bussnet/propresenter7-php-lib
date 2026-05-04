@@ -42,6 +42,10 @@ class TimerRuntimeState extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>double current_time = 7;</code>
      */
     protected $current_time = 0.0;
+    /**
+     * Generated from protobuf field <code>bool has_started = 8;</code>
+     */
+    protected $has_started = false;
 
     /**
      * Constructor.
@@ -56,6 +60,7 @@ class TimerRuntimeState extends \Google\Protobuf\Internal\Message
      *     @type bool $has_overrun
      *     @type int $state
      *     @type float $current_time
+     *     @type bool $has_started
      * }
      */
     public function __construct($data = NULL) {
@@ -233,6 +238,28 @@ class TimerRuntimeState extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkDouble($var);
         $this->current_time = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool has_started = 8;</code>
+     * @return bool
+     */
+    public function getHasStarted()
+    {
+        return $this->has_started;
+    }
+
+    /**
+     * Generated from protobuf field <code>bool has_started = 8;</code>
+     * @param bool $var
+     * @return $this
+     */
+    public function setHasStarted($var)
+    {
+        GPBUtil::checkBool($var);
+        $this->has_started = $var;
 
         return $this;
     }

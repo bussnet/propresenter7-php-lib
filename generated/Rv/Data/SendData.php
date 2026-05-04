@@ -46,7 +46,6 @@ class SendData extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\Transition $global_background_transition
      *     @type \Rv\Data\Transition $global_messages_transition
      *     @type \Rv\Data\Transition $global_foreground_transition
-     *     @type \Rv\Data\Transition $global_bible_transition
      *     @type \Rv\Data\Transition $global_props_transition
      *     @type \Rv\Data\Transition $global_audio_transition
      *     @type \Rv\Data\Preferences $preferences
@@ -59,6 +58,15 @@ class SendData extends \Google\Protobuf\Internal\Message
      *     @type \Rv\Data\GenericEvent $debug_trigger_data_dump
      *     @type \Rv\Data\PlaylistDocument $library_playlist_doc
      *     @type \Rv\Data\UUID $audio_playlist_focus_uuid
+     *     @type \Rv\Data\UUID $media_playlist_focus_uuid
+     *     @type \Rv\Data\UUID $library_playlist_focus_uuid
+     *     @type \Rv\Data\UUID $library_playlist_item_focus_uuid
+     *     @type \Rv\Data\PropPauseRequest $prop_pause
+     *     @type \Rv\Data\MediaThumbnail $media_thumbnail
+     *     @type \Rv\Data\PCOData $pco_data
+     *     @type \Rv\Data\WebFillTokenAndCookies $webfill_token_and_cookies
+     *     @type \Rv\Data\ProScoreboardWorkspace $psb_workspace
+     *     @type \Rv\Data\InputStatusCallback $input_status_callback
      * }
      */
     public function __construct($data = NULL) {
@@ -602,25 +610,25 @@ class SendData extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_bible_transition = 21;</code>
+     * Generated from protobuf field <code>.rv.data.Transition global_props_transition = 21;</code>
      * @return \Rv\Data\Transition|null
      */
-    public function getGlobalBibleTransition()
+    public function getGlobalPropsTransition()
     {
         return $this->readOneof(21);
     }
 
-    public function hasGlobalBibleTransition()
+    public function hasGlobalPropsTransition()
     {
         return $this->hasOneof(21);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_bible_transition = 21;</code>
+     * Generated from protobuf field <code>.rv.data.Transition global_props_transition = 21;</code>
      * @param \Rv\Data\Transition $var
      * @return $this
      */
-    public function setGlobalBibleTransition($var)
+    public function setGlobalPropsTransition($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\Transition::class);
         $this->writeOneof(21, $var);
@@ -629,25 +637,25 @@ class SendData extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_props_transition = 22;</code>
+     * Generated from protobuf field <code>.rv.data.Transition global_audio_transition = 22;</code>
      * @return \Rv\Data\Transition|null
      */
-    public function getGlobalPropsTransition()
+    public function getGlobalAudioTransition()
     {
         return $this->readOneof(22);
     }
 
-    public function hasGlobalPropsTransition()
+    public function hasGlobalAudioTransition()
     {
         return $this->hasOneof(22);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_props_transition = 22;</code>
+     * Generated from protobuf field <code>.rv.data.Transition global_audio_transition = 22;</code>
      * @param \Rv\Data\Transition $var
      * @return $this
      */
-    public function setGlobalPropsTransition($var)
+    public function setGlobalAudioTransition($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\Transition::class);
         $this->writeOneof(22, $var);
@@ -656,133 +664,133 @@ class SendData extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_audio_transition = 23;</code>
-     * @return \Rv\Data\Transition|null
+     * Generated from protobuf field <code>.rv.data.Preferences preferences = 23;</code>
+     * @return \Rv\Data\Preferences|null
      */
-    public function getGlobalAudioTransition()
+    public function getPreferences()
     {
         return $this->readOneof(23);
     }
 
-    public function hasGlobalAudioTransition()
+    public function hasPreferences()
     {
         return $this->hasOneof(23);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.Transition global_audio_transition = 23;</code>
-     * @param \Rv\Data\Transition $var
-     * @return $this
-     */
-    public function setGlobalAudioTransition($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Data\Transition::class);
-        $this->writeOneof(23, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.Preferences preferences = 24;</code>
-     * @return \Rv\Data\Preferences|null
-     */
-    public function getPreferences()
-    {
-        return $this->readOneof(24);
-    }
-
-    public function hasPreferences()
-    {
-        return $this->hasOneof(24);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.Preferences preferences = 24;</code>
+     * Generated from protobuf field <code>.rv.data.Preferences preferences = 23;</code>
      * @param \Rv\Data\Preferences $var
      * @return $this
      */
     public function setPreferences($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\Preferences::class);
-        $this->writeOneof(24, $var);
+        $this->writeOneof(23, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.TestPatternRequest test_pattern = 25;</code>
+     * Generated from protobuf field <code>.rv.data.TestPatternRequest test_pattern = 24;</code>
      * @return \Rv\Data\TestPatternRequest|null
      */
     public function getTestPattern()
     {
-        return $this->readOneof(25);
+        return $this->readOneof(24);
     }
 
     public function hasTestPattern()
     {
-        return $this->hasOneof(25);
+        return $this->hasOneof(24);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.TestPatternRequest test_pattern = 25;</code>
+     * Generated from protobuf field <code>.rv.data.TestPatternRequest test_pattern = 24;</code>
      * @param \Rv\Data\TestPatternRequest $var
      * @return $this
      */
     public function setTestPattern($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\TestPatternRequest::class);
-        $this->writeOneof(25, $var);
+        $this->writeOneof(24, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent startup_complete = 26;</code>
+     * Generated from protobuf field <code>.rv.data.GenericEvent startup_complete = 25;</code>
      * @return \Rv\Data\GenericEvent|null
      */
     public function getStartupComplete()
     {
-        return $this->readOneof(26);
+        return $this->readOneof(25);
     }
 
     public function hasStartupComplete()
     {
-        return $this->hasOneof(26);
+        return $this->hasOneof(25);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent startup_complete = 26;</code>
+     * Generated from protobuf field <code>.rv.data.GenericEvent startup_complete = 25;</code>
      * @param \Rv\Data\GenericEvent $var
      * @return $this
      */
     public function setStartupComplete($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\GenericEvent::class);
+        $this->writeOneof(25, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument visual_playlist_doc = 26;</code>
+     * @return \Rv\Data\PlaylistDocument|null
+     */
+    public function getVisualPlaylistDoc()
+    {
+        return $this->readOneof(26);
+    }
+
+    public function hasVisualPlaylistDoc()
+    {
+        return $this->hasOneof(26);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument visual_playlist_doc = 26;</code>
+     * @param \Rv\Data\PlaylistDocument $var
+     * @return $this
+     */
+    public function setVisualPlaylistDoc($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\PlaylistDocument::class);
         $this->writeOneof(26, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument visual_playlist_doc = 27;</code>
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument audio_playlist_doc = 27;</code>
      * @return \Rv\Data\PlaylistDocument|null
      */
-    public function getVisualPlaylistDoc()
+    public function getAudioPlaylistDoc()
     {
         return $this->readOneof(27);
     }
 
-    public function hasVisualPlaylistDoc()
+    public function hasAudioPlaylistDoc()
     {
         return $this->hasOneof(27);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument visual_playlist_doc = 27;</code>
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument audio_playlist_doc = 27;</code>
      * @param \Rv\Data\PlaylistDocument $var
      * @return $this
      */
-    public function setVisualPlaylistDoc($var)
+    public function setAudioPlaylistDoc($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\PlaylistDocument::class);
         $this->writeOneof(27, $var);
@@ -791,163 +799,379 @@ class SendData extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument audio_playlist_doc = 28;</code>
-     * @return \Rv\Data\PlaylistDocument|null
+     * Generated from protobuf field <code>.rv.data.GenericEvent kill_watchdog = 28;</code>
+     * @return \Rv\Data\GenericEvent|null
      */
-    public function getAudioPlaylistDoc()
+    public function getKillWatchdog()
     {
         return $this->readOneof(28);
     }
 
-    public function hasAudioPlaylistDoc()
+    public function hasKillWatchdog()
     {
         return $this->hasOneof(28);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument audio_playlist_doc = 28;</code>
-     * @param \Rv\Data\PlaylistDocument $var
-     * @return $this
-     */
-    public function setAudioPlaylistDoc($var)
-    {
-        GPBUtil::checkMessage($var, \Rv\Data\PlaylistDocument::class);
-        $this->writeOneof(28, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent kill_watchdog = 29;</code>
-     * @return \Rv\Data\GenericEvent|null
-     */
-    public function getKillWatchdog()
-    {
-        return $this->readOneof(29);
-    }
-
-    public function hasKillWatchdog()
-    {
-        return $this->hasOneof(29);
-    }
-
-    /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent kill_watchdog = 29;</code>
+     * Generated from protobuf field <code>.rv.data.GenericEvent kill_watchdog = 28;</code>
      * @param \Rv\Data\GenericEvent $var
      * @return $this
      */
     public function setKillWatchdog($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\GenericEvent::class);
-        $this->writeOneof(29, $var);
+        $this->writeOneof(28, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.MacroIcons macro_icons = 30;</code>
+     * Generated from protobuf field <code>.rv.data.MacroIcons macro_icons = 29;</code>
      * @return \Rv\Data\MacroIcons|null
      */
     public function getMacroIcons()
     {
-        return $this->readOneof(30);
+        return $this->readOneof(29);
     }
 
     public function hasMacroIcons()
     {
-        return $this->hasOneof(30);
+        return $this->hasOneof(29);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.MacroIcons macro_icons = 30;</code>
+     * Generated from protobuf field <code>.rv.data.MacroIcons macro_icons = 29;</code>
      * @param \Rv\Data\MacroIcons $var
      * @return $this
      */
     public function setMacroIcons($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\MacroIcons::class);
-        $this->writeOneof(30, $var);
+        $this->writeOneof(29, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent debug_trigger_data_dump = 31;</code>
+     * Generated from protobuf field <code>.rv.data.GenericEvent debug_trigger_data_dump = 30;</code>
      * @return \Rv\Data\GenericEvent|null
      */
     public function getDebugTriggerDataDump()
     {
-        return $this->readOneof(31);
+        return $this->readOneof(30);
     }
 
     public function hasDebugTriggerDataDump()
     {
-        return $this->hasOneof(31);
+        return $this->hasOneof(30);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.GenericEvent debug_trigger_data_dump = 31;</code>
+     * Generated from protobuf field <code>.rv.data.GenericEvent debug_trigger_data_dump = 30;</code>
      * @param \Rv\Data\GenericEvent $var
      * @return $this
      */
     public function setDebugTriggerDataDump($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\GenericEvent::class);
-        $this->writeOneof(31, $var);
+        $this->writeOneof(30, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument library_playlist_doc = 32;</code>
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument library_playlist_doc = 31;</code>
      * @return \Rv\Data\PlaylistDocument|null
      */
     public function getLibraryPlaylistDoc()
     {
-        return $this->readOneof(32);
+        return $this->readOneof(31);
     }
 
     public function hasLibraryPlaylistDoc()
     {
-        return $this->hasOneof(32);
+        return $this->hasOneof(31);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.PlaylistDocument library_playlist_doc = 32;</code>
+     * Generated from protobuf field <code>.rv.data.PlaylistDocument library_playlist_doc = 31;</code>
      * @param \Rv\Data\PlaylistDocument $var
      * @return $this
      */
     public function setLibraryPlaylistDoc($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\PlaylistDocument::class);
-        $this->writeOneof(32, $var);
+        $this->writeOneof(31, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_focus_uuid = 33;</code>
+     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_focus_uuid = 32;</code>
      * @return \Rv\Data\UUID|null
      */
     public function getAudioPlaylistFocusUuid()
     {
-        return $this->readOneof(33);
+        return $this->readOneof(32);
     }
 
     public function hasAudioPlaylistFocusUuid()
     {
-        return $this->hasOneof(33);
+        return $this->hasOneof(32);
     }
 
     /**
-     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_focus_uuid = 33;</code>
+     * Generated from protobuf field <code>.rv.data.UUID audio_playlist_focus_uuid = 32;</code>
      * @param \Rv\Data\UUID $var
      * @return $this
      */
     public function setAudioPlaylistFocusUuid($var)
     {
         GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        $this->writeOneof(32, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID media_playlist_focus_uuid = 33;</code>
+     * @return \Rv\Data\UUID|null
+     */
+    public function getMediaPlaylistFocusUuid()
+    {
+        return $this->readOneof(33);
+    }
+
+    public function hasMediaPlaylistFocusUuid()
+    {
+        return $this->hasOneof(33);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID media_playlist_focus_uuid = 33;</code>
+     * @param \Rv\Data\UUID $var
+     * @return $this
+     */
+    public function setMediaPlaylistFocusUuid($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
         $this->writeOneof(33, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_focus_uuid = 34;</code>
+     * @return \Rv\Data\UUID|null
+     */
+    public function getLibraryPlaylistFocusUuid()
+    {
+        return $this->readOneof(34);
+    }
+
+    public function hasLibraryPlaylistFocusUuid()
+    {
+        return $this->hasOneof(34);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_focus_uuid = 34;</code>
+     * @param \Rv\Data\UUID $var
+     * @return $this
+     */
+    public function setLibraryPlaylistFocusUuid($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        $this->writeOneof(34, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_item_focus_uuid = 35;</code>
+     * @return \Rv\Data\UUID|null
+     */
+    public function getLibraryPlaylistItemFocusUuid()
+    {
+        return $this->readOneof(35);
+    }
+
+    public function hasLibraryPlaylistItemFocusUuid()
+    {
+        return $this->hasOneof(35);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.UUID library_playlist_item_focus_uuid = 35;</code>
+     * @param \Rv\Data\UUID $var
+     * @return $this
+     */
+    public function setLibraryPlaylistItemFocusUuid($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\UUID::class);
+        $this->writeOneof(35, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PropPauseRequest prop_pause = 36;</code>
+     * @return \Rv\Data\PropPauseRequest|null
+     */
+    public function getPropPause()
+    {
+        return $this->readOneof(36);
+    }
+
+    public function hasPropPause()
+    {
+        return $this->hasOneof(36);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PropPauseRequest prop_pause = 36;</code>
+     * @param \Rv\Data\PropPauseRequest $var
+     * @return $this
+     */
+    public function setPropPause($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\PropPauseRequest::class);
+        $this->writeOneof(36, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.MediaThumbnail media_thumbnail = 37;</code>
+     * @return \Rv\Data\MediaThumbnail|null
+     */
+    public function getMediaThumbnail()
+    {
+        return $this->readOneof(37);
+    }
+
+    public function hasMediaThumbnail()
+    {
+        return $this->hasOneof(37);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.MediaThumbnail media_thumbnail = 37;</code>
+     * @param \Rv\Data\MediaThumbnail $var
+     * @return $this
+     */
+    public function setMediaThumbnail($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\MediaThumbnail::class);
+        $this->writeOneof(37, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PCOData pco_data = 38;</code>
+     * @return \Rv\Data\PCOData|null
+     */
+    public function getPcoData()
+    {
+        return $this->readOneof(38);
+    }
+
+    public function hasPcoData()
+    {
+        return $this->hasOneof(38);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.PCOData pco_data = 38;</code>
+     * @param \Rv\Data\PCOData $var
+     * @return $this
+     */
+    public function setPcoData($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\PCOData::class);
+        $this->writeOneof(38, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.WebFillTokenAndCookies webfill_token_and_cookies = 39;</code>
+     * @return \Rv\Data\WebFillTokenAndCookies|null
+     */
+    public function getWebfillTokenAndCookies()
+    {
+        return $this->readOneof(39);
+    }
+
+    public function hasWebfillTokenAndCookies()
+    {
+        return $this->hasOneof(39);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.WebFillTokenAndCookies webfill_token_and_cookies = 39;</code>
+     * @param \Rv\Data\WebFillTokenAndCookies $var
+     * @return $this
+     */
+    public function setWebfillTokenAndCookies($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\WebFillTokenAndCookies::class);
+        $this->writeOneof(39, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.ProScoreboardWorkspace psb_workspace = 40;</code>
+     * @return \Rv\Data\ProScoreboardWorkspace|null
+     */
+    public function getPsbWorkspace()
+    {
+        return $this->readOneof(40);
+    }
+
+    public function hasPsbWorkspace()
+    {
+        return $this->hasOneof(40);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.ProScoreboardWorkspace psb_workspace = 40;</code>
+     * @param \Rv\Data\ProScoreboardWorkspace $var
+     * @return $this
+     */
+    public function setPsbWorkspace($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\ProScoreboardWorkspace::class);
+        $this->writeOneof(40, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.InputStatusCallback input_status_callback = 41;</code>
+     * @return \Rv\Data\InputStatusCallback|null
+     */
+    public function getInputStatusCallback()
+    {
+        return $this->readOneof(41);
+    }
+
+    public function hasInputStatusCallback()
+    {
+        return $this->hasOneof(41);
+    }
+
+    /**
+     * Generated from protobuf field <code>.rv.data.InputStatusCallback input_status_callback = 41;</code>
+     * @param \Rv\Data\InputStatusCallback $var
+     * @return $this
+     */
+    public function setInputStatusCallback($var)
+    {
+        GPBUtil::checkMessage($var, \Rv\Data\InputStatusCallback::class);
+        $this->writeOneof(41, $var);
 
         return $this;
     }

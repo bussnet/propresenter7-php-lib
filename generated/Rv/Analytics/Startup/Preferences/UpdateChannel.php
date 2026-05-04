@@ -8,7 +8,7 @@ namespace Rv\Analytics\Startup\Preferences;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Startup.Preferences.UpdateChannel</code>
+ * Protobuf type <code>rv.analytics.startup.Preferences.UpdateChannel</code>
  */
 class UpdateChannel
 {
@@ -17,18 +17,18 @@ class UpdateChannel
      */
     const UPDATE_CHANNEL_UNKNOWN = 0;
     /**
-     * Generated from protobuf enum <code>UPDATE_CHANNEL_RELEASE = 1;</code>
+     * Generated from protobuf enum <code>RELEASE = 1;</code>
      */
-    const UPDATE_CHANNEL_RELEASE = 1;
+    const RELEASE = 1;
     /**
-     * Generated from protobuf enum <code>UPDATE_CHANNEL_BETA = 2;</code>
+     * Generated from protobuf enum <code>BETA = 2;</code>
      */
-    const UPDATE_CHANNEL_BETA = 2;
+    const BETA = 2;
 
     private static $valueToName = [
         self::UPDATE_CHANNEL_UNKNOWN => 'UPDATE_CHANNEL_UNKNOWN',
-        self::UPDATE_CHANNEL_RELEASE => 'UPDATE_CHANNEL_RELEASE',
-        self::UPDATE_CHANNEL_BETA => 'UPDATE_CHANNEL_BETA',
+        self::RELEASE => 'RELEASE',
+        self::BETA => 'BETA',
     ];
 
     public static function name($value)

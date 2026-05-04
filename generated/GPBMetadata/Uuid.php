@@ -15,6 +15,7 @@ class Uuid
         if (static::$is_initialized == true) {
           return;
         }
+        \GPBMetadata\CustomOptions::initOnce();
         $pool->internalAddGeneratedFile(
             "\x0Ak\x0A\x0Auuid.proto\x12\x07rv.data\"\x16\x0A\x04UUID\x12\x0E\x0A\x06string\x18\x01 \x01(\x09B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);

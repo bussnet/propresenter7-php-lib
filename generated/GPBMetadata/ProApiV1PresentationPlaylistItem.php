@@ -16,7 +16,7 @@ class ProApiV1PresentationPlaylistItem
           return;
         }
         $pool->internalAddGeneratedFile(
-            "\x0A\xAD\x01\x0A&proApiV1PresentationPlaylistItem.proto\x12\x07rv.data\"<\x0A\x1FAPI_v1_PlaylistPresentationItem\x12\x19\x0A\x11presentation_uuid\x18\x01 \x01(\x09B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
+            "\x0A\xC7\x01\x0A&proApiV1PresentationPlaylistItem.proto\x12\x07rv.data\"V\x0A\x1FAPI_v1_PlaylistPresentationItem\x12\x19\x0A\x11presentation_uuid\x18\x01 \x01(\x09\x12\x18\x0A\x10arrangement_name\x18\x02 \x01(\x09B4\xF8\x01\x01\xAA\x02\$Pro.SerializationInterop.RVProtoData\xBA\x02\x07RVData_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

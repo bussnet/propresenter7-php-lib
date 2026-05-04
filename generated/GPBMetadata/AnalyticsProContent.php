@@ -16,7 +16,7 @@ class AnalyticsProContent
           return;
         }
         $pool->internalAddGeneratedFile(
-            "\x0A\xAD\x02\x0A\x19analyticsProContent.proto\x12\x0Crv.analytics\"\xB6\x01\x0A\x0AProContent\x12:\x0A\x09media_bin\x18\x01 \x01(\x0B2%.rv.analytics.ProContent.ViewMediaBinH\x00\x125\x0A\x08download\x18\x02 \x01(\x0B2!.rv.analytics.ProContent.DownloadH\x00\x1A\x0E\x0A\x0CViewMediaBin\x1A\x1C\x0A\x08Download\x12\x10\x0A\x08is_retry\x18\x01 \x01(\x08B\x07\x0A\x05EventBA\xF8\x01\x01\xAA\x02.Pro.SerializationInterop.RVProtoData.Analytics\xBA\x02\x0AAnalytics_b\x06proto3"
+            "\x0A\xC2\x01\x0A\x19analyticsProContent.proto\x12\x17rv.analytics.procontent\"\x0E\x0A\x0CMediaBinView\"\x0A\x0A\x08Download\"\x0F\x0A\x0DDownloadRetryBW\xF8\x01\x01\xAA\x029Pro.SerializationInterop.RVProtoData.Analytics.ProContent\xBA\x02\x15Analytics_ProContent_b\x06proto3"
         , true);
 
         static::$is_initialized = true;

@@ -8,7 +8,7 @@ namespace Rv\Analytics\Startup\PBInterface;
 use UnexpectedValueException;
 
 /**
- * Protobuf type <code>rv.analytics.Startup.Interface.PresentationViewStyle</code>
+ * Protobuf type <code>rv.analytics.startup.Interface.PresentationViewStyle</code>
  */
 class PresentationViewStyle
 {

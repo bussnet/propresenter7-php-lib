@@ -25,8 +25,7 @@ class Request extends \Google\Protobuf\Internal\Message
      *     @type \Registration\Core\Register $register
      *     @type \Registration\Core\Unregister $unregister
      *     @type \Registration\Core\ChangeSeatType $change_seat_type
-     *     @type \Registration\Core\GetFreeBibles $get_free_bibles
-     *     @type \Registration\Core\GetPurchasedBibles $get_purchased_bibles
+     *     @type \Registration\Core\GetBibles $get_bibles
      *     @type \Registration\Core\ActivateBible $activate_bible
      *     @type \Registration\Core\DeactivateBible $deactivate_bible
      *     @type \Registration\Core\DownloadBible $download_bible
@@ -39,6 +38,10 @@ class Request extends \Google\Protobuf\Internal\Message
      *     @type \Registration\Core\ActivateLink $activate_link
      *     @type \Registration\Core\UpdateToken $update_token
      *     @type \Registration\Core\OldTokenData $old_token_data
+     *     @type \Registration\Core\Signout $signout
+     *     @type \Registration\Core\GetActivateCode $get_activate_code
+     *     @type \Registration\Core\NotificationData $notification_data
+     *     @type \Registration\Core\MarkNotificationsRead $markNotificationsRead
      * }
      */
     public function __construct($data = NULL) {
@@ -128,214 +131,214 @@ class Request extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetFreeBibles get_free_bibles = 4;</code>
-     * @return \Registration\Core\GetFreeBibles|null
+     * Generated from protobuf field <code>.registration.core.GetBibles get_bibles = 4;</code>
+     * @return \Registration\Core\GetBibles|null
      */
-    public function getGetFreeBibles()
+    public function getGetBibles()
     {
         return $this->readOneof(4);
     }
 
-    public function hasGetFreeBibles()
+    public function hasGetBibles()
     {
         return $this->hasOneof(4);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetFreeBibles get_free_bibles = 4;</code>
-     * @param \Registration\Core\GetFreeBibles $var
+     * Generated from protobuf field <code>.registration.core.GetBibles get_bibles = 4;</code>
+     * @param \Registration\Core\GetBibles $var
      * @return $this
      */
-    public function setGetFreeBibles($var)
+    public function setGetBibles($var)
     {
-        GPBUtil::checkMessage($var, \Registration\Core\GetFreeBibles::class);
+        GPBUtil::checkMessage($var, \Registration\Core\GetBibles::class);
         $this->writeOneof(4, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetPurchasedBibles get_purchased_bibles = 5;</code>
-     * @return \Registration\Core\GetPurchasedBibles|null
+     * Generated from protobuf field <code>.registration.core.ActivateBible activate_bible = 5;</code>
+     * @return \Registration\Core\ActivateBible|null
      */
-    public function getGetPurchasedBibles()
+    public function getActivateBible()
     {
         return $this->readOneof(5);
     }
 
-    public function hasGetPurchasedBibles()
+    public function hasActivateBible()
     {
         return $this->hasOneof(5);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetPurchasedBibles get_purchased_bibles = 5;</code>
-     * @param \Registration\Core\GetPurchasedBibles $var
-     * @return $this
-     */
-    public function setGetPurchasedBibles($var)
-    {
-        GPBUtil::checkMessage($var, \Registration\Core\GetPurchasedBibles::class);
-        $this->writeOneof(5, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.registration.core.ActivateBible activate_bible = 6;</code>
-     * @return \Registration\Core\ActivateBible|null
-     */
-    public function getActivateBible()
-    {
-        return $this->readOneof(6);
-    }
-
-    public function hasActivateBible()
-    {
-        return $this->hasOneof(6);
-    }
-
-    /**
-     * Generated from protobuf field <code>.registration.core.ActivateBible activate_bible = 6;</code>
+     * Generated from protobuf field <code>.registration.core.ActivateBible activate_bible = 5;</code>
      * @param \Registration\Core\ActivateBible $var
      * @return $this
      */
     public function setActivateBible($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\ActivateBible::class);
-        $this->writeOneof(6, $var);
+        $this->writeOneof(5, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.DeactivateBible deactivate_bible = 7;</code>
+     * Generated from protobuf field <code>.registration.core.DeactivateBible deactivate_bible = 6;</code>
      * @return \Registration\Core\DeactivateBible|null
      */
     public function getDeactivateBible()
     {
-        return $this->readOneof(7);
+        return $this->readOneof(6);
     }
 
     public function hasDeactivateBible()
     {
-        return $this->hasOneof(7);
+        return $this->hasOneof(6);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.DeactivateBible deactivate_bible = 7;</code>
+     * Generated from protobuf field <code>.registration.core.DeactivateBible deactivate_bible = 6;</code>
      * @param \Registration\Core\DeactivateBible $var
      * @return $this
      */
     public function setDeactivateBible($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\DeactivateBible::class);
-        $this->writeOneof(7, $var);
+        $this->writeOneof(6, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.DownloadBible download_bible = 8;</code>
+     * Generated from protobuf field <code>.registration.core.DownloadBible download_bible = 7;</code>
      * @return \Registration\Core\DownloadBible|null
      */
     public function getDownloadBible()
     {
-        return $this->readOneof(8);
+        return $this->readOneof(7);
     }
 
     public function hasDownloadBible()
     {
-        return $this->hasOneof(8);
+        return $this->hasOneof(7);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.DownloadBible download_bible = 8;</code>
+     * Generated from protobuf field <code>.registration.core.DownloadBible download_bible = 7;</code>
      * @param \Registration\Core\DownloadBible $var
      * @return $this
      */
     public function setDownloadBible($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\DownloadBible::class);
-        $this->writeOneof(8, $var);
+        $this->writeOneof(7, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.RegistrationData registration_data = 9;</code>
+     * Generated from protobuf field <code>.registration.core.RegistrationData registration_data = 8;</code>
      * @return \Registration\Core\RegistrationData|null
      */
     public function getRegistrationData()
     {
-        return $this->readOneof(9);
+        return $this->readOneof(8);
     }
 
     public function hasRegistrationData()
     {
-        return $this->hasOneof(9);
+        return $this->hasOneof(8);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.RegistrationData registration_data = 9;</code>
+     * Generated from protobuf field <code>.registration.core.RegistrationData registration_data = 8;</code>
      * @param \Registration\Core\RegistrationData $var
      * @return $this
      */
     public function setRegistrationData($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\RegistrationData::class);
-        $this->writeOneof(9, $var);
+        $this->writeOneof(8, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.ProductInformation product_information = 10;</code>
+     * Generated from protobuf field <code>.registration.core.ProductInformation product_information = 9;</code>
      * @return \Registration\Core\ProductInformation|null
      */
     public function getProductInformation()
     {
-        return $this->readOneof(10);
+        return $this->readOneof(9);
     }
 
     public function hasProductInformation()
     {
-        return $this->hasOneof(10);
+        return $this->hasOneof(9);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.ProductInformation product_information = 10;</code>
+     * Generated from protobuf field <code>.registration.core.ProductInformation product_information = 9;</code>
      * @param \Registration\Core\ProductInformation $var
      * @return $this
      */
     public function setProductInformation($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\ProductInformation::class);
+        $this->writeOneof(9, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_upgrades_available = 10;</code>
+     * @return \Registration\Core\GetAvailableVersion|null
+     */
+    public function getGetUpgradesAvailable()
+    {
+        return $this->readOneof(10);
+    }
+
+    public function hasGetUpgradesAvailable()
+    {
+        return $this->hasOneof(10);
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_upgrades_available = 10;</code>
+     * @param \Registration\Core\GetAvailableVersion $var
+     * @return $this
+     */
+    public function setGetUpgradesAvailable($var)
+    {
+        GPBUtil::checkMessage($var, \Registration\Core\GetAvailableVersion::class);
         $this->writeOneof(10, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_upgrades_available = 11;</code>
+     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_downgrade_available = 11;</code>
      * @return \Registration\Core\GetAvailableVersion|null
      */
-    public function getGetUpgradesAvailable()
+    public function getGetDowngradeAvailable()
     {
         return $this->readOneof(11);
     }
 
-    public function hasGetUpgradesAvailable()
+    public function hasGetDowngradeAvailable()
     {
         return $this->hasOneof(11);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_upgrades_available = 11;</code>
+     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_downgrade_available = 11;</code>
      * @param \Registration\Core\GetAvailableVersion $var
      * @return $this
      */
-    public function setGetUpgradesAvailable($var)
+    public function setGetDowngradeAvailable($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\GetAvailableVersion::class);
         $this->writeOneof(11, $var);
@@ -344,163 +347,244 @@ class Request extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_downgrade_available = 12;</code>
-     * @return \Registration\Core\GetAvailableVersion|null
+     * Generated from protobuf field <code>.registration.core.DownloadNewVersion download_new_version = 12;</code>
+     * @return \Registration\Core\DownloadNewVersion|null
      */
-    public function getGetDowngradeAvailable()
+    public function getDownloadNewVersion()
     {
         return $this->readOneof(12);
     }
 
-    public function hasGetDowngradeAvailable()
+    public function hasDownloadNewVersion()
     {
         return $this->hasOneof(12);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.GetAvailableVersion get_downgrade_available = 12;</code>
-     * @param \Registration\Core\GetAvailableVersion $var
-     * @return $this
-     */
-    public function setGetDowngradeAvailable($var)
-    {
-        GPBUtil::checkMessage($var, \Registration\Core\GetAvailableVersion::class);
-        $this->writeOneof(12, $var);
-
-        return $this;
-    }
-
-    /**
-     * Generated from protobuf field <code>.registration.core.DownloadNewVersion download_new_version = 13;</code>
-     * @return \Registration\Core\DownloadNewVersion|null
-     */
-    public function getDownloadNewVersion()
-    {
-        return $this->readOneof(13);
-    }
-
-    public function hasDownloadNewVersion()
-    {
-        return $this->hasOneof(13);
-    }
-
-    /**
-     * Generated from protobuf field <code>.registration.core.DownloadNewVersion download_new_version = 13;</code>
+     * Generated from protobuf field <code>.registration.core.DownloadNewVersion download_new_version = 12;</code>
      * @param \Registration\Core\DownloadNewVersion $var
      * @return $this
      */
     public function setDownloadNewVersion($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\DownloadNewVersion::class);
-        $this->writeOneof(13, $var);
+        $this->writeOneof(12, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.Refresh refresh = 14;</code>
+     * Generated from protobuf field <code>.registration.core.Refresh refresh = 13;</code>
      * @return \Registration\Core\Refresh|null
      */
     public function getRefresh()
     {
-        return $this->readOneof(14);
+        return $this->readOneof(13);
     }
 
     public function hasRefresh()
     {
-        return $this->hasOneof(14);
+        return $this->hasOneof(13);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.Refresh refresh = 14;</code>
+     * Generated from protobuf field <code>.registration.core.Refresh refresh = 13;</code>
      * @param \Registration\Core\Refresh $var
      * @return $this
      */
     public function setRefresh($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\Refresh::class);
-        $this->writeOneof(14, $var);
+        $this->writeOneof(13, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.ActivateLink activate_link = 15;</code>
+     * Generated from protobuf field <code>.registration.core.ActivateLink activate_link = 14;</code>
      * @return \Registration\Core\ActivateLink|null
      */
     public function getActivateLink()
     {
-        return $this->readOneof(15);
+        return $this->readOneof(14);
     }
 
     public function hasActivateLink()
     {
-        return $this->hasOneof(15);
+        return $this->hasOneof(14);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.ActivateLink activate_link = 15;</code>
+     * Generated from protobuf field <code>.registration.core.ActivateLink activate_link = 14;</code>
      * @param \Registration\Core\ActivateLink $var
      * @return $this
      */
     public function setActivateLink($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\ActivateLink::class);
-        $this->writeOneof(15, $var);
+        $this->writeOneof(14, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.UpdateToken update_token = 16;</code>
+     * Generated from protobuf field <code>.registration.core.UpdateToken update_token = 15;</code>
      * @return \Registration\Core\UpdateToken|null
      */
     public function getUpdateToken()
     {
-        return $this->readOneof(16);
+        return $this->readOneof(15);
     }
 
     public function hasUpdateToken()
     {
-        return $this->hasOneof(16);
+        return $this->hasOneof(15);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.UpdateToken update_token = 16;</code>
+     * Generated from protobuf field <code>.registration.core.UpdateToken update_token = 15;</code>
      * @param \Registration\Core\UpdateToken $var
      * @return $this
      */
     public function setUpdateToken($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\UpdateToken::class);
-        $this->writeOneof(16, $var);
+        $this->writeOneof(15, $var);
 
         return $this;
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.OldTokenData old_token_data = 17;</code>
+     * Generated from protobuf field <code>.registration.core.OldTokenData old_token_data = 16;</code>
      * @return \Registration\Core\OldTokenData|null
      */
     public function getOldTokenData()
     {
-        return $this->readOneof(17);
+        return $this->readOneof(16);
     }
 
     public function hasOldTokenData()
     {
-        return $this->hasOneof(17);
+        return $this->hasOneof(16);
     }
 
     /**
-     * Generated from protobuf field <code>.registration.core.OldTokenData old_token_data = 17;</code>
+     * Generated from protobuf field <code>.registration.core.OldTokenData old_token_data = 16;</code>
      * @param \Registration\Core\OldTokenData $var
      * @return $this
      */
     public function setOldTokenData($var)
     {
         GPBUtil::checkMessage($var, \Registration\Core\OldTokenData::class);
+        $this->writeOneof(16, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.Signout signout = 17;</code>
+     * @return \Registration\Core\Signout|null
+     */
+    public function getSignout()
+    {
+        return $this->readOneof(17);
+    }
+
+    public function hasSignout()
+    {
+        return $this->hasOneof(17);
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.Signout signout = 17;</code>
+     * @param \Registration\Core\Signout $var
+     * @return $this
+     */
+    public function setSignout($var)
+    {
+        GPBUtil::checkMessage($var, \Registration\Core\Signout::class);
         $this->writeOneof(17, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.GetActivateCode get_activate_code = 18;</code>
+     * @return \Registration\Core\GetActivateCode|null
+     */
+    public function getGetActivateCode()
+    {
+        return $this->readOneof(18);
+    }
+
+    public function hasGetActivateCode()
+    {
+        return $this->hasOneof(18);
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.GetActivateCode get_activate_code = 18;</code>
+     * @param \Registration\Core\GetActivateCode $var
+     * @return $this
+     */
+    public function setGetActivateCode($var)
+    {
+        GPBUtil::checkMessage($var, \Registration\Core\GetActivateCode::class);
+        $this->writeOneof(18, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.NotificationData notification_data = 19;</code>
+     * @return \Registration\Core\NotificationData|null
+     */
+    public function getNotificationData()
+    {
+        return $this->readOneof(19);
+    }
+
+    public function hasNotificationData()
+    {
+        return $this->hasOneof(19);
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.NotificationData notification_data = 19;</code>
+     * @param \Registration\Core\NotificationData $var
+     * @return $this
+     */
+    public function setNotificationData($var)
+    {
+        GPBUtil::checkMessage($var, \Registration\Core\NotificationData::class);
+        $this->writeOneof(19, $var);
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.MarkNotificationsRead markNotificationsRead = 20;</code>
+     * @return \Registration\Core\MarkNotificationsRead|null
+     */
+    public function getMarkNotificationsRead()
+    {
+        return $this->readOneof(20);
+    }
+
+    public function hasMarkNotificationsRead()
+    {
+        return $this->hasOneof(20);
+    }
+
+    /**
+     * Generated from protobuf field <code>.registration.core.MarkNotificationsRead markNotificationsRead = 20;</code>
+     * @param \Registration\Core\MarkNotificationsRead $var
+     * @return $this
+     */
+    public function setMarkNotificationsRead($var)
+    {
+        GPBUtil::checkMessage($var, \Registration\Core\MarkNotificationsRead::class);
+        $this->writeOneof(20, $var);
 
         return $this;
     }

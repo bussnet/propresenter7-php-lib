@@ -10,12 +10,12 @@ use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
 
 /**
- * Generated from protobuf message <code>rv.analytics.Timeline.Action</code>
+ * Generated from protobuf message <code>rv.analytics.timeline.Action</code>
  */
 class Action extends \Google\Protobuf\Internal\Message
 {
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timeline.Action.ActionType action_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.timeline.Action.ActionType action_type = 1;</code>
      */
     protected $action_type = 0;
 
@@ -34,7 +34,7 @@ class Action extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timeline.Action.ActionType action_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.timeline.Action.ActionType action_type = 1;</code>
      * @return int
      */
     public function getActionType()
@@ -43,7 +43,7 @@ class Action extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>.rv.analytics.Timeline.Action.ActionType action_type = 1;</code>
+     * Generated from protobuf field <code>.rv.analytics.timeline.Action.ActionType action_type = 1;</code>
      * @param int $var
      * @return $this
      */

@@ -22,6 +22,10 @@ class TimecodeState extends \Google\Protobuf\Internal\Message
      * Generated from protobuf field <code>float time = 2;</code>
      */
     protected $time = 0.0;
+    /**
+     * Generated from protobuf field <code>float fps = 3;</code>
+     */
+    protected $fps = 0.0;
 
     /**
      * Constructor.
@@ -31,6 +35,7 @@ class TimecodeState extends \Google\Protobuf\Internal\Message
      *
      *     @type int $status
      *     @type float $time
+     *     @type float $fps
      * }
      */
     public function __construct($data = NULL) {
@@ -78,6 +83,28 @@ class TimecodeState extends \Google\Protobuf\Internal\Message
     {
         GPBUtil::checkFloat($var);
         $this->time = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>float fps = 3;</code>
+     * @return float
+     */
+    public function getFps()
+    {
+        return $this->fps;
+    }
+
+    /**
+     * Generated from protobuf field <code>float fps = 3;</code>
+     * @param float $var
+     * @return $this
+     */
+    public function setFps($var)
+    {
+        GPBUtil::checkFloat($var);
+        $this->fps = $var;
 
         return $this;
     }

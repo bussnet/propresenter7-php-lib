@@ -24,11 +24,16 @@ class Status
      * Generated from protobuf enum <code>Error = 2;</code>
      */
     const Error = 2;
+    /**
+     * Generated from protobuf enum <code>Discontinuity = 3;</code>
+     */
+    const Discontinuity = 3;
 
     private static $valueToName = [
         self::Stopped => 'Stopped',
         self::Playing => 'Playing',
         self::Error => 'Error',
+        self::Discontinuity => 'Discontinuity',
     ];
 
     public static function name($value)

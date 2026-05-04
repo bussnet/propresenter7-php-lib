@@ -9,6 +9,7 @@ option swift_prefix = "RVData_";
 import "action.proto";
 import "applicationInfo.proto";
 import "color.proto";
+import "customOptions.proto";
 import "uuid.proto";
 
 message MacrosDocument {
@@ -98,6 +99,7 @@ message MacrosDocument {
     .rv.data.UUID uuid = 1;
     string name = 2;
     repeated .rv.data.MacrosDocument.MacroCollection.Item items = 3;
+    repeated .rv.data.MacrosDocument.Macro macros = 4;
   }
 
   .rv.data.ApplicationInfo application_info = 1;
