@@ -15,8 +15,9 @@ use Rv\Data\AlphaType;
 use Rv\Data\ApplicationInfo;
 use Rv\Data\ApplicationInfo\Application;
 use Rv\Data\ApplicationInfo\Platform;
-use Rv\Data\Color;
+use Rv\Data\Background;
 use Rv\Data\CollectionElementType;
+use Rv\Data\Color;
 use Rv\Data\Cue;
 use Rv\Data\FileProperties;
 use Rv\Data\Graphics\EdgeInsets;
@@ -47,17 +48,16 @@ use Rv\Data\Presentation;
 use Rv\Data\Presentation\Arrangement;
 use Rv\Data\Presentation\CCLI;
 use Rv\Data\Presentation\CueGroup;
+use Rv\Data\Presentation\Timeline;
 use Rv\Data\PresentationSlide;
 use Rv\Data\Slide;
 use Rv\Data\Slide\Element as SlideElement;
 use Rv\Data\Slide\Element\TextScroller;
-use Rv\Data\Background;
 use Rv\Data\URL;
 use Rv\Data\URL\LocalRelativePath;
 use Rv\Data\URL\Platform as UrlPlatform;
 use Rv\Data\UUID;
 use Rv\Data\Version;
-use Rv\Data\Presentation\Timeline;
 
 final class ProFileGenerator
 {
@@ -110,7 +110,7 @@ final class ProFileGenerator
 
             $groupIdentifiers = [];
             foreach ($arrangementData['groupNames'] as $groupName) {
-                if (!isset($groupUuidsByName[$groupName])) {
+                if (! isset($groupUuidsByName[$groupName])) {
                     continue;
                 }
 
@@ -180,7 +180,9 @@ final class ProFileGenerator
     private static function buildCue(string $cueUuid, array $slideData): Cue
     {
         $elements = [];
-        if (isset($slideData['text'])) {
+        $imageOnly = ($slideData['imageOnly'] ?? false) === true;
+
+        if (! $imageOnly && isset($slideData['text'])) {
             $hasTranslation = isset($slideData['translation']) && $slideData['translation'] !== null;
 
             if ($hasTranslation) {
@@ -209,6 +211,10 @@ final class ProFileGenerator
         $slideType->setPresentation($presentationSlide);
 
         $actions = [self::buildSlideAction($slideType)];
+
+        if (isset($slideData['background']) && is_array($slideData['background'])) {
+            $actions[] = self::buildBackgroundMediaAction($slideData['background']);
+        }
 
         if (isset($slideData['media'])) {
             // Derive name from label OR filename without extension
@@ -282,8 +288,28 @@ final class ProFileGenerator
         return $action;
     }
 
-    private static function buildMediaAction(string $absoluteUrl, string $format, ?string $name = null, int $imageWidth = 0, int $imageHeight = 0, bool $bundleRelative = false): Action
+    private static function buildBackgroundMediaAction(array $backgroundData): Action
     {
+        return self::buildMediaAction(
+            (string) ($backgroundData['path'] ?? ''),
+            (string) ($backgroundData['format'] ?? 'JPG'),
+            null,
+            (int) ($backgroundData['width'] ?? 1920),
+            (int) ($backgroundData['height'] ?? 1080),
+            (bool) ($backgroundData['bundleRelative'] ?? false),
+            LayerType::LAYER_TYPE_BACKGROUND,
+        );
+    }
+
+    private static function buildMediaAction(
+        string $absoluteUrl,
+        string $format,
+        ?string $name = null,
+        int $imageWidth = 0,
+        int $imageHeight = 0,
+        bool $bundleRelative = false,
+        int $layerType = LayerType::LAYER_TYPE_FOREGROUND,
+    ): Action {
         if ($bundleRelative) {
             $filename = basename($absoluteUrl);
             $url = self::buildBundleRelativeUrl($filename);
@@ -335,7 +361,7 @@ final class ProFileGenerator
         $mediaElement->setImage($imageTypeProperties);
 
         $mediaType = new MediaType();
-        $mediaType->setLayerType(LayerType::LAYER_TYPE_FOREGROUND);
+        $mediaType->setLayerType($layerType);
         $mediaType->setElement($mediaElement);
         $mediaType->setAudio(new Audio());
 
@@ -558,6 +584,7 @@ final class ProFileGenerator
         $color->setAlpha(1.0);
         $background = new Background();
         $background->setColor($color);
+
         return $background;
     }
 
@@ -565,6 +592,7 @@ final class ProFileGenerator
     {
         $url = new URL();
         $url->setPlatform(UrlPlatform::PLATFORM_MACOS);
+
         return $url;
     }
 
@@ -572,6 +600,7 @@ final class ProFileGenerator
     {
         $timeline = new Timeline();
         $timeline->setDuration(300.0);
+
         return $timeline;
     }
 
@@ -694,8 +723,8 @@ RTF);
     private static function newUuidString(): string
     {
         $bytes = random_bytes(16);
-        $bytes[6] = chr((ord($bytes[6]) & 0x0f) | 0x40);
-        $bytes[8] = chr((ord($bytes[8]) & 0x3f) | 0x80);
+        $bytes[6] = chr((ord($bytes[6]) & 0x0F) | 0x40);
+        $bytes[8] = chr((ord($bytes[8]) & 0x3F) | 0x80);
         $hex = bin2hex($bytes);
 
         return strtoupper(sprintf(

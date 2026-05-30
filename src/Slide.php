@@ -6,6 +6,7 @@ namespace ProPresenter\Parser;
 
 use Rv\Data\Action;
 use Rv\Data\Action\ActionType;
+use Rv\Data\Action\LayerType;
 use Rv\Data\Action\MacroType;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Cue;
@@ -97,7 +98,7 @@ class Slide
     public function setPlainText(string $text): void
     {
         $textElements = $this->getTextElements();
-        if (!isset($textElements[0])) {
+        if (! isset($textElements[0])) {
             return;
         }
 
@@ -118,13 +119,14 @@ class Slide
     public function getTranslation(): ?TextElement
     {
         $textElements = $this->getTextElements();
+
         return $textElements[1] ?? null;
     }
 
     public function setTranslation(string $text): void
     {
         $textElements = $this->getTextElements();
-        if (!isset($textElements[1])) {
+        if (! isset($textElements[1])) {
             return;
         }
 
@@ -149,24 +151,28 @@ class Slide
     public function getMacroName(): ?string
     {
         $macro = $this->findMacroAction();
+
         return $macro?->getMacro()?->getIdentification()?->getParameterName();
     }
 
     public function getMacroUuid(): ?string
     {
         $macro = $this->findMacroAction();
+
         return $macro?->getMacro()?->getIdentification()?->getParameterUuid()?->getString();
     }
 
     public function getMacroCollectionName(): ?string
     {
         $macro = $this->findMacroAction();
+
         return $macro?->getMacro()?->getIdentification()?->getParentCollection()?->getParameterName();
     }
 
     public function getMacroCollectionUuid(): ?string
     {
         $macro = $this->findMacroAction();
+
         return $macro?->getMacro()?->getIdentification()?->getParentCollection()?->getParameterUuid()?->getString();
     }
 
@@ -195,6 +201,7 @@ class Slide
             $existingMacroAction->setType(ActionType::ACTION_TYPE_MACRO);
             $existingMacroAction->setMacro($macroType);
             $existingMacroAction->setIsEnabled(true);
+
             return;
         }
 
@@ -232,18 +239,40 @@ class Slide
     public function getMediaUrl(): ?string
     {
         $media = $this->findMediaAction();
+
         return $media?->getMedia()?->getElement()?->getUrl()?->getAbsoluteString();
     }
 
     public function getMediaUuid(): ?string
     {
         $media = $this->findMediaAction();
+
         return $media?->getMedia()?->getElement()?->getUuid()?->getString();
     }
 
     public function getMediaFormat(): ?string
     {
         $media = $this->findMediaAction();
+
+        return $media?->getMedia()?->getElement()?->getMetadata()?->getFormat();
+    }
+
+    public function hasBackgroundMedia(): bool
+    {
+        return $this->findBackgroundMediaAction() !== null;
+    }
+
+    public function getBackgroundMediaUrl(): ?string
+    {
+        $media = $this->findBackgroundMediaAction();
+
+        return $media?->getMedia()?->getElement()?->getUrl()?->getAbsoluteString();
+    }
+
+    public function getBackgroundMediaFormat(): ?string
+    {
+        $media = $this->findBackgroundMediaAction();
+
         return $media?->getMedia()?->getElement()?->getMetadata()?->getFormat();
     }
 
@@ -305,8 +334,18 @@ class Slide
 
     private function findMediaAction(): ?Action
     {
+        return $this->findMediaActionByLayerType(LayerType::LAYER_TYPE_FOREGROUND);
+    }
+
+    private function findBackgroundMediaAction(): ?Action
+    {
+        return $this->findMediaActionByLayerType(LayerType::LAYER_TYPE_BACKGROUND);
+    }
+
+    private function findMediaActionByLayerType(int $layerType): ?Action
+    {
         foreach ($this->cue->getActions() as $action) {
-            if ($action->getType() === ActionType::ACTION_TYPE_MEDIA) {
+            if ($action->getType() === ActionType::ACTION_TYPE_MEDIA && $action->getMedia()?->getLayerType() === $layerType) {
                 return $action;
             }
         }
