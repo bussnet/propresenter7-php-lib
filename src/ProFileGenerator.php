@@ -189,7 +189,10 @@ final class ProFileGenerator
                 $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text'], self::buildOriginalBounds());
                 $elements[] = self::buildSlideElement('Deutsch', (string) $slideData['translation'], self::buildTranslationBounds());
             } else {
-                $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text']);
+                $subtitle = isset($slideData['subtitle']) && $slideData['subtitle'] !== null
+                    ? (string) $slideData['subtitle']
+                    : null;
+                $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text'], null, $subtitle);
             }
         }
 
@@ -392,7 +395,7 @@ final class ProFileGenerator
         return $url;
     }
 
-    private static function buildSlideElement(string $name, string $text, ?Rect $bounds = null): SlideElement
+    private static function buildSlideElement(string $name, string $text, ?Rect $bounds = null, ?string $subtitle = null): SlideElement
     {
         $graphicsElement = new GraphicsElement();
         $graphicsElement->setUuid(self::newUuid());
@@ -406,7 +409,7 @@ final class ProFileGenerator
         $graphicsElement->setFeather(self::buildFeather());
 
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildRtf($text));
+        $graphicsText->setRtfData(self::buildRtf($text, $subtitle));
         $graphicsText->setVerticalAlignment(VerticalAlignment::VERTICAL_ALIGNMENT_MIDDLE);
         $graphicsElement->setText($graphicsText);
 
@@ -635,11 +638,23 @@ final class ProFileGenerator
         $presentation->setCcli($metadata);
     }
 
-    private static function buildRtf(string $text): string
+    private static function buildRtf(string $text, ?string $subtitle = null): string
     {
         $encodedText = self::encodePlainTextForRtf($text);
 
-        return str_replace('ENCODED_TEXT_HERE', $encodedText, <<<'RTF'
+        // Main text: \fs84. When a subtitle is provided, append it as a second
+        // run on a new line that is explicitly non-bold (\b0) and smaller (\fs50,
+        // ~60% of 84). Slides without a subtitle stay a single \fs84 run and the
+        // exact byte output is identical to the previous single-run template.
+        $body = '\fs84 \cf2 \CocoaLigature0 '.$encodedText;
+
+        if ($subtitle !== null && trim($subtitle) !== '') {
+            $encodedSubtitle = self::encodePlainTextForRtf($subtitle);
+            $body .= '\
+'.'\b0\fs50 '.$encodedSubtitle;
+        }
+
+        return str_replace('BODY_HERE', $body, <<<'RTF'
 {\rtf1\ansi\ansicpg1252\cocoartf2761
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
 {\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
@@ -647,7 +662,7 @@ final class ProFileGenerator
 \deftab1680
 \pard\pardeftab1680\pardirnatural\qc\partightenfactor0
 
-\f0\fs84 \cf2 \CocoaLigature0 ENCODED_TEXT_HERE}
+\f0BODY_HERE}
 RTF);
     }
 
