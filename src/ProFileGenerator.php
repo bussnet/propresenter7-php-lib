@@ -19,6 +19,9 @@ use Rv\Data\Background;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Color;
 use Rv\Data\Cue;
+use Rv\Data\Cue\CompletionActionType;
+use Rv\Data\Cue\CompletionTargetType;
+use Rv\Data\Effect;
 use Rv\Data\FileProperties;
 use Rv\Data\Graphics\EdgeInsets;
 use Rv\Data\Graphics\Element as GraphicsElement;
@@ -53,6 +56,7 @@ use Rv\Data\PresentationSlide;
 use Rv\Data\Slide;
 use Rv\Data\Slide\Element as SlideElement;
 use Rv\Data\Slide\Element\TextScroller;
+use Rv\Data\Transition;
 use Rv\Data\URL;
 use Rv\Data\URL\LocalRelativePath;
 use Rv\Data\URL\Platform as UrlPlatform;
@@ -66,6 +70,7 @@ final class ProFileGenerator
         array $groups,
         array $arrangements,
         array $ccli = [],
+        array $options = [],
     ): Song {
         $presentation = new Presentation();
         $presentation->setApplicationInfo(self::buildApplicationInfo());
@@ -141,6 +146,10 @@ final class ProFileGenerator
 
         self::applyCcliMetadata($presentation, $ccli);
 
+        if (($options['transition'] ?? null) === 'dissolve') {
+            $presentation->setTransition(self::buildDissolveTransition((float) ($options['transitionDuration'] ?? 1.0)));
+        }
+
         return new Song($presentation);
     }
 
@@ -150,8 +159,9 @@ final class ProFileGenerator
         array $groups,
         array $arrangements,
         array $ccli = [],
+        array $options = [],
     ): Song {
-        $song = self::generate($name, $groups, $arrangements, $ccli);
+        $song = self::generate($name, $groups, $arrangements, $ccli, $options);
         ProFileWriter::write($song, $filePath);
 
         return $song;
@@ -252,6 +262,16 @@ final class ProFileGenerator
         $cue->setHotKey(new HotKey());
         if (isset($slideData['label'])) {
             $cue->setName((string) $slideData['label']);
+        }
+
+        if (isset($slideData['completion']) && is_array($slideData['completion'])) {
+            $c = $slideData['completion'];
+            $cue->setCompletionActionType(CompletionActionType::COMPLETION_ACTION_TYPE_AFTER_TIME);
+            $cue->setCompletionTime((float) ($c['time'] ?? 0.0));
+            $target = (($c['target'] ?? 'next') === 'first')
+                ? CompletionTargetType::COMPLETION_TARGET_TYPE_FIRST
+                : CompletionTargetType::COMPLETION_TARGET_TYPE_NEXT;
+            $cue->setCompletionTargetType($target);
         }
 
         return $cue;
@@ -605,6 +625,22 @@ final class ProFileGenerator
         $timeline->setDuration(300.0);
 
         return $timeline;
+    }
+
+    private static function buildDissolveTransition(float $duration = 1.0): Transition
+    {
+        $effect = new Effect();
+        $effect->setUuid(self::newUuid());
+        $effect->setEnabled(true);
+        $effect->setName('Dissolve');
+        $effect->setRenderId('EC52A828-AD85-4602-B70C-1DEE7C904DB6');
+        $effect->setCategory('Dissolves');
+
+        $transition = new Transition();
+        $transition->setDuration($duration);
+        $transition->setEffect($effect);
+
+        return $transition;
     }
 
     private static function applyCcliMetadata(Presentation $presentation, array $ccli): void
