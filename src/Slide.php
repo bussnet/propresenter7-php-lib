@@ -10,6 +10,7 @@ use Rv\Data\Action\LayerType;
 use Rv\Data\Action\MacroType;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Cue;
+use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\UUID;
 
 /**
@@ -277,6 +278,22 @@ class Slide
     }
 
     /**
+     * Whether this slide carries a live wall-clock DataLink element.
+     */
+    public function hasClock(): bool
+    {
+        return $this->findClockText() !== null;
+    }
+
+    /**
+     * Clock format string (e.g. "HH:mm") of the first clock element, or null.
+     */
+    public function getClockFormat(): ?string
+    {
+        return $this->findClockText()?->getClockFormatString();
+    }
+
+    /**
      * Access the underlying protobuf Cue.
      */
     public function getCue(): Cue
@@ -347,6 +364,23 @@ class Slide
         foreach ($this->cue->getActions() as $action) {
             if ($action->getType() === ActionType::ACTION_TYPE_MEDIA && $action->getMedia()?->getLayerType() === $layerType) {
                 return $action;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * First ClockText DataLink across all slide elements, or null.
+     */
+    private function findClockText(): ?ClockText
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            foreach ($slideElement->getDataLinks() as $dataLink) {
+                $clockText = $dataLink->getClockText();
+                if ($clockText !== null) {
+                    return $clockText;
+                }
             }
         }
 

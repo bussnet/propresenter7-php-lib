@@ -16,6 +16,7 @@ use Rv\Data\ApplicationInfo;
 use Rv\Data\ApplicationInfo\Application;
 use Rv\Data\ApplicationInfo\Platform;
 use Rv\Data\Background;
+use Rv\Data\Clock\Format as ClockFormat;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Color;
 use Rv\Data\Cue;
@@ -55,6 +56,8 @@ use Rv\Data\Presentation\Timeline;
 use Rv\Data\PresentationSlide;
 use Rv\Data\Slide;
 use Rv\Data\Slide\Element as SlideElement;
+use Rv\Data\Slide\Element\DataLink;
+use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\TextScroller;
 use Rv\Data\Transition;
 use Rv\Data\URL;
@@ -204,6 +207,10 @@ final class ProFileGenerator
                     : null;
                 $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text'], null, $subtitle);
             }
+        }
+
+        if (isset($slideData['clock']) && is_array($slideData['clock'])) {
+            $elements[] = self::buildClockElement($slideData['clock']);
         }
 
         $slide = new Slide();
@@ -437,6 +444,62 @@ final class ProFileGenerator
         $slideElement->setElement($graphicsElement);
         $slideElement->setInfo(3);
         $slideElement->setTextScroller(self::buildTextScroller());
+
+        return $slideElement;
+    }
+
+    /**
+     * Build a live wall-clock element. The Graphics\Element carries the bounds
+     * and RTF styling (font/size/color); the DataLink overrides the rendered
+     * content with a live clock value at presentation time.
+     */
+    private static function buildClockElement(array $clockData): SlideElement
+    {
+        $bounds = is_array($clockData['bounds'] ?? null) ? $clockData['bounds'] : [];
+
+        $origin = new Point();
+        $origin->setX((float) ($bounds['x'] ?? 60));
+        $origin->setY((float) ($bounds['y'] ?? 40));
+
+        $size = new Size();
+        $size->setWidth((float) ($bounds['width'] ?? 600));
+        $size->setHeight((float) ($bounds['height'] ?? 200));
+
+        $rect = new Rect();
+        $rect->setOrigin($origin);
+        $rect->setSize($size);
+
+        $graphicsElement = new GraphicsElement();
+        $graphicsElement->setUuid(self::newUuid());
+        $graphicsElement->setName('Clock');
+        $graphicsElement->setBounds($rect);
+        $graphicsElement->setOpacity(1.0);
+        $graphicsElement->setPath(self::buildPath());
+        $graphicsElement->setFill(self::buildFill());
+        $graphicsElement->setStroke(self::buildStroke());
+        $graphicsElement->setShadow(self::buildShadow());
+        $graphicsElement->setFeather(self::buildFeather());
+
+        $graphicsText = new Text();
+        $graphicsText->setRtfData(self::buildRtf((string) ($clockData['text'] ?? '00:00')));
+        $graphicsText->setVerticalAlignment(VerticalAlignment::VERTICAL_ALIGNMENT_MIDDLE);
+        $graphicsElement->setText($graphicsText);
+
+        $clockFormat = new ClockFormat();
+        $clockFormat->setMilitaryTimeEnabled((bool) ($clockData['military24'] ?? true));
+
+        $clockText = new ClockText();
+        $clockText->setClockFormatString((string) ($clockData['format'] ?? 'HH:mm'));
+        $clockText->setFormat($clockFormat);
+
+        $dataLink = new DataLink();
+        $dataLink->setClockText($clockText);
+
+        $slideElement = new SlideElement();
+        $slideElement->setElement($graphicsElement);
+        $slideElement->setInfo(3);
+        $slideElement->setTextScroller(self::buildTextScroller());
+        $slideElement->setDataLinks([$dataLink]);
 
         return $slideElement;
     }
