@@ -10,6 +10,8 @@ use ProPresenter\Parser\ProFileGenerator;
 use ProPresenter\Parser\ProFileReader;
 use ProPresenter\Parser\ProFileWriter;
 use Rv\Data\Graphics\Text\VerticalAlignment;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility\TimerVisibilityCriterion;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\VisibilityCriterion;
 use Rv\Data\Timer\Format\Style as TimerFormatStyle;
 
 class ProFileGeneratorTimerTest extends TestCase
@@ -238,6 +240,116 @@ class ProFileGeneratorTimerTest extends TestCase
         $this->assertSame('mm:ss', $slide->getTimerFormat());
         $this->assertSame('Gottesdienst', $slide->getTimerName());
         $this->assertSame(self::TIMER_UUID, $slide->getTimerUuid());
+    }
+
+    #[Test]
+    public function test_timer_without_visible_when_carries_only_the_timer_datalink(): void
+    {
+        $element = $this->firstElement(['timerUuid' => self::TIMER_UUID, 'format' => 'mm:ss']);
+
+        $this->assertCount(1, $element->getDataLinks());
+        $this->assertNull($element->getDataLinks()[0]->getVisibilityLink());
+    }
+
+    #[Test]
+    public function test_timer_visible_when_has_time_remaining_emits_visibility_link(): void
+    {
+        $element = $this->firstElement([
+            'timerUuid' => self::TIMER_UUID,
+            'timerName' => 'Gottesdienst',
+            'format' => 'mm:ss',
+            'visibleWhen' => 'hasTimeRemaining',
+        ]);
+
+        $dataLinks = $element->getDataLinks();
+        $this->assertCount(2, $dataLinks);
+        $this->assertNotNull($dataLinks[0]->getTimerText());
+
+        $visibilityLink = $dataLinks[1]->getVisibilityLink();
+        $this->assertNotNull($visibilityLink);
+        $this->assertSame(VisibilityCriterion::VISIBILITY_CRITERION_ALL, $visibilityLink->getVisibilityCriterion());
+
+        $conditions = $visibilityLink->getConditions();
+        $this->assertCount(1, $conditions);
+
+        $timerVisibility = $conditions[0]->getTimerVisibility();
+        $this->assertNotNull($timerVisibility);
+        $this->assertSame(
+            TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_TIME_REMAINING,
+            $timerVisibility->getVisibilityCriterion(),
+        );
+        $this->assertSame('Gottesdienst', $timerVisibility->getTimerName());
+        $this->assertSame(self::TIMER_UUID, $timerVisibility->getTimerUuid()->getString());
+    }
+
+    #[Test]
+    public function test_timer_visibility_criteria_are_mapped(): void
+    {
+        $cases = [
+            'hasTimeRemaining' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_TIME_REMAINING,
+            'hasExpired' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_EXPIRED,
+            'isRunning' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_IS_RUNNING,
+            'notRunning' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_NOT_RUNNING,
+        ];
+
+        foreach ($cases as $visibleWhen => $expected) {
+            $element = $this->firstElement(['visibleWhen' => $visibleWhen]);
+            $timerVisibility = $element->getDataLinks()[1]->getVisibilityLink()->getConditions()[0]->getTimerVisibility();
+
+            $this->assertSame($expected, $timerVisibility->getVisibilityCriterion(), $visibleWhen);
+        }
+    }
+
+    #[Test]
+    public function test_unknown_visible_when_is_ignored(): void
+    {
+        $element = $this->firstElement(['visibleWhen' => 'someNonsense']);
+
+        $this->assertCount(1, $element->getDataLinks());
+    }
+
+    #[Test]
+    public function test_timer_visibility_survives_write_read_round_trip(): void
+    {
+        $song = ProFileGenerator::generate(
+            'Countdown',
+            $this->timerGroups([
+                'timerUuid' => self::TIMER_UUID,
+                'timerName' => 'Gottesdienst',
+                'format' => 'mm:ss',
+                'visibleWhen' => 'hasTimeRemaining',
+            ]),
+            $this->normalArrangement(),
+        );
+
+        $filePath = $this->tmpDir.'/timer-visibility-test.pro';
+        ProFileWriter::write($song, $filePath);
+        $readSong = ProFileReader::read($filePath);
+
+        $slide = $readSong->getSlides()[0];
+        $this->assertTrue($slide->hasTimer());
+        $this->assertTrue($slide->hasTimerVisibilityCondition());
+        $this->assertSame('hasTimeRemaining', $slide->getTimerVisibilityCriterion());
+        $this->assertSame(self::TIMER_UUID, $slide->getTimerVisibilityTimerUuid());
+    }
+
+    #[Test]
+    public function test_slide_without_visibility_condition_reports_none(): void
+    {
+        $song = ProFileGenerator::generate(
+            'Countdown',
+            $this->timerGroups(['timerUuid' => self::TIMER_UUID, 'format' => 'mm:ss']),
+            $this->normalArrangement(),
+        );
+
+        $filePath = $this->tmpDir.'/timer-no-visibility-test.pro';
+        ProFileWriter::write($song, $filePath);
+        $readSong = ProFileReader::read($filePath);
+
+        $slide = $readSong->getSlides()[0];
+        $this->assertFalse($slide->hasTimerVisibilityCondition());
+        $this->assertNull($slide->getTimerVisibilityCriterion());
+        $this->assertNull($slide->getTimerVisibilityTimerUuid());
     }
 
     #[Test]

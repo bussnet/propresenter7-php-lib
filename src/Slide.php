@@ -13,6 +13,8 @@ use Rv\Data\Cue;
 use Rv\Data\Media;
 use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\DataLink\TimerText;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility\TimerVisibilityCriterion;
 use Rv\Data\UUID;
 
 /**
@@ -354,6 +356,45 @@ class Slide
     }
 
     /**
+     * Whether this slide carries a timer-bound VisibilityLink DataLink, i.e. an
+     * element whose visibility depends on the state of a ProPresenter timer.
+     */
+    public function hasTimerVisibilityCondition(): bool
+    {
+        return $this->findTimerVisibility() !== null;
+    }
+
+    /**
+     * Visibility criterion of the first timer visibility condition as a readable
+     * string ('hasTimeRemaining' | 'hasExpired' | 'isRunning' | 'notRunning'),
+     * or null when the slide carries no such condition.
+     */
+    public function getTimerVisibilityCriterion(): ?string
+    {
+        $timerVisibility = $this->findTimerVisibility();
+
+        if ($timerVisibility === null) {
+            return null;
+        }
+
+        return match ($timerVisibility->getVisibilityCriterion()) {
+            TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_TIME_REMAINING => 'hasTimeRemaining',
+            TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_EXPIRED => 'hasExpired',
+            TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_IS_RUNNING => 'isRunning',
+            TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_NOT_RUNNING => 'notRunning',
+            default => null,
+        };
+    }
+
+    /**
+     * UUID of the timer the first visibility condition is bound to, or null.
+     */
+    public function getTimerVisibilityTimerUuid(): ?string
+    {
+        return $this->findTimerVisibility()?->getTimerUuid()?->getString();
+    }
+
+    /**
      * Access the underlying protobuf Cue.
      */
     public function getCue(): Cue
@@ -472,6 +513,30 @@ class Slide
                 $timerText = $dataLink->getTimerText();
                 if ($timerText !== null) {
                     return $timerText;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * First timer-bound VisibilityLink condition across all slide elements.
+     */
+    private function findTimerVisibility(): ?TimerVisibility
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            foreach ($slideElement->getDataLinks() as $dataLink) {
+                $visibilityLink = $dataLink->getVisibilityLink();
+                if ($visibilityLink === null) {
+                    continue;
+                }
+
+                foreach ($visibilityLink->getConditions() as $condition) {
+                    $timerVisibility = $condition->getTimerVisibility();
+                    if ($timerVisibility !== null) {
+                        return $timerVisibility;
+                    }
                 }
             }
         }

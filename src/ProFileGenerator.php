@@ -60,6 +60,11 @@ use Rv\Data\Slide\Element as SlideElement;
 use Rv\Data\Slide\Element\DataLink;
 use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\DataLink\TimerText;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition as VisibilityCondition;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility\TimerVisibilityCriterion;
+use Rv\Data\Slide\Element\DataLink\VisibilityLink\VisibilityCriterion;
 use Rv\Data\Slide\Element\TextScroller;
 use Rv\Data\Timer\Format as TimerFormat;
 use Rv\Data\Timer\Format\Style as TimerFormatStyle;
@@ -532,6 +537,11 @@ final class ProFileGenerator
      *  - text        string  Placeholder text rendered in the editor
      *  - bounds      array   ['x','y','width','height']
      *  - style       array   ['fontName','fontSize','bold','color'=>[r,g,b],'align','verticalAlign']
+     *  - visibleWhen string  Optional visibility condition bound to the same
+     *                        timer: 'hasTimeRemaining' | 'hasExpired' |
+     *                        'isRunning' | 'notRunning'. Emitted as an
+     *                        additional VisibilityLink DataLink so ProPresenter
+     *                        hides the element once the condition no longer holds.
      */
     private static function buildTimerElement(array $timerData): SlideElement
     {
@@ -582,13 +592,69 @@ final class ProFileGenerator
         $dataLink = new DataLink();
         $dataLink->setTimerText($timerText);
 
+        $dataLinks = [$dataLink];
+
+        $visibilityLink = self::buildTimerVisibilityLink($timerData);
+        if ($visibilityLink !== null) {
+            $visibilityDataLink = new DataLink();
+            $visibilityDataLink->setVisibilityLink($visibilityLink);
+            $dataLinks[] = $visibilityDataLink;
+        }
+
         $slideElement = new SlideElement();
         $slideElement->setElement($graphicsElement);
         $slideElement->setInfo(3);
         $slideElement->setTextScroller(self::buildTextScroller());
-        $slideElement->setDataLinks([$dataLink]);
+        $slideElement->setDataLinks($dataLinks);
 
         return $slideElement;
+    }
+
+    /**
+     * Build the optional VisibilityLink that binds an element's visibility to the
+     * state of the SAME timer, e.g. "only show while time is remaining". Returns
+     * null when no `visibleWhen` condition is requested.
+     */
+    private static function buildTimerVisibilityLink(array $timerData): ?VisibilityLink
+    {
+        $criterion = self::timerVisibilityCriterion($timerData['visibleWhen'] ?? null);
+
+        if ($criterion === null) {
+            return null;
+        }
+
+        $timerVisibility = new TimerVisibility();
+        $timerVisibility->setTimerName((string) ($timerData['timerName'] ?? ''));
+        $timerVisibility->setVisibilityCriterion($criterion);
+
+        $timerUuid = isset($timerData['timerUuid']) ? (string) $timerData['timerUuid'] : '';
+        if ($timerUuid !== '') {
+            $timerVisibility->setTimerUuid(self::uuidFromString($timerUuid));
+        }
+
+        $condition = new VisibilityCondition();
+        $condition->setTimerVisibility($timerVisibility);
+
+        $visibilityLink = new VisibilityLink();
+        $visibilityLink->setVisibilityCriterion(VisibilityCriterion::VISIBILITY_CRITERION_ALL);
+        $visibilityLink->setConditions([$condition]);
+
+        return $visibilityLink;
+    }
+
+    private static function timerVisibilityCriterion(mixed $visibleWhen): ?int
+    {
+        if (! is_string($visibleWhen) || $visibleWhen === '') {
+            return null;
+        }
+
+        return match (strtolower($visibleWhen)) {
+            'hastimeremaining' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_TIME_REMAINING,
+            'hasexpired' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_HAS_EXPIRED,
+            'isrunning' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_IS_RUNNING,
+            'notrunning' => TimerVisibilityCriterion::TIMER_VISIBILITY_CRITERION_NOT_RUNNING,
+            default => null,
+        };
     }
 
     /**

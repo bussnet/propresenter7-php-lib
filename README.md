@@ -275,6 +275,7 @@ for the `background` media action).
 | `military24` | `bool` | `true` | Maps to `Timer.Format.is_24_hour_time`. |
 | `wallClock` | `bool` | `false` | Maps to `Timer.Format.is_wall_clock_time`. |
 | `millisecondsUnderMinuteOnly` | `bool` | `false` | Maps to `Timer.Format.show_milliseconds_under_minute_only`. |
+| `visibleWhen` | `string` | — | Optional visibility condition bound to the same timer: `hasTimeRemaining`, `hasExpired`, `isRunning` or `notRunning`. Emitted as an additional `VisibilityLink` DataLink so ProPresenter hides the element once the condition no longer holds. Omit to keep the element always visible. |
 
 ##### `style` keys (shared by `clock` and `timer`)
 
@@ -298,9 +299,19 @@ Omitting `style` keeps the default RTF template byte-identical to previously gen
     'bounds'    => ['x' => 60, 'y' => 40, 'width' => 1800, 'height' => 1000],
     'style'     => ['fontName' => 'HelveticaNeue', 'fontSize' => 300, 'bold' => true, 'color' => [255, 255, 255]],
 ]]
+
+// Countdown that disappears once it has run out
+['timer' => [
+    'timerUuid'   => '0E45D0AF-BCC2-4A31-BCFD-0F5A3358E225',
+    'timerName'   => 'Gottesdienst',
+    'format'      => 'mm:ss',
+    'visibleWhen' => 'hasTimeRemaining',
+]]
 ```
 
 Slides read back from a `.pro` file expose `hasTimer()`, `getTimerFormat()`, `getTimerName()` and `getTimerUuid()` (mirroring `hasClock()` / `getClockFormat()`).
+
+When `visibleWhen` is set, the slide additionally exposes `hasTimerVisibilityCondition()`, `getTimerVisibilityCriterion()` (returns the same string that was passed in) and `getTimerVisibilityTimerUuid()`.
 
 ### 4. Read a playlist (`.proplaylist`)
 
