@@ -58,7 +58,10 @@ use Rv\Data\Slide;
 use Rv\Data\Slide\Element as SlideElement;
 use Rv\Data\Slide\Element\DataLink;
 use Rv\Data\Slide\Element\DataLink\ClockText;
+use Rv\Data\Slide\Element\DataLink\TimerText;
 use Rv\Data\Slide\Element\TextScroller;
+use Rv\Data\Timer\Format as TimerFormat;
+use Rv\Data\Timer\Format\Style as TimerFormatStyle;
 use Rv\Data\Transition;
 use Rv\Data\URL;
 use Rv\Data\URL\LocalRelativePath;
@@ -211,6 +214,10 @@ final class ProFileGenerator
 
         if (isset($slideData['clock']) && is_array($slideData['clock'])) {
             $elements[] = self::buildClockElement($slideData['clock']);
+        }
+
+        if (isset($slideData['timer']) && is_array($slideData['timer'])) {
+            $elements[] = self::buildTimerElement($slideData['timer']);
         }
 
         $slide = new Slide();
@@ -480,9 +487,11 @@ final class ProFileGenerator
         $graphicsElement->setShadow(self::buildShadow());
         $graphicsElement->setFeather(self::buildFeather());
 
+        $style = is_array($clockData['style'] ?? null) ? $clockData['style'] : [];
+
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildRtf((string) ($clockData['text'] ?? '00:00')));
-        $graphicsText->setVerticalAlignment(VerticalAlignment::VERTICAL_ALIGNMENT_MIDDLE);
+        $graphicsText->setRtfData(self::buildStyledRtf((string) ($clockData['text'] ?? '00:00'), $style));
+        $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
         $graphicsElement->setText($graphicsText);
 
         $clockFormat = new ClockFormat();
@@ -502,6 +511,111 @@ final class ProFileGenerator
         $slideElement->setDataLinks([$dataLink]);
 
         return $slideElement;
+    }
+
+    /**
+     * Build a live timer/countdown element. The Graphics\Element carries the
+     * bounds and RTF styling (font/size/color/alignment); the DataLink binds the
+     * element to a ProPresenter timer so the rendered content is driven live.
+     *
+     * Supported keys:
+     *  - timerUuid   string  UUID of the timer in the ProPresenter Timers library
+     *  - timerName   string  Timer name (fallback lookup when the UUID is unknown)
+     *  - format      string  Format string, e.g. "mm:ss" (alias: formatString)
+     *  - text        string  Placeholder text rendered in the editor
+     *  - bounds      array   ['x','y','width','height']
+     *  - style       array   ['fontName','fontSize','bold','color'=>[r,g,b],'align','verticalAlign']
+     */
+    private static function buildTimerElement(array $timerData): SlideElement
+    {
+        $bounds = is_array($timerData['bounds'] ?? null) ? $timerData['bounds'] : [];
+
+        $origin = new Point();
+        $origin->setX((float) ($bounds['x'] ?? 60));
+        $origin->setY((float) ($bounds['y'] ?? 40));
+
+        $size = new Size();
+        $size->setWidth((float) ($bounds['width'] ?? 1800));
+        $size->setHeight((float) ($bounds['height'] ?? 1000));
+
+        $rect = new Rect();
+        $rect->setOrigin($origin);
+        $rect->setSize($size);
+
+        $graphicsElement = new GraphicsElement();
+        $graphicsElement->setUuid(self::newUuid());
+        $graphicsElement->setName((string) ($timerData['name'] ?? 'Timer'));
+        $graphicsElement->setBounds($rect);
+        $graphicsElement->setOpacity(1.0);
+        $graphicsElement->setPath(self::buildPath());
+        $graphicsElement->setFill(self::buildFill());
+        $graphicsElement->setStroke(self::buildStroke());
+        $graphicsElement->setShadow(self::buildShadow());
+        $graphicsElement->setFeather(self::buildFeather());
+
+        $style = is_array($timerData['style'] ?? null) ? $timerData['style'] : [];
+
+        $graphicsText = new Text();
+        $graphicsText->setRtfData(self::buildStyledRtf((string) ($timerData['text'] ?? '00:00'), $style));
+        $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
+        $graphicsElement->setText($graphicsText);
+
+        $formatString = (string) ($timerData['format'] ?? $timerData['formatString'] ?? 'mm:ss');
+
+        $timerText = new TimerText();
+        $timerText->setTimerFormatString($formatString);
+        $timerText->setTimerName((string) ($timerData['timerName'] ?? ''));
+        $timerText->setTimerFormat(self::buildTimerFormat($formatString, $timerData));
+
+        $timerUuid = isset($timerData['timerUuid']) ? (string) $timerData['timerUuid'] : '';
+        if ($timerUuid !== '') {
+            $timerText->setTimerUuid(self::uuidFromString($timerUuid));
+        }
+
+        $dataLink = new DataLink();
+        $dataLink->setTimerText($timerText);
+
+        $slideElement = new SlideElement();
+        $slideElement->setElement($graphicsElement);
+        $slideElement->setInfo(3);
+        $slideElement->setTextScroller(self::buildTextScroller());
+        $slideElement->setDataLinks([$dataLink]);
+
+        return $slideElement;
+    }
+
+    /**
+     * Derive the structured Timer\Format from the format string. Components that
+     * appear in the format string are rendered SHORT, the rest are removed.
+     */
+    private static function buildTimerFormat(string $formatString, array $timerData): TimerFormat
+    {
+        $format = new TimerFormat();
+        $format->setHour(self::timerStyleFor($formatString, 'H'));
+        $format->setMinute(self::timerStyleFor($formatString, 'm'));
+        $format->setSecond(self::timerStyleFor($formatString, 's'));
+        $format->setMillisecond(self::timerStyleFor($formatString, 'S'));
+        $format->setIsWallClockTime((bool) ($timerData['wallClock'] ?? false));
+        $format->setIs24HourTime((bool) ($timerData['military24'] ?? true));
+        $format->setShowMillisecondsUnderMinuteOnly((bool) ($timerData['millisecondsUnderMinuteOnly'] ?? false));
+
+        return $format;
+    }
+
+    private static function timerStyleFor(string $formatString, string $token): int
+    {
+        return str_contains($formatString, $token)
+            ? TimerFormatStyle::STYLE_SHORT
+            : TimerFormatStyle::STYLE_REMOVE_SHORT;
+    }
+
+    private static function verticalAlignmentFromStyle(array $style): int
+    {
+        return match (strtolower((string) ($style['verticalAlign'] ?? 'middle'))) {
+            'top' => VerticalAlignment::VERTICAL_ALIGNMENT_TOP,
+            'bottom' => VerticalAlignment::VERTICAL_ALIGNMENT_BOTTOM,
+            default => VerticalAlignment::VERTICAL_ALIGNMENT_MIDDLE,
+        };
     }
 
     private static function buildBounds(): Rect
@@ -763,6 +877,78 @@ final class ProFileGenerator
 
 \f0BODY_HERE}
 RTF);
+    }
+
+    /**
+     * Build RTF for a data-linked element (clock/timer) honouring optional
+     * styling. With an empty style array the output is byte-identical to
+     * buildRtf(), so existing generated files stay unchanged.
+     *
+     * Style keys: fontName (string), fontSize (int pt), bold (bool),
+     * color ([r, g, b] 0..255 ints or 0..1 floats), align (left|center|right).
+     */
+    private static function buildStyledRtf(string $text, array $style): string
+    {
+        if ($style === []) {
+            return self::buildRtf($text);
+        }
+
+        $fontName = (string) ($style['fontName'] ?? 'HelveticaNeue');
+        $fontSize = (int) round(((float) ($style['fontSize'] ?? 42)) * 2);
+        $bold = ((bool) ($style['bold'] ?? false)) ? '\b ' : '';
+
+        $align = match (strtolower((string) ($style['align'] ?? 'center'))) {
+            'left' => '\ql',
+            'right' => '\qr',
+            default => '\qc',
+        };
+
+        [$red, $green, $blue] = self::rtfColorComponents($style['color'] ?? null);
+
+        $body = $bold.'\fs'.$fontSize.' \cf2 \CocoaLigature0 '.self::encodePlainTextForRtf($text);
+
+        return str_replace(
+            ['FONT_HERE', 'COLOR_HERE', 'ALIGN_HERE', 'BODY_HERE'],
+            [$fontName, '\red'.$red.'\green'.$green.'\blue'.$blue, $align, $body],
+            <<<'RTF'
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 FONT_HERE;}
+{\colortbl;\red255\green255\blue255;COLOR_HERE;}
+{\*\expandedcolortbl;;\csgray\c100000;}
+\deftab1680
+\pard\pardeftab1680\pardirnaturalALIGN_HERE\partightenfactor0
+
+\f0BODY_HERE}
+RTF
+        );
+    }
+
+    /**
+     * Normalise a colour input to 0..255 RTF components. Accepts [r, g, b]
+     * either as 0..255 integers or 0..1 floats. Defaults to white.
+     *
+     * @return array{int, int, int}
+     */
+    private static function rtfColorComponents(mixed $color): array
+    {
+        if (! is_array($color) || count($color) < 3) {
+            return [255, 255, 255];
+        }
+
+        $components = [];
+        $isFloatScale = true;
+        foreach ([0, 1, 2] as $index) {
+            $value = (float) ($color[$index] ?? 0.0);
+            if ($value > 1.0) {
+                $isFloatScale = false;
+            }
+            $components[] = $value;
+        }
+
+        return array_map(
+            static fn (float $value): int => max(0, min(255, (int) round($isFloatScale ? $value * 255 : $value))),
+            $components,
+        );
     }
 
     private static function encodePlainTextForRtf(string $text): string

@@ -11,6 +11,7 @@ use Rv\Data\Action\MacroType;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Cue;
 use Rv\Data\Slide\Element\DataLink\ClockText;
+use Rv\Data\Slide\Element\DataLink\TimerText;
 use Rv\Data\UUID;
 
 /**
@@ -294,6 +295,38 @@ class Slide
     }
 
     /**
+     * Whether this slide carries a timer/countdown DataLink element.
+     */
+    public function hasTimer(): bool
+    {
+        return $this->findTimerText() !== null;
+    }
+
+    /**
+     * Timer format string (e.g. "mm:ss") of the first timer element, or null.
+     */
+    public function getTimerFormat(): ?string
+    {
+        return $this->findTimerText()?->getTimerFormatString();
+    }
+
+    /**
+     * Name of the timer bound to the first timer element, or null.
+     */
+    public function getTimerName(): ?string
+    {
+        return $this->findTimerText()?->getTimerName();
+    }
+
+    /**
+     * UUID of the timer bound to the first timer element, or null.
+     */
+    public function getTimerUuid(): ?string
+    {
+        return $this->findTimerText()?->getTimerUuid()?->getString();
+    }
+
+    /**
      * Access the underlying protobuf Cue.
      */
     public function getCue(): Cue
@@ -380,6 +413,23 @@ class Slide
                 $clockText = $dataLink->getClockText();
                 if ($clockText !== null) {
                     return $clockText;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * First TimerText DataLink across all slide elements, or null.
+     */
+    private function findTimerText(): ?TimerText
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            foreach ($slideElement->getDataLinks() as $dataLink) {
+                $timerText = $dataLink->getTimerText();
+                if ($timerText !== null) {
+                    return $timerText;
                 }
             }
         }

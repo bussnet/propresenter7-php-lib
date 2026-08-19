@@ -197,6 +197,73 @@ ProFileGenerator::generateAndWrite(
 );
 ```
 
+#### Supported `slideData` keys
+
+Every entry of a group's `slides` array is a `slideData` array. All keys are optional.
+
+| Key | Type | Description |
+|-----|------|-------------|
+| `text` | `string` | Main slide text (multi-line allowed). |
+| `translation` | `string` | Second text element; renders original + translation side by side. |
+| `subtitle` | `string` | Smaller non-bold second run below `text` (ignored when `translation` is set). |
+| `imageOnly` | `bool` | Skip the text layer entirely (image-only slide). |
+| `media` | `string` | Foreground media filename. |
+| `background` | `array` | Background media layer, e.g. `['path' => 'BACKGROUND.jpg', 'bundleRelative' => true]`. |
+| `label` | `string` | Slide label text. |
+| `clock` | `array` | Live wall-clock element (see below). |
+| `timer` | `array` | Timer/countdown element bound to a ProPresenter timer (see below). |
+
+##### `clock` keys
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `format` | `string` | `'HH:mm'` | Clock format string. |
+| `military24` | `bool` | `true` | 24-hour time. |
+| `text` | `string` | `'00:00'` | Placeholder text rendered in the editor. |
+| `bounds` | `array` | `x:60, y:40, width:600, height:200` | `['x','y','width','height']` in slide coordinates. |
+| `style` | `array` | — | Text styling, see below. |
+
+##### `timer` keys
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `timerUuid` | `string` | — | UUID of the timer in the ProPresenter Timers library. Omit to leave unbound. |
+| `timerName` | `string` | `''` | Timer name (fallback lookup when the UUID is unknown). |
+| `format` | `string` | `'mm:ss'` | Format string; alias `formatString`. Components present in the string (`H`, `m`, `s`, `S`) are rendered, the rest are removed. |
+| `text` | `string` | `'00:00'` | Placeholder text rendered in the editor. |
+| `name` | `string` | `'Timer'` | Name of the graphics element. |
+| `bounds` | `array` | `x:60, y:40, width:1800, height:1000` | `['x','y','width','height']` in slide coordinates. |
+| `style` | `array` | — | Text styling, see below. |
+| `military24` | `bool` | `true` | Maps to `Timer.Format.is_24_hour_time`. |
+| `wallClock` | `bool` | `false` | Maps to `Timer.Format.is_wall_clock_time`. |
+| `millisecondsUnderMinuteOnly` | `bool` | `false` | Maps to `Timer.Format.show_milliseconds_under_minute_only`. |
+
+##### `style` keys (shared by `clock` and `timer`)
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `fontName` | `string` | `'HelveticaNeue'` | Font family. |
+| `fontSize` | `int` | `42` | Font size in points. |
+| `bold` | `bool` | `false` | Bold text run. |
+| `color` | `array` | white | `[r, g, b]` as `0..255` ints or `0..1` floats. |
+| `align` | `string` | `'center'` | `left`, `center` or `right`. |
+| `verticalAlign` | `string` | `'middle'` | `top`, `middle` or `bottom`. |
+
+Omitting `style` keeps the default RTF template byte-identical to previously generated files.
+
+```php
+// Big centred countdown bound to a timer from the Timers library
+['timer' => [
+    'timerUuid' => '0E45D0AF-BCC2-4A31-BCFD-0F5A3358E225',
+    'timerName' => 'Gottesdienst',
+    'format'    => 'mm:ss',
+    'bounds'    => ['x' => 60, 'y' => 40, 'width' => 1800, 'height' => 1000],
+    'style'     => ['fontName' => 'HelveticaNeue', 'fontSize' => 300, 'bold' => true, 'color' => [255, 255, 255]],
+]]
+```
+
+Slides read back from a `.pro` file expose `hasTimer()`, `getTimerFormat()`, `getTimerName()` and `getTimerUuid()` (mirroring `hasClock()` / `getClockFormat()`).
+
 ### 4. Read a playlist (`.proplaylist`)
 
 ```php
