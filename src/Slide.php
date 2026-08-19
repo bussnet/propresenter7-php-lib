@@ -10,6 +10,7 @@ use Rv\Data\Action\LayerType;
 use Rv\Data\Action\MacroType;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Cue;
+use Rv\Data\Media;
 use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\DataLink\TimerText;
 use Rv\Data\UUID;
@@ -279,6 +280,32 @@ class Slide
     }
 
     /**
+     * Whether this slide carries an IMAGE CONTENT ELEMENT (a slide element whose
+     * fill is an image), as generated from the `image` slideData key. This is
+     * independent of the background media ACTION.
+     */
+    public function hasImageElement(): bool
+    {
+        return $this->findImageElementMedia() !== null;
+    }
+
+    /**
+     * Bundle-relative URL of the first image content element, or null.
+     */
+    public function getImageElementUrl(): ?string
+    {
+        return $this->findImageElementMedia()?->getUrl()?->getAbsoluteString();
+    }
+
+    /**
+     * Media format (e.g. "JPG") of the first image content element, or null.
+     */
+    public function getImageElementFormat(): ?string
+    {
+        return $this->findImageElementMedia()?->getMetadata()?->getFormat();
+    }
+
+    /**
      * Whether this slide carries a live wall-clock DataLink element.
      */
     public function hasClock(): bool
@@ -397,6 +424,21 @@ class Slide
         foreach ($this->cue->getActions() as $action) {
             if ($action->getType() === ActionType::ACTION_TYPE_MEDIA && $action->getMedia()?->getLayerType() === $layerType) {
                 return $action;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * First slide element whose graphics fill carries image media, or null.
+     */
+    private function findImageElementMedia(): ?Media
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            $media = $slideElement->getElement()?->getFill()?->getMedia();
+            if ($media !== null && $media->hasImage()) {
+                return $media;
             }
         }
 

@@ -208,10 +208,48 @@ Every entry of a group's `slides` array is a `slideData` array. All keys are opt
 | `subtitle` | `string` | Smaller non-bold second run below `text` (ignored when `translation` is set). |
 | `imageOnly` | `bool` | Skip the text layer entirely (image-only slide). |
 | `media` | `string` | Foreground media filename. |
-| `background` | `array` | Background media layer, e.g. `['path' => 'BACKGROUND.jpg', 'bundleRelative' => true]`. |
+| `background` | `array` | Background media layer (a media ACTION), e.g. `['path' => 'BACKGROUND.jpg', 'bundleRelative' => true]`. |
+| `image` | `array` | Image content ELEMENT placed at the lowest visible layer of the slide, behind text (see below). |
 | `label` | `string` | Slide label text. |
 | `clock` | `array` | Live wall-clock element (see below). |
 | `timer` | `array` | Timer/countdown element bound to a ProPresenter timer (see below). |
+
+##### `image` keys
+
+Unlike `background` — which emits a media *action* on the background layer — `image`
+emits a real slide content *element* whose fill is the given image. It is always
+inserted at **index 0** of the slide's element array, i.e. at the lowest visible
+layer, so `text`, `translation`, `subtitle`, `clock` and `timer` elements are
+painted on top of it. Combine `image` with `imageOnly => true` for an
+image-only slide, or with `text` for text over an image.
+
+The image is referenced **bundle-relative** by its bare filename (`path` is
+reduced to `basename()`), so it resolves against the bytes embedded in the
+`.pro` / `.probundle` archive — never by an absolute path.
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `path` | `string` | `''` | Bare filename, referenced bundle-relative. |
+| `format` | `string` | `'JPG'` | Media format, e.g. `JPG`, `PNG`. |
+| `width` | `int` | `1920` | Natural image width. |
+| `height` | `int` | `1080` | Natural image height. |
+| `bounds` | `array` | `x:0, y:0, width:1920, height:1080` | `['x','y','width','height']` in slide coordinates. |
+| `scaleBehavior` | `string` | `'fill'` | `fill`, `fit` or `stretch`. |
+| `opacity` | `float` | `1.0` | Element opacity. |
+| `name` | `string` | `''` | Name of the graphics element. |
+
+```php
+// Uploaded info slide image with text rendered on top of it
+['text' => 'Herzlich willkommen', 'image' => ['path' => 'INFO_1.jpg', 'format' => 'JPG']]
+
+// Image-only slide (no text layer)
+['imageOnly' => true, 'image' => ['path' => 'INFO_2.jpg']]
+```
+
+Slides read back from a `.pro` file expose `hasImageElement()`,
+`getImageElementUrl()` and `getImageElementFormat()` (mirroring
+`hasBackgroundMedia()` / `getBackgroundMediaUrl()` / `getBackgroundMediaFormat()`
+for the `background` media action).
 
 ##### `clock` keys
 

@@ -48,6 +48,7 @@ use Rv\Data\Media;
 use Rv\Data\Media\DrawingProperties;
 use Rv\Data\Media\ImageTypeProperties;
 use Rv\Data\Media\Metadata;
+use Rv\Data\Media\ScaleBehavior;
 use Rv\Data\Presentation;
 use Rv\Data\Presentation\Arrangement;
 use Rv\Data\Presentation\CCLI;
@@ -197,6 +198,12 @@ final class ProFileGenerator
     {
         $elements = [];
         $imageOnly = ($slideData['imageOnly'] ?? false) === true;
+
+        // The image element is emitted FIRST so it sits at the lowest visible
+        // layer of the slide; text/clock/timer elements are painted on top.
+        if (isset($slideData['image']) && is_array($slideData['image'])) {
+            $elements[] = self::buildImageElement($slideData['image']);
+        }
 
         if (! $imageOnly && isset($slideData['text'])) {
             $hasTranslation = isset($slideData['translation']) && $slideData['translation'] !== null;
@@ -582,6 +589,93 @@ final class ProFileGenerator
         $slideElement->setDataLinks([$dataLink]);
 
         return $slideElement;
+    }
+
+    /**
+     * Build an IMAGE CONTENT ELEMENT: a graphics element whose fill is the given
+     * bundle-relative image. Unlike the `background` media ACTION this is part of
+     * the slide's element stack, so it is emitted at index 0 (lowest visible
+     * layer) and every text/clock/timer element renders on top of it.
+     *
+     * Supported keys:
+     *  - path          string  Bare filename, resolved bundle-relative
+     *  - format        string  Media format, e.g. "JPG" (default "JPG")
+     *  - width         int     Natural image width (default 1920)
+     *  - height        int     Natural image height (default 1080)
+     *  - bounds        array   ['x','y','width','height'] (default 0,0,1920,1080)
+     *  - scaleBehavior string  'fill' | 'fit' | 'stretch' (default 'fill')
+     *  - opacity       float   Element opacity (default 1.0)
+     *  - name          string  Element name (default '')
+     */
+    private static function buildImageElement(array $imageData): SlideElement
+    {
+        $filename = basename((string) ($imageData['path'] ?? ''));
+
+        $naturalSize = new Size();
+        $naturalSize->setWidth((int) ($imageData['width'] ?? 1920));
+        $naturalSize->setHeight((int) ($imageData['height'] ?? 1080));
+
+        $drawing = new DrawingProperties();
+        $drawing->setScaleBehavior(self::scaleBehaviorFromString((string) ($imageData['scaleBehavior'] ?? 'fill')));
+        $drawing->setNaturalSize($naturalSize);
+        $drawing->setAlphaType(AlphaType::ALPHA_TYPE_STRAIGHT);
+
+        $fileProperties = new FileProperties();
+        $fileProperties->setLocalUrl(self::buildBundleRelativeUrl($filename));
+
+        $imageTypeProperties = new ImageTypeProperties();
+        $imageTypeProperties->setDrawing($drawing);
+        $imageTypeProperties->setFile($fileProperties);
+
+        $metadata = new Metadata();
+        $metadata->setFormat((string) ($imageData['format'] ?? 'JPG'));
+
+        $media = new Media();
+        $media->setUuid(self::newUuid());
+        $media->setUrl(self::buildBundleRelativeUrl($filename));
+        $media->setMetadata($metadata);
+        $media->setImage($imageTypeProperties);
+
+        $fill = new Fill();
+        $fill->setEnable(true);
+        $fill->setMedia($media);
+
+        $bounds = is_array($imageData['bounds'] ?? null) ? $imageData['bounds'] : [];
+
+        $origin = new Point();
+        $origin->setX((float) ($bounds['x'] ?? 0));
+        $origin->setY((float) ($bounds['y'] ?? 0));
+
+        $size = new Size();
+        $size->setWidth((float) ($bounds['width'] ?? 1920));
+        $size->setHeight((float) ($bounds['height'] ?? 1080));
+
+        $rect = new Rect();
+        $rect->setOrigin($origin);
+        $rect->setSize($size);
+
+        $graphicsElement = new GraphicsElement();
+        $graphicsElement->setUuid(self::newUuid());
+        $graphicsElement->setName((string) ($imageData['name'] ?? ''));
+        $graphicsElement->setBounds($rect);
+        $graphicsElement->setOpacity((float) ($imageData['opacity'] ?? 1.0));
+        $graphicsElement->setPath(self::buildPath());
+        $graphicsElement->setFill($fill);
+
+        $slideElement = new SlideElement();
+        $slideElement->setElement($graphicsElement);
+        $slideElement->setInfo(0);
+
+        return $slideElement;
+    }
+
+    private static function scaleBehaviorFromString(string $scaleBehavior): int
+    {
+        return match (strtolower($scaleBehavior)) {
+            'fit' => ScaleBehavior::SCALE_BEHAVIOR_FIT,
+            'stretch' => ScaleBehavior::SCALE_BEHAVIOR_STRETCH,
+            default => ScaleBehavior::SCALE_BEHAVIOR_FILL,
+        };
     }
 
     /**
