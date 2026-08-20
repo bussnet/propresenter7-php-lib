@@ -206,6 +206,8 @@ Every entry of a group's `slides` array is a `slideData` array. All keys are opt
 | `text` | `string` | Main slide text (multi-line allowed). |
 | `translation` | `string` | Second text element; renders original + translation side by side. |
 | `subtitle` | `string` | Smaller non-bold second run below `text` (ignored when `translation` is set). |
+| `textBounds` | `array` | Explicit placement of the plain text element (see below). |
+| `textStyle` | `array` | Explicit alignment of the plain text element (see below). |
 | `imageOnly` | `bool` | Skip the text layer entirely (image-only slide). |
 | `media` | `string` | Foreground media filename. |
 | `background` | `array` | Background media layer (a media ACTION), e.g. `['path' => 'BACKGROUND.jpg', 'bundleRelative' => true]`. |
@@ -213,6 +215,40 @@ Every entry of a group's `slides` array is a `slideData` array. All keys are opt
 | `label` | `string` | Slide label text. |
 | `clock` | `array` | Live wall-clock element (see below). |
 | `timer` | `array` | Timer/countdown element bound to a ProPresenter timer (see below). |
+
+##### `textBounds` / `textStyle` keys
+
+By default the plain text element covers the historic text-safe area
+(`x:150, y:100, width:1620, height:880`) and is centred both horizontally and
+vertically. `textBounds` and `textStyle` override that per slide — useful to
+place a short line (e.g. a name tag) in one of the slide's corners.
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `textBounds.x` | `float` | `150` | Left edge in slide coordinates. |
+| `textBounds.y` | `float` | `100` | Top edge in slide coordinates. |
+| `textBounds.width` | `float` | `1620` | Box width. |
+| `textBounds.height` | `float` | `880` | Box height. |
+| `textStyle.align` | `string` | `'center'` | `left`, `center` or `right`. |
+| `textStyle.verticalAlign` | `string` | `'middle'` | `top`, `middle` or `bottom`. |
+
+Missing sub-keys fall back to their default, so a partial `textBounds` is valid.
+Omitting both keys keeps the generated element byte-identical to previously
+generated files.
+
+```php
+// Name tag pinned to the bottom-left corner
+[
+    'text'       => 'Max Mustermann',
+    'subtitle'   => 'Moderation',
+    'textBounds' => ['x' => 60, 'y' => 820, 'width' => 600, 'height' => 200],
+    'textStyle'  => ['align' => 'left', 'verticalAlign' => 'bottom'],
+]
+```
+
+Slides read back from a `.pro` file expose `getTextElementBounds()`,
+`getTextElementAlign()` and `getTextElementVerticalAlign()`, which resolve the
+first plain text element (skipping clock, timer and image elements).
 
 ##### `image` keys
 

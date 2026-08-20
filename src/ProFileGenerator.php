@@ -234,7 +234,22 @@ final class ProFileGenerator
                 $subtitle = isset($slideData['subtitle']) && $slideData['subtitle'] !== null
                     ? (string) $slideData['subtitle']
                     : null;
-                $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text'], null, $subtitle);
+
+                // Optional explicit placement/alignment for the text element.
+                // Without them the element keeps the historic full-canvas bounds
+                // and centred alignment, so existing output stays byte-identical.
+                $textBounds = is_array($slideData['textBounds'] ?? null)
+                    ? self::rectFromBounds($slideData['textBounds'], 150, 100, 1620, 880)
+                    : null;
+                $textStyle = is_array($slideData['textStyle'] ?? null) ? $slideData['textStyle'] : [];
+
+                $elements[] = self::buildSlideElement(
+                    'Orginal',
+                    (string) $slideData['text'],
+                    $textBounds,
+                    $subtitle,
+                    $textStyle,
+                );
             }
         }
 
@@ -460,8 +475,19 @@ final class ProFileGenerator
         return $url;
     }
 
-    private static function buildSlideElement(string $name, string $text, ?Rect $bounds = null, ?string $subtitle = null): SlideElement
-    {
+    /**
+     * @param  array<string, mixed>  $style  Optional ['align' => left|center|right,
+     *                                       'verticalAlign' => top|middle|bottom]. An empty
+     *                                       array keeps the historic centred treatment and
+     *                                       produces byte-identical RTF.
+     */
+    private static function buildSlideElement(
+        string $name,
+        string $text,
+        ?Rect $bounds = null,
+        ?string $subtitle = null,
+        array $style = [],
+    ): SlideElement {
         $graphicsElement = new GraphicsElement();
         $graphicsElement->setUuid(self::newUuid());
         $graphicsElement->setName($name);
@@ -474,8 +500,8 @@ final class ProFileGenerator
         $graphicsElement->setFeather(self::buildFeather());
 
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildRtf($text, $subtitle));
-        $graphicsText->setVerticalAlignment(VerticalAlignment::VERTICAL_ALIGNMENT_MIDDLE);
+        $graphicsText->setRtfData(self::buildRtf($text, $subtitle, self::rtfAlignToken($style['align'] ?? null)));
+        $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
         $graphicsElement->setText($graphicsText);
 
         $slideElement = new SlideElement();
@@ -1080,7 +1106,11 @@ final class ProFileGenerator
         $presentation->setCcli($metadata);
     }
 
-    private static function buildRtf(string $text, ?string $subtitle = null): string
+    /**
+     * @param  string  $alignToken  RTF paragraph alignment control word. Defaults to
+     *                              `\qc` (centred), which is the historic behaviour.
+     */
+    private static function buildRtf(string $text, ?string $subtitle = null, string $alignToken = '\qc'): string
     {
         $encodedText = self::encodePlainTextForRtf($text);
 
@@ -1096,16 +1126,56 @@ final class ProFileGenerator
 '.'\b0\fs50 '.$encodedSubtitle;
         }
 
-        return str_replace('BODY_HERE', $body, <<<'RTF'
+        return str_replace(['ALIGN_HERE', 'BODY_HERE'], [$alignToken, $body], <<<'RTF'
 {\rtf1\ansi\ansicpg1252\cocoartf2761
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
 {\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
 {\*\expandedcolortbl;;\csgray\c100000;}
 \deftab1680
-\pard\pardeftab1680\pardirnatural\qc\partightenfactor0
+\pard\pardeftab1680\pardirnaturalALIGN_HERE\partightenfactor0
 
 \f0BODY_HERE}
 RTF);
+    }
+
+    /**
+     * Map an alignment name to its RTF paragraph control word.
+     */
+    private static function rtfAlignToken(mixed $align): string
+    {
+        return match (strtolower((string) ($align ?? 'center'))) {
+            'left' => '\ql',
+            'right' => '\qr',
+            default => '\qc',
+        };
+    }
+
+    /**
+     * Build a Rect from an ['x','y','width','height'] array, falling back to the
+     * given defaults for missing keys.
+     *
+     * @param  array<string, mixed>  $bounds
+     */
+    private static function rectFromBounds(
+        array $bounds,
+        float $defaultX,
+        float $defaultY,
+        float $defaultWidth,
+        float $defaultHeight,
+    ): Rect {
+        $origin = new Point();
+        $origin->setX((float) ($bounds['x'] ?? $defaultX));
+        $origin->setY((float) ($bounds['y'] ?? $defaultY));
+
+        $size = new Size();
+        $size->setWidth((float) ($bounds['width'] ?? $defaultWidth));
+        $size->setHeight((float) ($bounds['height'] ?? $defaultHeight));
+
+        $rect = new Rect();
+        $rect->setOrigin($origin);
+        $rect->setSize($size);
+
+        return $rect;
     }
 
     /**
@@ -1126,11 +1196,7 @@ RTF);
         $fontSize = (int) round(((float) ($style['fontSize'] ?? 42)) * 2);
         $bold = ((bool) ($style['bold'] ?? false)) ? '\b ' : '';
 
-        $align = match (strtolower((string) ($style['align'] ?? 'center'))) {
-            'left' => '\ql',
-            'right' => '\qr',
-            default => '\qc',
-        };
+        $align = self::rtfAlignToken($style['align'] ?? null);
 
         [$red, $green, $blue] = self::rtfColorComponents($style['color'] ?? null);
 

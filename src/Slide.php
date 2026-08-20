@@ -10,6 +10,8 @@ use Rv\Data\Action\LayerType;
 use Rv\Data\Action\MacroType;
 use Rv\Data\CollectionElementType;
 use Rv\Data\Cue;
+use Rv\Data\Graphics\Element as GraphicsElement;
+use Rv\Data\Graphics\Text\VerticalAlignment;
 use Rv\Data\Media;
 use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\DataLink\TimerText;
@@ -306,6 +308,101 @@ class Slide
     public function getImageElementFormat(): ?string
     {
         return $this->findImageElementMedia()?->getMetadata()?->getFormat();
+    }
+
+    /**
+     * Bounds of the first plain TEXT element (the element carrying the slide
+     * text, not a clock/timer/image element), or null when the slide has none.
+     *
+     * @return array{x: float, y: float, width: float, height: float}|null
+     */
+    public function getTextElementBounds(): ?array
+    {
+        $bounds = $this->findPlainTextGraphicsElement()?->getBounds();
+
+        if ($bounds === null) {
+            return null;
+        }
+
+        return [
+            'x' => $bounds->getOrigin()?->getX() ?? 0.0,
+            'y' => $bounds->getOrigin()?->getY() ?? 0.0,
+            'width' => $bounds->getSize()?->getWidth() ?? 0.0,
+            'height' => $bounds->getSize()?->getHeight() ?? 0.0,
+        ];
+    }
+
+    /**
+     * Horizontal alignment ("left"|"center"|"right") of the first plain TEXT
+     * element, read back from its RTF paragraph control word.
+     */
+    public function getTextElementAlign(): ?string
+    {
+        $rtf = $this->findPlainTextGraphicsElement()?->getText()?->getRtfData();
+
+        if ($rtf === null || $rtf === '') {
+            return null;
+        }
+
+        if (str_contains($rtf, '\ql')) {
+            return 'left';
+        }
+
+        if (str_contains($rtf, '\qr')) {
+            return 'right';
+        }
+
+        return 'center';
+    }
+
+    /**
+     * Vertical alignment ("top"|"middle"|"bottom") of the first plain TEXT
+     * element.
+     */
+    public function getTextElementVerticalAlign(): ?string
+    {
+        $text = $this->findPlainTextGraphicsElement()?->getText();
+
+        if ($text === null) {
+            return null;
+        }
+
+        return match ($text->getVerticalAlignment()) {
+            VerticalAlignment::VERTICAL_ALIGNMENT_TOP => 'top',
+            VerticalAlignment::VERTICAL_ALIGNMENT_BOTTOM => 'bottom',
+            default => 'middle',
+        };
+    }
+
+    /**
+     * First graphics element that carries text and is neither a clock/timer
+     * DataLink element nor an image element.
+     */
+    private function findPlainTextGraphicsElement(): ?GraphicsElement
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            $graphicsElement = $slideElement->getElement();
+
+            if ($graphicsElement === null) {
+                continue;
+            }
+
+            if (($graphicsElement->getText()?->getRtfData() ?? '') === '') {
+                continue;
+            }
+
+            if ($graphicsElement->getFill()?->getMedia() !== null) {
+                continue;
+            }
+
+            if (count($slideElement->getDataLinks()) > 0) {
+                continue;
+            }
+
+            return $graphicsElement;
+        }
+
+        return null;
     }
 
     /**
