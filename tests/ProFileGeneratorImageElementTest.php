@@ -36,7 +36,7 @@ class ProFileGeneratorImageElementTest extends TestCase
     }
 
     #[Test]
-    public function image_element_is_the_first_slide_element(): void
+    public function image_element_is_the_last_slide_element(): void
     {
         $slide = self::firstSlide([
             'text' => 'Text auf dem Bild',
@@ -47,15 +47,17 @@ class ProFileGeneratorImageElementTest extends TestCase
 
         $this->assertCount(2, $elements);
 
-        $fill = $elements[0]->getElement()->getFill();
+        // Highest index = backmost layer in ProPresenter.
+        $last = $elements[count($elements) - 1];
+        $fill = $last->getElement()->getFill();
         $this->assertTrue($fill->getEnable());
         $this->assertNotNull($fill->getMedia());
         $this->assertTrue($fill->getMedia()->hasImage());
-        $this->assertSame(0, $elements[0]->getInfo());
+        $this->assertSame(0, $last->getInfo());
     }
 
     #[Test]
-    public function text_element_comes_after_the_image_element(): void
+    public function text_element_comes_before_the_image_element(): void
     {
         $slide = self::firstSlide([
             'text' => 'Text auf dem Bild',
@@ -64,14 +66,15 @@ class ProFileGeneratorImageElementTest extends TestCase
 
         $elements = self::slideElements($slide);
 
-        $this->assertNull($elements[0]->getElement()->getText());
-        $this->assertNotNull($elements[1]->getElement()->getText());
-        $this->assertSame('Orginal', $elements[1]->getElement()->getName());
+        $this->assertNotNull($elements[0]->getElement()->getText());
+        $this->assertSame('Orginal', $elements[0]->getElement()->getName());
+        $this->assertNull($elements[1]->getElement()->getText());
+        $this->assertNotNull($elements[1]->getElement()->getFill()->getMedia());
         $this->assertSame('Text auf dem Bild', $slide->getPlainText());
     }
 
     #[Test]
-    public function image_element_is_below_clock_and_timer_elements(): void
+    public function image_element_is_behind_clock_and_timer_elements(): void
     {
         $slide = self::firstSlide([
             'image' => ['path' => 'COUNTDOWN.jpg'],
@@ -84,9 +87,9 @@ class ProFileGeneratorImageElementTest extends TestCase
 
         $this->assertCount(3, $elements);
         $this->assertTrue($slide->hasImageElement());
-        $this->assertNotNull($elements[0]->getElement()->getFill()->getMedia());
-        $this->assertSame('Clock', $elements[1]->getElement()->getName());
-        $this->assertSame('Timer', $elements[2]->getElement()->getName());
+        $this->assertSame('Clock', $elements[0]->getElement()->getName());
+        $this->assertSame('Timer', $elements[1]->getElement()->getName());
+        $this->assertNotNull($elements[2]->getElement()->getFill()->getMedia());
     }
 
     #[Test]

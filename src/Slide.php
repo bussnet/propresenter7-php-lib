@@ -15,6 +15,7 @@ use Rv\Data\Slide\Element\DataLink\ClockText;
 use Rv\Data\Slide\Element\DataLink\TimerText;
 use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility;
 use Rv\Data\Slide\Element\DataLink\VisibilityLink\Condition\TimerVisibility\TimerVisibilityCriterion;
+use Rv\Data\Timer\Format as TimerFormat;
 use Rv\Data\UUID;
 
 /**
@@ -316,7 +317,9 @@ class Slide
     }
 
     /**
-     * Clock format string (e.g. "HH:mm") of the first clock element, or null.
+     * Raw ClockText::clock_format_string of the first clock element, or null.
+     * In real ProPresenter files this is the verbatim RTF body template token
+     * `${clock}` — NOT a time format pattern.
      */
     public function getClockFormat(): ?string
     {
@@ -332,11 +335,23 @@ class Slide
     }
 
     /**
-     * Timer format string (e.g. "mm:ss") of the first timer element, or null.
+     * Raw TimerText::timer_format_string of the first timer element, or null.
+     * In real ProPresenter files this is the verbatim RTF body template token
+     * `${timer}` — NOT a time format pattern. The real format lives in the
+     * structured Timer\Format message, see getTimerFormatMessage().
      */
     public function getTimerFormat(): ?string
     {
         return $this->findTimerText()?->getTimerFormatString();
+    }
+
+    /**
+     * Structured Timer\Format message of the first timer element, or null. This
+     * is the message ProPresenter actually renders the countdown from.
+     */
+    public function getTimerFormatMessage(): ?TimerFormat
+    {
+        return $this->findTimerText()?->getTimerFormat();
     }
 
     /**

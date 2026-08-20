@@ -83,7 +83,7 @@ class ProFileGeneratorClockTest extends TestCase
 
         $clockText = $dataLinks[0]->getClockText();
         $this->assertNotNull($clockText);
-        $this->assertSame('HH:mm', $clockText->getClockFormatString());
+        $this->assertSame('${clock}', $clockText->getClockFormatString());
         $this->assertNotNull($clockText->getFormat());
         $this->assertTrue($clockText->getFormat()->getMilitaryTimeEnabled());
 
@@ -110,7 +110,7 @@ class ProFileGeneratorClockTest extends TestCase
 
         $slide = $readSong->getSlides()[0];
         $this->assertTrue($slide->hasClock());
-        $this->assertSame('HH:mm', $slide->getClockFormat());
+        $this->assertSame('${clock}', $slide->getClockFormat());
     }
 
     #[Test]

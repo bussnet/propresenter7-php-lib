@@ -209,7 +209,7 @@ Every entry of a group's `slides` array is a `slideData` array. All keys are opt
 | `imageOnly` | `bool` | Skip the text layer entirely (image-only slide). |
 | `media` | `string` | Foreground media filename. |
 | `background` | `array` | Background media layer (a media ACTION), e.g. `['path' => 'BACKGROUND.jpg', 'bundleRelative' => true]`. |
-| `image` | `array` | Image content ELEMENT placed at the lowest visible layer of the slide, behind text (see below). |
+| `image` | `array` | Image content ELEMENT appended LAST, i.e. the backmost layer of the slide, behind text (see below). |
 | `label` | `string` | Slide label text. |
 | `clock` | `array` | Live wall-clock element (see below). |
 | `timer` | `array` | Timer/countdown element bound to a ProPresenter timer (see below). |
@@ -217,10 +217,13 @@ Every entry of a group's `slides` array is a `slideData` array. All keys are opt
 ##### `image` keys
 
 Unlike `background` — which emits a media *action* on the background layer — `image`
-emits a real slide content *element* whose fill is the given image. It is always
-inserted at **index 0** of the slide's element array, i.e. at the lowest visible
-layer, so `text`, `translation`, `subtitle`, `clock` and `timer` elements are
-painted on top of it. Combine `image` with `imageOnly => true` for an
+emits a real slide content *element* whose fill is the given image.
+
+ProPresenter paints a slide's element stack **front-to-back**: the *lowest* index is
+the *frontmost* layer, the *highest* index is the *backmost* layer. The image element
+is therefore **appended LAST** to the slide's element array, i.e. it is the backmost
+layer, so `text`, `translation`, `subtitle`, `clock` and `timer` elements — all emitted
+before it — are painted on top of it. Combine `image` with `imageOnly => true` for an
 image-only slide, or with `text` for text over an image.
 
 The image is referenced **bundle-relative** by its bare filename (`path` is
@@ -255,9 +258,9 @@ for the `background` media action).
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| `format` | `string` | `'HH:mm'` | Clock format string. |
+| `format` | `string` | `'HH:mm'` | Clock format; drives `Clock.Format`, never written verbatim (see note below). |
 | `military24` | `bool` | `true` | 24-hour time. |
-| `text` | `string` | `'00:00'` | Placeholder text rendered in the editor. |
+| `text` | `string` | derived from `format` | Static placeholder text shown in the editor. |
 | `bounds` | `array` | `x:60, y:40, width:600, height:200` | `['x','y','width','height']` in slide coordinates. |
 | `style` | `array` | — | Text styling, see below. |
 
@@ -267,12 +270,12 @@ for the `background` media action).
 |-----|------|---------|-------------|
 | `timerUuid` | `string` | — | UUID of the timer in the ProPresenter Timers library. Omit to leave unbound. |
 | `timerName` | `string` | `''` | Timer name (fallback lookup when the UUID is unknown). |
-| `format` | `string` | `'mm:ss'` | Format string; alias `formatString`. Components present in the string (`H`, `m`, `s`, `S`) are rendered, the rest are removed. |
-| `text` | `string` | `'00:00'` | Placeholder text rendered in the editor. |
+| `format` | `string` | `'mm:ss'` | Format string; alias `formatString`. Components present in the string (`H`/`h`, `m`, `s`, `S`) are shown (`Style LONG`), the rest hidden (`Style NONE`). Drives `Timer.Format`, never written verbatim (see note below). |
+| `text` | `string` | derived from `format` | Static placeholder text shown in the editor. |
 | `name` | `string` | `'Timer'` | Name of the graphics element. |
 | `bounds` | `array` | `x:60, y:40, width:1800, height:1000` | `['x','y','width','height']` in slide coordinates. |
 | `style` | `array` | — | Text styling, see below. |
-| `military24` | `bool` | `true` | Maps to `Timer.Format.is_24_hour_time`. |
+| `military24` | `bool` | `false` | Maps to `Timer.Format.is_24_hour_time`. |
 | `wallClock` | `bool` | `false` | Maps to `Timer.Format.is_wall_clock_time`. |
 | `millisecondsUnderMinuteOnly` | `bool` | `false` | Maps to `Timer.Format.show_milliseconds_under_minute_only`. |
 | `visibleWhen` | `string` | — | Optional visibility condition bound to the same timer: `hasTimeRemaining`, `hasExpired`, `isRunning` or `notRunning`. Emitted as an additional `VisibilityLink` DataLink so ProPresenter hides the element once the condition no longer holds. Omit to keep the element always visible. |
@@ -309,7 +312,20 @@ Omitting `style` keeps the default RTF template byte-identical to previously gen
 ]]
 ```
 
-Slides read back from a `.pro` file expose `hasTimer()`, `getTimerFormat()`, `getTimerName()` and `getTimerUuid()` (mirroring `hasClock()` / `getClockFormat()`).
+> **Format strings are never written verbatim.** In real ProPresenter files
+> `TimerText.timer_format_string` always carries the literal token `${timer}`
+> (and `ClockText.clock_format_string` the literal `${clock}`): that field is the
+> RTF *body template*, not a time pattern. Writing `"mm:ss"` there makes
+> ProPresenter print the literal text `mm:ss`. The real format lives in the
+> structured `Timer.Format` message (`.rv.data.Timer.Format`), whose per-component
+> `Style` enum is only ever `NONE` (0, hidden) or `LONG` (2, shown) in real files.
+> The generator therefore emits `${timer}` / `${clock}` as the format string,
+> derives `Timer.Format` from the `format` key, and keeps the element's RTF body a
+> static placeholder.
+
+Slides read back from a `.pro` file expose `hasTimer()`, `getTimerFormat()` (the raw
+`${timer}` token), `getTimerFormatMessage()` (the structured `Timer.Format`),
+`getTimerName()` and `getTimerUuid()` (mirroring `hasClock()` / `getClockFormat()`).
 
 When `visibleWhen` is set, the slide additionally exposes `hasTimerVisibilityCondition()`, `getTimerVisibilityCriterion()` (returns the same string that was passed in) and `getTimerVisibilityTimerUuid()`.
 

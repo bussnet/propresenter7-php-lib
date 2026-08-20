@@ -77,6 +77,18 @@ use Rv\Data\Version;
 
 final class ProFileGenerator
 {
+    /**
+     * RTF body template token every real ProPresenter file carries in
+     * TimerText::timer_format_string. It is NOT a time format pattern.
+     */
+    public const TIMER_FORMAT_STRING = '${timer}';
+
+    /**
+     * RTF body template token every real ProPresenter file carries in
+     * ClockText::clock_format_string. It is NOT a time format pattern.
+     */
+    public const CLOCK_FORMAT_STRING = '${clock}';
+
     public static function generate(
         string $name,
         array $groups,
@@ -204,11 +216,13 @@ final class ProFileGenerator
         $elements = [];
         $imageOnly = ($slideData['imageOnly'] ?? false) === true;
 
-        // The image element is emitted FIRST so it sits at the lowest visible
-        // layer of the slide; text/clock/timer elements are painted on top.
-        if (isset($slideData['image']) && is_array($slideData['image'])) {
-            $elements[] = self::buildImageElement($slideData['image']);
-        }
+        // ProPresenter paints the element stack front-to-back: the LOWEST index
+        // is the FRONTMOST layer, the HIGHEST index is the BACKMOST layer. The
+        // image element is therefore appended LAST so text/clock/timer elements
+        // (emitted before it) render on top of it.
+        $imageElement = isset($slideData['image']) && is_array($slideData['image'])
+            ? self::buildImageElement($slideData['image'])
+            : null;
 
         if (! $imageOnly && isset($slideData['text'])) {
             $hasTranslation = isset($slideData['translation']) && $slideData['translation'] !== null;
@@ -230,6 +244,11 @@ final class ProFileGenerator
 
         if (isset($slideData['timer']) && is_array($slideData['timer'])) {
             $elements[] = self::buildTimerElement($slideData['timer']);
+        }
+
+        // Appended last => highest index => backmost layer.
+        if ($imageElement !== null) {
+            $elements[] = $imageElement;
         }
 
         $slide = new Slide();
@@ -501,8 +520,16 @@ final class ProFileGenerator
 
         $style = is_array($clockData['style'] ?? null) ? $clockData['style'] : [];
 
+        $clockFormatString = (string) ($clockData['format'] ?? 'HH:mm');
+
+        // Static editor placeholder only — never the format pattern.
+        $placeholder = (string) ($clockData['text'] ?? self::timerPlaceholderText($clockFormatString));
+        if ($placeholder === $clockFormatString) {
+            $placeholder = self::timerPlaceholderText($clockFormatString);
+        }
+
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildStyledRtf((string) ($clockData['text'] ?? '00:00'), $style));
+        $graphicsText->setRtfData(self::buildStyledRtf($placeholder, $style));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
         $graphicsElement->setText($graphicsText);
 
@@ -510,7 +537,9 @@ final class ProFileGenerator
         $clockFormat->setMilitaryTimeEnabled((bool) ($clockData['military24'] ?? true));
 
         $clockText = new ClockText();
-        $clockText->setClockFormatString((string) ($clockData['format'] ?? 'HH:mm'));
+        // Real ProPresenter files carry the verbatim token `${clock}` here: this
+        // field is the RTF body template, NOT a time format pattern.
+        $clockText->setClockFormatString(self::CLOCK_FORMAT_STRING);
         $clockText->setFormat($clockFormat);
 
         $dataLink = new DataLink();
@@ -572,15 +601,25 @@ final class ProFileGenerator
 
         $style = is_array($timerData['style'] ?? null) ? $timerData['style'] : [];
 
+        $formatString = (string) ($timerData['format'] ?? $timerData['formatString'] ?? 'mm:ss');
+
+        // The RTF body is a STATIC placeholder shown in the editor only; the live
+        // value is driven by the DataLink. It must never carry the format pattern
+        // itself, otherwise ProPresenter renders that pattern verbatim.
+        $placeholder = (string) ($timerData['text'] ?? self::timerPlaceholderText($formatString));
+        if ($placeholder === $formatString) {
+            $placeholder = self::timerPlaceholderText($formatString);
+        }
+
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildStyledRtf((string) ($timerData['text'] ?? '00:00'), $style));
+        $graphicsText->setRtfData(self::buildStyledRtf($placeholder, $style));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
         $graphicsElement->setText($graphicsText);
 
-        $formatString = (string) ($timerData['format'] ?? $timerData['formatString'] ?? 'mm:ss');
-
         $timerText = new TimerText();
-        $timerText->setTimerFormatString($formatString);
+        // Real ProPresenter files carry the verbatim token `${timer}` here: this
+        // field is the RTF body template, NOT a time format pattern.
+        $timerText->setTimerFormatString(self::TIMER_FORMAT_STRING);
         $timerText->setTimerName((string) ($timerData['timerName'] ?? ''));
         $timerText->setTimerFormat(self::buildTimerFormat($formatString, $timerData));
 
@@ -660,7 +699,7 @@ final class ProFileGenerator
     /**
      * Build an IMAGE CONTENT ELEMENT: a graphics element whose fill is the given
      * bundle-relative image. Unlike the `background` media ACTION this is part of
-     * the slide's element stack, so it is emitted at index 0 (lowest visible
+     * the slide's element stack, so it is appended LAST (highest index = backmost
      * layer) and every text/clock/timer element renders on top of it.
      *
      * Supported keys:
@@ -745,8 +784,10 @@ final class ProFileGenerator
     }
 
     /**
-     * Derive the structured Timer\Format from the format string. Components that
-     * appear in the format string are rendered SHORT, the rest are removed.
+     * Derive the structured Timer\Format from the format string. This message is
+     * the REAL format ProPresenter renders. Components present in the format
+     * string are shown (Style LONG), absent components are hidden (Style NONE).
+     * Real ProPresenter files only ever use these two values.
      */
     private static function buildTimerFormat(string $formatString, array $timerData): TimerFormat
     {
@@ -756,7 +797,7 @@ final class ProFileGenerator
         $format->setSecond(self::timerStyleFor($formatString, 's'));
         $format->setMillisecond(self::timerStyleFor($formatString, 'S'));
         $format->setIsWallClockTime((bool) ($timerData['wallClock'] ?? false));
-        $format->setIs24HourTime((bool) ($timerData['military24'] ?? true));
+        $format->setIs24HourTime((bool) ($timerData['military24'] ?? false));
         $format->setShowMillisecondsUnderMinuteOnly((bool) ($timerData['millisecondsUnderMinuteOnly'] ?? false));
 
         return $format;
@@ -764,9 +805,37 @@ final class ProFileGenerator
 
     private static function timerStyleFor(string $formatString, string $token): int
     {
-        return str_contains($formatString, $token)
-            ? TimerFormatStyle::STYLE_SHORT
-            : TimerFormatStyle::STYLE_REMOVE_SHORT;
+        // 's' (second) and 'S' (millisecond) are case sensitive; 'H'/'h' (hour)
+        // and 'm' (minute) are matched case insensitively.
+        $present = match ($token) {
+            'H' => str_contains($formatString, 'H') || str_contains($formatString, 'h'),
+            'm' => str_contains($formatString, 'm') || str_contains($formatString, 'M'),
+            default => str_contains($formatString, $token),
+        };
+
+        return $present
+            ? TimerFormatStyle::STYLE_LONG
+            : TimerFormatStyle::STYE_NONE;
+    }
+
+    /**
+     * Static placeholder text for a timer element's RTF body, derived from the
+     * format string (e.g. "mm:ss" => "00:00"). The format pattern itself must
+     * never end up in the RTF body.
+     */
+    private static function timerPlaceholderText(string $formatString): string
+    {
+        $placeholder = preg_replace_callback(
+            '/[HhmMsS]+/',
+            static fn (array $m): string => str_repeat('0', strlen($m[0])),
+            $formatString,
+        );
+
+        if (! is_string($placeholder) || $placeholder === '' || $placeholder === $formatString) {
+            return '00:00';
+        }
+
+        return $placeholder;
     }
 
     private static function verticalAlignmentFromStyle(array $style): int

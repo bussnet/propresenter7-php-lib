@@ -92,7 +92,7 @@ class ProFileGeneratorTimerTest extends TestCase
 
         $timerText = $dataLinks[0]->getTimerText();
         $this->assertNotNull($timerText);
-        $this->assertSame('mm:ss', $timerText->getTimerFormatString());
+        $this->assertSame('${timer}', $timerText->getTimerFormatString());
         $this->assertSame('Gottesdienst', $timerText->getTimerName());
         $this->assertNotNull($timerText->getTimerUuid());
         $this->assertSame(self::TIMER_UUID, $timerText->getTimerUuid()->getString());
@@ -110,34 +110,75 @@ class ProFileGeneratorTimerTest extends TestCase
         $timerText = $this->firstElement(['timerName' => 'Countdown', 'format' => 'mm:ss'])
             ->getDataLinks()[0]->getTimerText();
 
+        // mm:ss ground truth from real ProPresenter files:
+        // h=0 (NONE), m=2 (LONG), s=2 (LONG), ms=0 (NONE), 24h=false.
         $format = $timerText->getTimerFormat();
         $this->assertNotNull($format);
-        $this->assertSame(TimerFormatStyle::STYLE_REMOVE_SHORT, $format->getHour());
-        $this->assertSame(TimerFormatStyle::STYLE_SHORT, $format->getMinute());
-        $this->assertSame(TimerFormatStyle::STYLE_SHORT, $format->getSecond());
-        $this->assertSame(TimerFormatStyle::STYLE_REMOVE_SHORT, $format->getMillisecond());
-        $this->assertTrue($format->getIs24HourTime());
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $format->getHour());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getMinute());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getSecond());
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $format->getMillisecond());
+        $this->assertFalse($format->getIs24HourTime());
         $this->assertFalse($format->getIsWallClockTime());
+        $this->assertFalse($format->getShowMillisecondsUnderMinuteOnly());
     }
 
     #[Test]
     public function test_timer_format_string_with_hours(): void
     {
-        $format = $this->firstElement(['format' => 'HH:mm:ss'])
+        $format = $this->firstElement(['format' => 'hh:mm:ss'])
             ->getDataLinks()[0]->getTimerText()->getTimerFormat();
 
-        $this->assertSame(TimerFormatStyle::STYLE_SHORT, $format->getHour());
-        $this->assertSame(TimerFormatStyle::STYLE_SHORT, $format->getMinute());
-        $this->assertSame(TimerFormatStyle::STYLE_SHORT, $format->getSecond());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getHour());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getMinute());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getSecond());
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $format->getMillisecond());
+    }
+
+    #[Test]
+    public function test_timer_format_string_with_milliseconds(): void
+    {
+        $format = $this->firstElement(['format' => 'mm:ss.S'])
+            ->getDataLinks()[0]->getTimerText()->getTimerFormat();
+
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $format->getHour());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getMinute());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getSecond());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getMillisecond());
+    }
+
+    #[Test]
+    public function test_timer_format_string_is_always_the_template_token(): void
+    {
+        foreach (['mm:ss', 'hh:mm:ss', 'ss', 'mm:ss.S'] as $formatString) {
+            $timerText = $this->firstElement(['format' => $formatString])
+                ->getDataLinks()[0]->getTimerText();
+
+            $this->assertSame('${timer}', $timerText->getTimerFormatString(), $formatString);
+        }
+    }
+
+    #[Test]
+    public function test_timer_rtf_body_never_carries_the_format_pattern(): void
+    {
+        foreach (['mm:ss', 'hh:mm:ss', 'mm:ss.S'] as $formatString) {
+            $rtf = $this->firstElement(['format' => $formatString])
+                ->getElement()->getText()->getRtfData();
+
+            $this->assertStringNotContainsString($formatString, $rtf, $formatString);
+            $this->assertStringNotContainsString('${timer}', $rtf, $formatString);
+        }
     }
 
     #[Test]
     public function test_timer_accepts_format_string_alias(): void
     {
-        $timerText = $this->firstElement(['formatString' => 'HH:mm'])
-            ->getDataLinks()[0]->getTimerText();
+        $format = $this->firstElement(['formatString' => 'hh:mm'])
+            ->getDataLinks()[0]->getTimerText()->getTimerFormat();
 
-        $this->assertSame('HH:mm', $timerText->getTimerFormatString());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getHour());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $format->getMinute());
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $format->getSecond());
     }
 
     #[Test]
@@ -152,7 +193,7 @@ class ProFileGeneratorTimerTest extends TestCase
         $this->assertSame(1000.0, $bounds->getSize()->getHeight());
 
         $this->assertSame('Timer', $element->getElement()->getName());
-        $this->assertSame('mm:ss', $element->getDataLinks()[0]->getTimerText()->getTimerFormatString());
+        $this->assertSame('${timer}', $element->getDataLinks()[0]->getTimerText()->getTimerFormatString());
         $this->assertSame('', $element->getDataLinks()[0]->getTimerText()->getTimerName());
         $this->assertNull($element->getDataLinks()[0]->getTimerText()->getTimerUuid());
     }
@@ -237,7 +278,10 @@ class ProFileGeneratorTimerTest extends TestCase
         $slide = $readSong->getSlides()[0];
         $this->assertTrue($slide->hasTimer());
         $this->assertFalse($slide->hasClock());
-        $this->assertSame('mm:ss', $slide->getTimerFormat());
+        $this->assertSame('${timer}', $slide->getTimerFormat());
+        $this->assertSame(TimerFormatStyle::STYE_NONE, $slide->getTimerFormatMessage()->getHour());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $slide->getTimerFormatMessage()->getMinute());
+        $this->assertSame(TimerFormatStyle::STYLE_LONG, $slide->getTimerFormatMessage()->getSecond());
         $this->assertSame('Gottesdienst', $slide->getTimerName());
         $this->assertSame(self::TIMER_UUID, $slide->getTimerUuid());
     }
