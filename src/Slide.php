@@ -468,6 +468,43 @@ class Slide
     }
 
     /**
+     * Text colour of the first text element as an [r, g, b] triple with 0..255
+     * components, or null when the slide carries no readable text colour.
+     *
+     * @return array{int, int, int}|null
+     */
+    public function getTextColor(): ?array
+    {
+        return ($this->getTextElements()[0] ?? null)?->getTextColor();
+    }
+
+    /**
+     * Text colour of the first timer element as an [r, g, b] triple with 0..255
+     * components, or null when the slide carries no timer element.
+     *
+     * @return array{int, int, int}|null
+     */
+    public function getTimerColor(): ?array
+    {
+        foreach ($this->getSlideElements() as $slideElement) {
+            foreach ($slideElement->getDataLinks() as $dataLink) {
+                if ($dataLink->getTimerText() === null) {
+                    continue;
+                }
+
+                $graphicsElement = $slideElement->getElement();
+                if ($graphicsElement === null) {
+                    continue;
+                }
+
+                return (new TextElement($graphicsElement))->getTextColor();
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Whether this slide carries a timer-bound VisibilityLink DataLink, i.e. an
      * element whose visibility depends on the state of a ProPresenter timer.
      */

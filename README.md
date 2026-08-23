@@ -231,10 +231,12 @@ place a short line (e.g. a name tag) in one of the slide's corners.
 | `textBounds.height` | `float` | `880` | Box height. |
 | `textStyle.align` | `string` | `'center'` | `left`, `center` or `right`. |
 | `textStyle.verticalAlign` | `string` | `'middle'` | `top`, `middle` or `bottom`. |
+| `textStyle.color` | `array` | white | `[r, g, b]` as `0..255` ints or `0..1` floats. |
 
 Missing sub-keys fall back to their default, so a partial `textBounds` is valid.
 Omitting both keys keeps the generated element byte-identical to previously
-generated files.
+generated files. The same holds for `textStyle.color`: without it the RTF colour
+table keeps its historic all-white entries.
 
 ```php
 // Name tag pinned to the bottom-left corner
@@ -244,11 +246,24 @@ generated files.
     'textBounds' => ['x' => 60, 'y' => 820, 'width' => 600, 'height' => 200],
     'textStyle'  => ['align' => 'left', 'verticalAlign' => 'bottom'],
 ]
+
+// Amber name tag
+[
+    'text'      => 'Max Mustermann',
+    'textStyle' => ['color' => [255, 200, 0]],
+]
 ```
 
 Slides read back from a `.pro` file expose `getTextElementBounds()`,
 `getTextElementAlign()` and `getTextElementVerticalAlign()`, which resolve the
 first plain text element (skipping clock, timer and image elements).
+
+The colour is read back with `Slide::getTextColor()` (first plain text element)
+and `Slide::getTimerColor()` (timer element), both returning an `[r, g, b]`
+triple with `0..255` components, or `null` when the slide carries no such
+element. `TextElement::getTextColor()` exposes the same value per element. All
+three parse the **second** colour table entry — the one the RTF body references
+via `\cf2`.
 
 ##### `image` keys
 

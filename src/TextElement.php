@@ -41,7 +41,7 @@ class TextElement
      */
     public function getRtfData(): string
     {
-        if (!$this->element->hasText()) {
+        if (! $this->element->hasText()) {
             return '';
         }
 
@@ -96,8 +96,42 @@ class TextElement
         }
 
         $encodedText = self::encodePlainTextForRtf($text);
-        $updatedRtf = substr($rtf, 0, $textStart) . $encodedText . substr($rtf, $textEnd);
+        $updatedRtf = substr($rtf, 0, $textStart).$encodedText.substr($rtf, $textEnd);
         $this->setRtfData($updatedRtf);
+    }
+
+    /**
+     * The text colour of this element as an [r, g, b] triple with 0..255
+     * components, read from the second RTF colour table entry (the one the
+     * body references via \cf2). Returns null when the element carries no RTF
+     * or the colour table cannot be parsed.
+     *
+     * @return array{int, int, int}|null
+     */
+    public function getTextColor(): ?array
+    {
+        $rtf = $this->getRtfData();
+        if ($rtf === '') {
+            return null;
+        }
+
+        if (preg_match('/\{\\\\colortbl;(.*?)\}/s', $rtf, $tableMatch) !== 1) {
+            return null;
+        }
+
+        $entries = array_values(array_filter(explode(';', $tableMatch[1]), static fn (string $entry): bool => trim($entry) !== ''));
+
+        // Entry 0 is \cf1, entry 1 is \cf2 — the one the body uses.
+        $entry = $entries[1] ?? null;
+        if ($entry === null) {
+            return null;
+        }
+
+        if (preg_match('/\\\\red(\d+)\\\\green(\d+)\\\\blue(\d+)/', $entry, $colorMatch) !== 1) {
+            return null;
+        }
+
+        return [(int) $colorMatch[1], (int) $colorMatch[2], (int) $colorMatch[3]];
     }
 
     /**

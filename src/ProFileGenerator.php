@@ -500,7 +500,12 @@ final class ProFileGenerator
         $graphicsElement->setFeather(self::buildFeather());
 
         $graphicsText = new Text();
-        $graphicsText->setRtfData(self::buildRtf($text, $subtitle, self::rtfAlignToken($style['align'] ?? null)));
+        $graphicsText->setRtfData(self::buildRtf(
+            $text,
+            $subtitle,
+            self::rtfAlignToken($style['align'] ?? null),
+            $style['color'] ?? null,
+        ));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
         $graphicsElement->setText($graphicsText);
 
@@ -1109,9 +1114,16 @@ final class ProFileGenerator
     /**
      * @param  string  $alignToken  RTF paragraph alignment control word. Defaults to
      *                              `\qc` (centred), which is the historic behaviour.
+     * @param  mixed  $color  Optional [r, g, b] text colour (0..255 ints or 0..1
+     *                        floats). Null keeps the historic white colour table
+     *                        and produces byte-identical output.
      */
-    private static function buildRtf(string $text, ?string $subtitle = null, string $alignToken = '\qc'): string
-    {
+    private static function buildRtf(
+        string $text,
+        ?string $subtitle = null,
+        string $alignToken = '\qc',
+        mixed $color = null,
+    ): string {
         $encodedText = self::encodePlainTextForRtf($text);
 
         // Main text: \fs84. When a subtitle is provided, append it as a second
@@ -1126,10 +1138,20 @@ final class ProFileGenerator
 '.'\b0\fs50 '.$encodedSubtitle;
         }
 
-        return str_replace(['ALIGN_HERE', 'BODY_HERE'], [$alignToken, $body], <<<'RTF'
+        // The second colour table entry is the one the body references via
+        // \cf2. Without an explicit colour it stays white, so existing files
+        // keep their exact bytes.
+        $colorEntry = '\red255\green255\blue255';
+
+        if ($color !== null) {
+            [$red, $green, $blue] = self::rtfColorComponents($color);
+            $colorEntry = '\red'.$red.'\green'.$green.'\blue'.$blue;
+        }
+
+        return str_replace(['COLOR_HERE', 'ALIGN_HERE', 'BODY_HERE'], [$colorEntry, $alignToken, $body], <<<'RTF'
 {\rtf1\ansi\ansicpg1252\cocoartf2761
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red255\green255\blue255;}
+{\colortbl;\red255\green255\blue255;COLOR_HERE;}
 {\*\expandedcolortbl;;\csgray\c100000;}
 \deftab1680
 \pard\pardeftab1680\pardirnaturalALIGN_HERE\partightenfactor0
