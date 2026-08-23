@@ -142,19 +142,15 @@ class TextElement
         return $this->element;
     }
 
+    /**
+     * Escape plain UTF-8 text for an `\ansicpg1252` RTF body.
+     *
+     * Delegates to {@see RtfEncoder}: raw UTF-8 bytes in an `\ansicpg1252`
+     * document are decoded as Windows-1252 by ProPresenter, which turns `’`
+     * into `â€™`. Every non-ASCII character must be escaped instead.
+     */
     private static function encodePlainTextForRtf(string $text): string
     {
-        $text = str_replace(["\r\n", "\r"], "\n", $text);
-        $text = strtr($text, [
-            'ü' => "\\'fc",
-            'ö' => "\\'f6",
-            'ä' => "\\'e4",
-            'ß' => "\\'df",
-            'Ü' => "\\'dc",
-            'Ö' => "\\'d6",
-            'Ä' => "\\'c4",
-        ]);
-
-        return str_replace("\n", "\\\n", $text);
+        return RtfEncoder::encode($text);
     }
 }

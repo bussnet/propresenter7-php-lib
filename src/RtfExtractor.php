@@ -23,7 +23,7 @@ class RtfExtractor
     /**
      * Convert an RTF string to plain text.
      *
-     * @param string $rtf The RTF-encoded string from ProPresenter
+     * @param  string  $rtf  The RTF-encoded string from ProPresenter
      * @return string Plain text with \n for soft returns
      */
     public static function toPlainText(string $rtf): string
@@ -35,7 +35,7 @@ class RtfExtractor
         }
 
         // Not RTF? Return as-is
-        if (!str_starts_with($rtf, '{\rtf')) {
+        if (! str_starts_with($rtf, '{\rtf')) {
             return $rtf;
         }
 
@@ -68,12 +68,14 @@ class RtfExtractor
             if ($ch === '{') {
                 $depth++;
                 $i++;
+
                 continue;
             }
 
             if ($ch === '}') {
                 $depth = max(0, $depth - 1);
                 $i++;
+
                 continue;
             }
 
@@ -97,6 +99,8 @@ class RtfExtractor
         $text = '';
         $len = strlen($content);
         $i = 0;
+        // Holds the high half of a UTF-16 surrogate pair between two \u escapes.
+        $pendingHighSurrogate = null;
 
         while ($i < $len) {
             $ch = $content[$i];
@@ -118,6 +122,7 @@ class RtfExtractor
                     if ($i < $len && $content[$i] === "\n" && $next === "\r") {
                         $i++;
                     }
+
                     continue;
                 }
 
@@ -130,6 +135,7 @@ class RtfExtractor
                         $text .= self::windows1252ToUtf8($byte);
                         $i += 2;
                     }
+
                     continue;
                 }
 
@@ -141,16 +147,40 @@ class RtfExtractor
                         $numStr .= $content[$i];
                         $i++;
                     }
-                    $codepoint = (int)$numStr;
+                    $codepoint = (int) $numStr;
                     // Handle negative values (RTF uses signed 16-bit)
                     if ($codepoint < 0) {
                         $codepoint += 65536;
                     }
-                    $text .= self::codepointToUtf8($codepoint);
                     // Skip the ANSI fallback character (single char after the number)
                     if ($i < $len && $content[$i] !== '\\' && $content[$i] !== '{' && $content[$i] !== '}') {
                         $i++;
                     }
+
+                    // RTF stores characters above the BMP (emoji) as a UTF-16
+                    // surrogate pair of two \u escapes. Hold the high surrogate
+                    // back until its low partner arrives and combine them.
+                    if ($codepoint >= 0xD800 && $codepoint <= 0xDBFF) {
+                        $pendingHighSurrogate = $codepoint;
+
+                        continue;
+                    }
+
+                    if ($pendingHighSurrogate !== null) {
+                        if ($codepoint >= 0xDC00 && $codepoint <= 0xDFFF) {
+                            $text .= self::codepointToUtf8(
+                                0x10000 + (($pendingHighSurrogate - 0xD800) << 10) + ($codepoint - 0xDC00)
+                            );
+                            $pendingHighSurrogate = null;
+
+                            continue;
+                        }
+                        // Unpaired high surrogate — drop it, it has no meaning alone.
+                        $pendingHighSurrogate = null;
+                    }
+
+                    $text .= self::codepointToUtf8($codepoint);
+
                     continue;
                 }
 
@@ -187,6 +217,7 @@ class RtfExtractor
                 if ($next === '{' || $next === '}') {
                     $text .= $next;
                     $i++;
+
                     continue;
                 }
 
@@ -194,17 +225,20 @@ class RtfExtractor
                     // Literal backslash — but in ProPresenter context this is soft return
                     $text .= "\n";
                     $i++;
+
                     continue;
                 }
 
                 // Other escaped chars: skip the backslash, keep the char
                 $i++;
+
                 continue;
             }
 
             // Regular newlines in RTF source are just whitespace (not meaningful)
             if ($ch === "\n" || $ch === "\r") {
                 $i++;
+
                 continue;
             }
 
@@ -234,6 +268,7 @@ class RtfExtractor
         ];
 
         $codepoint = $cp1252[$byte] ?? $byte;
+
         return self::codepointToUtf8($codepoint);
     }
 
@@ -242,6 +277,9 @@ class RtfExtractor
      */
     private static function codepointToUtf8(int $codepoint): string
     {
-        return mb_chr($codepoint, 'UTF-8');
+        $char = mb_chr($codepoint, 'UTF-8');
+
+        // Lone surrogates and out-of-range values have no UTF-8 representation.
+        return $char === false ? '' : $char;
     }
 }
