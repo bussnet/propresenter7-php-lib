@@ -135,6 +135,108 @@ class TextElement
     }
 
     /**
+     * The text outline (Kontur) of this element, or null when the element
+     * carries none.
+     *
+     * Read from the proto text attributes when present (colour as 0..255
+     * components, width in points), otherwise parsed back from the RTF stroke
+     * traits `\strokewidthN \strokecN` and the referenced colour table entry.
+     *
+     * @return array{color: array{int, int, int}, width: float}|null
+     */
+    public function getOutline(): ?array
+    {
+        $attributes = $this->element->hasText() ? $this->element->getText()->getAttributes() : null;
+
+        if ($attributes !== null && $attributes->getStrokeWidth() != 0.0) {
+            $color = $attributes->getStrokeColor();
+
+            return [
+                'color' => $color === null
+                    ? [0, 0, 0]
+                    : [
+                        (int) round($color->getRed() * 255),
+                        (int) round($color->getGreen() * 255),
+                        (int) round($color->getBlue() * 255),
+                    ],
+                'width' => abs((float) $attributes->getStrokeWidth()),
+            ];
+        }
+
+        return $this->outlineFromRtf();
+    }
+
+    /**
+     * Parse the outline back out of the RTF stroke traits.
+     *
+     * `\strokewidth` is stored in RTF stroke units (20 per point) and is
+     * negative for "outline AND fill"; `\strokecN` is a 1-based colour table
+     * index.
+     *
+     * @return array{color: array{int, int, int}, width: float}|null
+     */
+    private function outlineFromRtf(): ?array
+    {
+        $rtf = $this->getRtfData();
+        if ($rtf === '') {
+            return null;
+        }
+
+        if (preg_match('/\\\\strokewidth(-?\d+)/', $rtf, $widthMatch) !== 1) {
+            return null;
+        }
+
+        $width = abs((int) $widthMatch[1]) / 20.0;
+        if ($width === 0.0) {
+            return null;
+        }
+
+        $colorIndex = preg_match('/\\\\strokec(\d+)/', $rtf, $indexMatch) === 1
+            ? (int) $indexMatch[1]
+            : 0;
+
+        return [
+            'color' => $this->colorTableEntry($colorIndex) ?? [0, 0, 0],
+            'width' => $width,
+        ];
+    }
+
+    /**
+     * Read a 1-based `\colortbl` entry as an [r, g, b] triple with 0..255
+     * components. Index 1 is the first entry, i.e. the one `\cf1` references.
+     *
+     * @return array{int, int, int}|null
+     */
+    private function colorTableEntry(int $index): ?array
+    {
+        if ($index < 1) {
+            return null;
+        }
+
+        $rtf = $this->getRtfData();
+
+        if (preg_match('/\{\\\\colortbl;(.*?)\}/s', $rtf, $tableMatch) !== 1) {
+            return null;
+        }
+
+        $entries = array_values(array_filter(
+            explode(';', $tableMatch[1]),
+            static fn (string $entry): bool => trim($entry) !== '',
+        ));
+
+        $entry = $entries[$index - 1] ?? null;
+        if ($entry === null) {
+            return null;
+        }
+
+        if (preg_match('/\\\\red(\d+)\\\\green(\d+)\\\\blue(\d+)/', $entry, $colorMatch) !== 1) {
+            return null;
+        }
+
+        return [(int) $colorMatch[1], (int) $colorMatch[2], (int) $colorMatch[3]];
+    }
+
+    /**
      * Access the underlying protobuf Graphics\Element.
      */
     public function getGraphicsElement(): GraphicsElement

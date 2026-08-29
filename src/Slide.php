@@ -486,6 +486,37 @@ class Slide
      */
     public function getTimerColor(): ?array
     {
+        return $this->getTimerElement()?->getTextColor();
+    }
+
+    /**
+     * Text outline (Kontur) of the first text element, or null when the slide
+     * carries no outlined text.
+     *
+     * @return array{color: array{int, int, int}, width: float}|null
+     */
+    public function getTextOutline(): ?array
+    {
+        return ($this->getTextElements()[0] ?? null)?->getOutline();
+    }
+
+    /**
+     * Text outline (Kontur) of the first timer element, or null.
+     *
+     * @return array{color: array{int, int, int}, width: float}|null
+     */
+    public function getTimerOutline(): ?array
+    {
+        return $this->getTimerElement()?->getOutline();
+    }
+
+    /**
+     * The first timer-bound element of this slide as a TextElement wrapper, or
+     * null when the slide carries no timer. Gives callers access to the timer's
+     * raw RTF (font table, colour tables) without exposing the protobuf.
+     */
+    public function getTimerElement(): ?TextElement
+    {
         foreach ($this->getSlideElements() as $slideElement) {
             foreach ($slideElement->getDataLinks() as $dataLink) {
                 if ($dataLink->getTimerText() === null) {
@@ -497,7 +528,7 @@ class Slide
                     continue;
                 }
 
-                return (new TextElement($graphicsElement))->getTextColor();
+                return new TextElement($graphicsElement);
             }
         }
 

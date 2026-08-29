@@ -41,6 +41,7 @@ use Rv\Data\Graphics\Size;
 use Rv\Data\Graphics\Stroke;
 use Rv\Data\Graphics\Stroke\Style as StrokeStyle;
 use Rv\Data\Graphics\Text;
+use Rv\Data\Graphics\Text\Attributes as TextAttributes;
 use Rv\Data\Graphics\Text\VerticalAlignment;
 use Rv\Data\Group;
 use Rv\Data\HotKey;
@@ -88,6 +89,27 @@ final class ProFileGenerator
      * ClockText::clock_format_string. It is NOT a time format pattern.
      */
     public const CLOCK_FORMAT_STRING = '${clock}';
+
+    /**
+     * Historic RTF defaults. Changing them changes the bytes of every file that
+     * is generated without an explicit style.
+     */
+    private const DEFAULT_FONT_NAME = 'HelveticaNeue';
+
+    /** Main text run of a plain slide: `\fs84` = 42pt. */
+    private const DEFAULT_TEXT_FONT_SIZE = 84;
+
+    /** Subtitle run of a plain slide: `\fs50` = 25pt. */
+    private const DEFAULT_SUBTITLE_FONT_SIZE = 50;
+
+    /** Data-linked (clock/timer) elements historically default to 42pt. */
+    private const DEFAULT_STYLED_FONT_SIZE = 84;
+
+    /**
+     * Default text outline (Kontur) width in points. Matches the
+     * `\strokewidth-40` real ProPresenter files carry for a 2pt outline.
+     */
+    private const DEFAULT_OUTLINE_WIDTH = 2.0;
 
     public static function generate(
         string $name,
@@ -226,10 +248,25 @@ final class ProFileGenerator
 
         if (! $imageOnly && isset($slideData['text'])) {
             $hasTranslation = isset($slideData['translation']) && $slideData['translation'] !== null;
+            $textStyle = is_array($slideData['textStyle'] ?? null) ? $slideData['textStyle'] : [];
 
             if ($hasTranslation) {
-                $elements[] = self::buildSlideElement('Orginal', (string) $slideData['text'], self::buildOriginalBounds());
-                $elements[] = self::buildSlideElement('Deutsch', (string) $slideData['translation'], self::buildTranslationBounds());
+                // The style applies to BOTH runs; the bounds stay the fixed
+                // two-line layout. An empty style keeps the historic bytes.
+                $elements[] = self::buildSlideElement(
+                    'Orginal',
+                    (string) $slideData['text'],
+                    self::buildOriginalBounds(),
+                    null,
+                    $textStyle,
+                );
+                $elements[] = self::buildSlideElement(
+                    'Deutsch',
+                    (string) $slideData['translation'],
+                    self::buildTranslationBounds(),
+                    null,
+                    $textStyle,
+                );
             } else {
                 $subtitle = isset($slideData['subtitle']) && $slideData['subtitle'] !== null
                     ? (string) $slideData['subtitle']
@@ -241,7 +278,6 @@ final class ProFileGenerator
                 $textBounds = is_array($slideData['textBounds'] ?? null)
                     ? self::rectFromBounds($slideData['textBounds'], 150, 100, 1620, 880)
                     : null;
-                $textStyle = is_array($slideData['textStyle'] ?? null) ? $slideData['textStyle'] : [];
 
                 $elements[] = self::buildSlideElement(
                     'Orginal',
@@ -477,9 +513,12 @@ final class ProFileGenerator
 
     /**
      * @param  array<string, mixed>  $style  Optional ['align' => left|center|right,
-     *                                       'verticalAlign' => top|middle|bottom]. An empty
-     *                                       array keeps the historic centred treatment and
-     *                                       produces byte-identical RTF.
+     *                                       'verticalAlign' => top|middle|bottom,
+     *                                       'color' => …, 'fontName' => string,
+     *                                       'fontSize' => pt, 'subtitleFontSize' => pt,
+     *                                       'bold'|'italic'|'underline' => bool].
+     *                                       An empty array keeps the historic centred
+     *                                       treatment and produces byte-identical RTF.
      */
     private static function buildSlideElement(
         string $name,
@@ -505,8 +544,10 @@ final class ProFileGenerator
             $subtitle,
             self::rtfAlignToken($style['align'] ?? null),
             $style['color'] ?? null,
+            $style,
         ));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
+        self::applyTextAttributes($graphicsText, $style);
         $graphicsElement->setText($graphicsText);
 
         $slideElement = new SlideElement();
@@ -515,6 +556,22 @@ final class ProFileGenerator
         $slideElement->setTextScroller(self::buildTextScroller());
 
         return $slideElement;
+    }
+
+    /**
+     * Attach the proto-level text attributes (currently the outline stroke) when
+     * the style requests them. A style without an outline leaves the Text
+     * message untouched, so existing output stays byte-identical.
+     *
+     * @param  array<string, mixed>  $style
+     */
+    private static function applyTextAttributes(Text $graphicsText, array $style): void
+    {
+        $attributes = self::buildTextAttributes($style);
+
+        if ($attributes !== null) {
+            $graphicsText->setAttributes($attributes);
+        }
     }
 
     /**
@@ -562,6 +619,7 @@ final class ProFileGenerator
         $graphicsText = new Text();
         $graphicsText->setRtfData(self::buildStyledRtf($placeholder, $style));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
+        self::applyTextAttributes($graphicsText, $style);
         $graphicsElement->setText($graphicsText);
 
         $clockFormat = new ClockFormat();
@@ -645,6 +703,7 @@ final class ProFileGenerator
         $graphicsText = new Text();
         $graphicsText->setRtfData(self::buildStyledRtf($placeholder, $style));
         $graphicsText->setVerticalAlignment(self::verticalAlignmentFromStyle($style));
+        self::applyTextAttributes($graphicsText, $style);
         $graphicsElement->setText($graphicsText);
 
         $timerText = new TimerText();
@@ -1114,50 +1173,87 @@ final class ProFileGenerator
     /**
      * @param  string  $alignToken  RTF paragraph alignment control word. Defaults to
      *                              `\qc` (centred), which is the historic behaviour.
-     * @param  mixed  $color  Optional [r, g, b] text colour (0..255 ints or 0..1
-     *                        floats). Null keeps the historic white colour table
-     *                        and produces byte-identical output.
+     * @param  mixed  $color  Optional text colour, see {@see rtfColorComponents()}.
+     *                        Null keeps the historic white colour table and
+     *                        produces byte-identical output.
+     * @param  array<string, mixed>  $style  Optional font treatment. All keys are
+     *                                       optional: fontName (string),
+     *                                       fontSize (pt, main run),
+     *                                       subtitleFontSize (pt, subtitle run),
+     *                                       bold/italic/underline (bool),
+     *                                       color (same contract as $color, used
+     *                                       when $color is null),
+     *                                       outline (['color' => …, 'width' => float]).
+     *                                       An empty array reproduces the historic
+     *                                       output byte-for-byte.
      */
     private static function buildRtf(
         string $text,
         ?string $subtitle = null,
         string $alignToken = '\qc',
         mixed $color = null,
+        array $style = [],
     ): string {
         $encodedText = self::encodePlainTextForRtf($text);
 
-        // Main text: \fs84. When a subtitle is provided, append it as a second
-        // run on a new line that is explicitly non-bold (\b0) and smaller (\fs50,
-        // ~60% of 84). Slides without a subtitle stay a single \fs84 run and the
-        // exact byte output is identical to the previous single-run template.
-        $body = '\fs84 \cf2 \CocoaLigature0 '.$encodedText;
+        $fontName = (string) ($style['fontName'] ?? self::DEFAULT_FONT_NAME);
+        $fontSize = self::rtfHalfPoints($style['fontSize'] ?? null, self::DEFAULT_TEXT_FONT_SIZE);
+        $subtitleFontSize = self::rtfHalfPoints($style['subtitleFontSize'] ?? null, self::DEFAULT_SUBTITLE_FONT_SIZE);
+
+        // Only emit a control word when the trait is actually requested, so the
+        // default run stays the historic `\fs84 \cf2 \CocoaLigature0 `.
+        $traits = '';
+        $traits .= ((bool) ($style['bold'] ?? false)) ? '\b ' : '';
+        $traits .= ((bool) ($style['italic'] ?? false)) ? '\i ' : '';
+        $traits .= ((bool) ($style['underline'] ?? false)) ? '\ul ' : '';
+
+        // Optional outline (Kontur). ProPresenter writes the stroke traits right
+        // after \cf2 and references a THIRD colour table entry via \strokecN.
+        $outline = self::rtfOutline($style['outline'] ?? null, 3);
+
+        // Main text: \fs84 by default. When a subtitle is provided, append it as
+        // a second run on a new line that is explicitly non-bold (\b0) and
+        // smaller (\fs50, ~60% of 84). Slides without a subtitle stay a single
+        // run and the exact byte output is identical to the historic template.
+        $body = $traits.'\fs'.$fontSize.' \cf2 '.$outline['traits'].'\CocoaLigature0 '.$encodedText;
 
         if ($subtitle !== null && trim($subtitle) !== '') {
             $encodedSubtitle = self::encodePlainTextForRtf($subtitle);
             $body .= '\
-'.'\b0\fs50 '.$encodedSubtitle;
+'.'\b0\fs'.$subtitleFontSize.' '.$encodedSubtitle;
         }
 
         // The second colour table entry is the one the body references via
         // \cf2. Without an explicit colour it stays white, so existing files
         // keep their exact bytes.
-        $colorEntry = '\red255\green255\blue255';
+        $resolvedColor = $color ?? ($style['color'] ?? null);
 
-        if ($color !== null) {
-            [$red, $green, $blue] = self::rtfColorComponents($color);
+        $colorEntry = '\red255\green255\blue255';
+        $expandedEntry = self::rtfExpandedColorEntry(255, 255, 255);
+
+        if ($resolvedColor !== null) {
+            [$red, $green, $blue] = self::rtfColorComponents($resolvedColor);
             $colorEntry = '\red'.$red.'\green'.$green.'\blue'.$blue;
+            $expandedEntry = self::rtfExpandedColorEntry($red, $green, $blue);
         }
 
-        return str_replace(['COLOR_HERE', 'ALIGN_HERE', 'BODY_HERE'], [$colorEntry, $alignToken, $body], <<<'RTF'
+        $colorEntry .= $outline['colorEntry'];
+        $expandedEntry .= $outline['expandedEntry'];
+
+        return str_replace(
+            ['FONT_HERE', 'COLOR_HERE', 'EXPANDED_HERE', 'ALIGN_HERE', 'BODY_HERE'],
+            [$fontName, $colorEntry, $expandedEntry, $alignToken, $body],
+            <<<'RTF'
 {\rtf1\ansi\ansicpg1252\cocoartf2761
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 FONT_HERE;}
 {\colortbl;\red255\green255\blue255;COLOR_HERE;}
-{\*\expandedcolortbl;;\csgray\c100000;}
+{\*\expandedcolortbl;;EXPANDED_HERE;}
 \deftab1680
 \pard\pardeftab1680\pardirnaturalALIGN_HERE\partightenfactor0
 
 \f0BODY_HERE}
-RTF);
+RTF
+        );
     }
 
     /**
@@ -1206,7 +1302,8 @@ RTF);
      * buildRtf(), so existing generated files stay unchanged.
      *
      * Style keys: fontName (string), fontSize (int pt), bold (bool),
-     * color ([r, g, b] 0..255 ints or 0..1 floats), align (left|center|right).
+     * color ([r, g, b] 0..255 ints or 0..1 floats), align (left|center|right),
+     * outline (['color' => …, 'width' => float]).
      */
     private static function buildStyledRtf(string $text, array $style): string
     {
@@ -1214,24 +1311,32 @@ RTF);
             return self::buildRtf($text);
         }
 
-        $fontName = (string) ($style['fontName'] ?? 'HelveticaNeue');
-        $fontSize = (int) round(((float) ($style['fontSize'] ?? 42)) * 2);
+        $fontName = (string) ($style['fontName'] ?? self::DEFAULT_FONT_NAME);
+        $fontSize = self::rtfHalfPoints($style['fontSize'] ?? null, self::DEFAULT_STYLED_FONT_SIZE);
         $bold = ((bool) ($style['bold'] ?? false)) ? '\b ' : '';
 
         $align = self::rtfAlignToken($style['align'] ?? null);
 
         [$red, $green, $blue] = self::rtfColorComponents($style['color'] ?? null);
 
-        $body = $bold.'\fs'.$fontSize.' \cf2 \CocoaLigature0 '.self::encodePlainTextForRtf($text);
+        $outline = self::rtfOutline($style['outline'] ?? null, 3);
+
+        $body = $bold.'\fs'.$fontSize.' \cf2 '.$outline['traits'].'\CocoaLigature0 '.self::encodePlainTextForRtf($text);
 
         return str_replace(
-            ['FONT_HERE', 'COLOR_HERE', 'ALIGN_HERE', 'BODY_HERE'],
-            [$fontName, '\red'.$red.'\green'.$green.'\blue'.$blue, $align, $body],
+            ['FONT_HERE', 'COLOR_HERE', 'EXPANDED_HERE', 'ALIGN_HERE', 'BODY_HERE'],
+            [
+                $fontName,
+                '\red'.$red.'\green'.$green.'\blue'.$blue.$outline['colorEntry'],
+                self::rtfExpandedColorEntry($red, $green, $blue).$outline['expandedEntry'],
+                $align,
+                $body,
+            ],
             <<<'RTF'
 {\rtf1\ansi\ansicpg1252\cocoartf2761
 \cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 FONT_HERE;}
 {\colortbl;\red255\green255\blue255;COLOR_HERE;}
-{\*\expandedcolortbl;;\csgray\c100000;}
+{\*\expandedcolortbl;;EXPANDED_HERE;}
 \deftab1680
 \pard\pardeftab1680\pardirnaturalALIGN_HERE\partightenfactor0
 
@@ -1241,29 +1346,190 @@ RTF
     }
 
     /**
-     * Normalise a colour input to 0..255 RTF components. Accepts [r, g, b]
-     * either as 0..255 integers or 0..1 floats. Defaults to white.
+     * Convert a point size to the RTF half-point value used by `\fs`.
+     */
+    private static function rtfHalfPoints(mixed $points, int $default): int
+    {
+        if ($points === null || $points === '' || ! is_numeric($points)) {
+            return $default;
+        }
+
+        return max(1, (int) round(((float) $points) * 2));
+    }
+
+    /**
+     * Normalise an outline (Kontur) definition into the RTF fragments needed to
+     * paint it.
+     *
+     * ProPresenter writes the stroke traits directly after `\cf2` and references
+     * a SEPARATE colour table entry via `\strokecN`, e.g.
+     * `\cf2 \outl0\strokewidth-40 \strokec3 `. A NEGATIVE `\strokewidth` means
+     * "outline AND fill"; a positive one would drop the fill, so the width is
+     * always emitted negative.
+     *
+     * The width is given in points and stored in RTF quarter-points (×20/… ),
+     * matching the `-40` a 2pt outline produces in real ProPresenter files.
+     *
+     * Returns empty fragments when no outline is requested, so the historic
+     * output stays byte-identical.
+     *
+     * @param  int  $colorIndex  1-based colour table index the stroke references.
+     * @return array{traits: string, colorEntry: string, expandedEntry: string}
+     */
+    private static function rtfOutline(mixed $outline, int $colorIndex): array
+    {
+        $none = ['traits' => '', 'colorEntry' => '', 'expandedEntry' => ''];
+
+        $normalised = self::normaliseOutline($outline);
+        if ($normalised === null) {
+            return $none;
+        }
+
+        [$red, $green, $blue] = $normalised['color'];
+
+        // Negative width = outline + fill. Points → RTF stroke units (×20).
+        $strokeWidth = -1 * (int) round(abs($normalised['width']) * 20);
+        if ($strokeWidth === 0) {
+            return $none;
+        }
+
+        return [
+            'traits' => '\outl0\strokewidth'.$strokeWidth.' \strokec'.$colorIndex.' ',
+            'colorEntry' => ';\red'.$red.'\green'.$green.'\blue'.$blue,
+            'expandedEntry' => ';'.self::rtfExpandedColorEntry($red, $green, $blue),
+        ];
+    }
+
+    /**
+     * Normalise the `outline` style entry to a colour triple plus a width in
+     * points, or null when no outline is requested.
+     *
+     * Accepts `['color' => '#RRGGBB'|[r,g,b], 'width' => float]`. A missing or
+     * non-positive width, `false` and `null` all mean "no outline". A bare
+     * `true` uses the default width and black.
+     *
+     * @return array{color: array{int, int, int}, width: float}|null
+     */
+    private static function normaliseOutline(mixed $outline): ?array
+    {
+        if ($outline === null || $outline === false) {
+            return null;
+        }
+
+        if ($outline === true) {
+            return ['color' => [0, 0, 0], 'width' => self::DEFAULT_OUTLINE_WIDTH];
+        }
+
+        if (! is_array($outline)) {
+            return null;
+        }
+
+        $width = $outline['width'] ?? self::DEFAULT_OUTLINE_WIDTH;
+        if (! is_numeric($width) || (float) $width <= 0.0) {
+            return null;
+        }
+
+        return [
+            'color' => self::rtfColorComponents($outline['color'] ?? [0, 0, 0]),
+            'width' => (float) $width,
+        ];
+    }
+
+    /**
+     * Build the Graphics\Text\Attributes message carrying the proto-level text
+     * stroke, or null when the style requests no outline.
+     *
+     * ProPresenter paints the outline from the RTF stroke traits, but the proto
+     * attributes carry the same information and are what the editor reads back,
+     * so BOTH are written and kept consistent.
+     */
+    private static function buildTextAttributes(array $style): ?TextAttributes
+    {
+        $outline = self::normaliseOutline($style['outline'] ?? null);
+        if ($outline === null) {
+            return null;
+        }
+
+        [$red, $green, $blue] = $outline['color'];
+
+        $attributes = new TextAttributes();
+        $attributes->setStrokeWidth($outline['width']);
+        $attributes->setStrokeColor(self::buildColor($red / 255, $green / 255, $blue / 255, 1.0));
+
+        return $attributes;
+    }
+
+    /**
+     * Build the `\*\expandedcolortbl` entry matching a 0..255 RGB triple.
+     *
+     * Cocoa (and therefore ProPresenter) PREFERS the expanded colour table over
+     * the plain `\colortbl`: a hardcoded expanded entry silently overrides the
+     * real colour, which is why every styled text used to render white. The
+     * entry emitted here always mirrors the `\colortbl` entry.
+     *
+     * Pure white keeps the historic `\csgray\c100000` spelling so previously
+     * generated files stay byte-identical.
+     */
+    private static function rtfExpandedColorEntry(int $red, int $green, int $blue): string
+    {
+        if ($red === 255 && $green === 255 && $blue === 255) {
+            return '\csgray\c100000';
+        }
+
+        $scale = static fn (int $value): int => (int) round($value * 100000 / 255);
+
+        return '\csgenericrgb\c'.$scale($red).'\c'.$scale($green).'\c'.$scale($blue);
+    }
+
+    /**
+     * Normalise a colour input to 0..255 RTF components. Defaults to white.
+     *
+     * Input contract:
+     *  - `#RRGGBB` / `RRGGBB` hex string  → 0..255 components
+     *  - [r, g, b] with INT components    → already 0..255, taken verbatim
+     *  - [r, g, b] with FLOAT components  → 0..1 scale, multiplied by 255
+     *
+     * The scale is decided by the PHP type, never by the magnitude of the
+     * values: a magnitude heuristic turned dark colours such as `#010101`
+     * (r=g=b=1) into white.
      *
      * @return array{int, int, int}
      */
     private static function rtfColorComponents(mixed $color): array
     {
+        if (is_string($color)) {
+            $hex = ltrim(trim($color), '#');
+            if (preg_match('/^[0-9A-Fa-f]{6}$/', $hex) !== 1) {
+                return [255, 255, 255];
+            }
+
+            return [
+                (int) hexdec(substr($hex, 0, 2)),
+                (int) hexdec(substr($hex, 2, 2)),
+                (int) hexdec(substr($hex, 4, 2)),
+            ];
+        }
+
         if (! is_array($color) || count($color) < 3) {
             return [255, 255, 255];
         }
 
         $components = [];
-        $isFloatScale = true;
         foreach ([0, 1, 2] as $index) {
-            $value = (float) ($color[$index] ?? 0.0);
-            if ($value > 1.0) {
-                $isFloatScale = false;
+            $raw = $color[$index] ?? 0;
+            $value = (float) $raw;
+
+            // Only a genuine float (or a float-ish numeric string) is on the
+            // 0..1 scale. Integers are always 0..255.
+            if (is_float($raw) || (is_string($raw) && is_numeric($raw) && str_contains($raw, '.'))) {
+                $value *= 255.0;
             }
+
             $components[] = $value;
         }
 
         return array_map(
-            static fn (float $value): int => max(0, min(255, (int) round($isFloatScale ? $value * 255 : $value))),
+            static fn (float $value): int => max(0, min(255, (int) round($value))),
             $components,
         );
     }

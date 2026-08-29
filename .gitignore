@@ -24,3 +24,8 @@ composer.phar
 # Internal scratch / agent workspaces
 .sisyphus/
 .w/
+
+# Scratch output of manual generator runs
+/test-*.pro
+/test-*.proplaylist
+/test-*.probundle

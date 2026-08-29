@@ -67,8 +67,9 @@ ProPresenter 7 stores its data in protobuf-encoded binary files (with ZIP wrappe
 - **Translation-aware** — read and write multi-language slides (`hasTranslation()`, `getTranslation()`).
 - **ZIP64 repair** — automatically fixes ProPresenter's 98-byte ZIP64 header bug on read.
 - **Generate from scratch** — build complete `.pro` and `.proplaylist` files programmatically with media references.
+- **Styleable text** — per-slide font, size, colour and outline (Kontur) on text, clock and timer elements.
 - **18 CLI tools** — quickly inspect any ProPresenter file from the command line.
-- **369 tests, 1,300+ assertions** — covering all readers, writers, generators, and round-trip fidelity against a synthetic test corpus.
+- **495 tests, 1,700+ assertions** — covering all readers, writers, generators, and round-trip fidelity against a synthetic test corpus.
 - **Comprehensive docs** — every API and binary format is documented in [`doc/`](doc/).
 
 ---
@@ -232,6 +233,7 @@ place a short line (e.g. a name tag) in one of the slide's corners.
 | `textStyle.align` | `string` | `'center'` | `left`, `center` or `right`. |
 | `textStyle.verticalAlign` | `string` | `'middle'` | `top`, `middle` or `bottom`. |
 | `textStyle.color` | `array` | white | `[r, g, b]` as `0..255` ints or `0..1` floats. |
+| `textStyle.outline` | `array` | none | Text outline (Kontur), see below. |
 
 Missing sub-keys fall back to their default, so a partial `textBounds` is valid.
 Omitting both keys keeps the generated element byte-identical to previously
@@ -264,6 +266,42 @@ triple with `0..255` components, or `null` when the slide carries no such
 element. `TextElement::getTextColor()` exposes the same value per element. All
 three parse the **second** colour table entry — the one the RTF body references
 via `\cf2`.
+
+##### Text outline (`textStyle.outline`)
+
+`outline` draws a stroke around the glyphs, which keeps light text readable on a
+bright background:
+
+```php
+[
+    'text'      => 'Max Mustermann',
+    'textStyle' => [
+        'color'   => [255, 255, 255],
+        'outline' => ['color' => '#000000', 'width' => 2],
+    ],
+]
+```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `outline.color` | `string`\|`array` | black | `#RRGGBB` or `[r, g, b]`, same contract as `textStyle.color`. |
+| `outline.width` | `float` | `2.0` | Outline width in points. `0` or a missing width means no outline. |
+
+The outline is written **twice**, and the two representations always agree: as the
+RTF stroke traits ProPresenter paints from (`\outl0\strokewidthN \strokecN`, with
+the colour appended as a further `\colortbl` entry) and as the proto text
+attributes the editor reads back (`stroke_width` / `stroke_color`). The RTF
+`\strokewidth` is emitted **negative**, which is what ProPresenter itself writes
+and means *outline and fill* — a positive value would drop the fill.
+
+`outline` also applies to the two elements of a translated slide and to the timer
+element (`timer.style.outline`). Omitting it — or passing `false` — keeps the
+output byte-identical to previously generated files.
+
+Read it back with `Slide::getTextOutline()` (first plain text element),
+`Slide::getTimerOutline()` (timer element) or `TextElement::getOutline()`. All
+return `['color' => [r, g, b], 'width' => float]` with `0..255` colour components
+and the width in points, or `null` when the element carries no outline.
 
 ##### `image` keys
 
@@ -594,7 +632,7 @@ Looking for something specific? Use the keyword index: [doc/keywords.md](doc/key
 ├── src/                   # PHP source (wrappers, readers, writers, generators)
 ├── generated/             # Auto-generated protobuf PHP classes (Rv\Data\…)
 ├── proto/                 # Vendored .proto files (greyshirtguy/ProPresenter7-Proto, Proto 19beta + extras)
-├── tests/                 # PHPUnit test suite (369 tests)
+├── tests/                 # PHPUnit test suite (495 tests)
 ├── doc/
 │   ├── INDEX.md           # Documentation entry point
 │   ├── keywords.md        # Keyword search index
@@ -643,7 +681,7 @@ You should see:
 ```text
 PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
 
-OK (369 tests, 1298 assertions)
+OK (495 tests, 1723 assertions)
 ```
 
 The test suite includes:
